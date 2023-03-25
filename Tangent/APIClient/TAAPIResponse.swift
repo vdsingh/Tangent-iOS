@@ -6,3 +6,6 @@
 //
 
 import Foundation
+
+/// Protocol that all API Response models must follow
+protocol TAAPIResponse: Decodable { }
