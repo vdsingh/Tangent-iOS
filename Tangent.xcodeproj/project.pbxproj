@@ -13,6 +13,11 @@
 		B95964DF29CF90C4004F6A57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B95964DD29CF90C4004F6A57 /* Main.storyboard */; };
 		B95964E129CF90C5004F6A57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B95964E029CF90C5004F6A57 /* Assets.xcassets */; };
 		B95964E429CF90C5004F6A57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B95964E229CF90C5004F6A57 /* LaunchScreen.storyboard */; };
+		B95964F429CF91A4004F6A57 /* TARestAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964F329CF91A4004F6A57 /* TARestAPIService.swift */; };
+		B95964F629CF91C4004F6A57 /* Debuggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964F529CF91C4004F6A57 /* Debuggable.swift */; };
+		B95964F829CF91FF004F6A57 /* Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964F729CF91FF004F6A57 /* Flags.swift */; };
+		B95964FA29CF9249004F6A57 /* TAAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964F929CF9249004F6A57 /* TAAPIResponse.swift */; };
+		B95964FC29CF926D004F6A57 /* TAAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964FB29CF926D004F6A57 /* TAAPIRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +29,11 @@
 		B95964E029CF90C5004F6A57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B95964E329CF90C5004F6A57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B95964E529CF90C5004F6A57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B95964F329CF91A4004F6A57 /* TARestAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TARestAPIService.swift; sourceTree = "<group>"; };
+		B95964F529CF91C4004F6A57 /* Debuggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debuggable.swift; sourceTree = "<group>"; };
+		B95964F729CF91FF004F6A57 /* Flags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flags.swift; sourceTree = "<group>"; };
+		B95964F929CF9249004F6A57 /* TAAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAAPIResponse.swift; sourceTree = "<group>"; };
+		B95964FB29CF926D004F6A57 /* TAAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAAPIRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +66,7 @@
 		B95964D629CF90C4004F6A57 /* Tangent */ = {
 			isa = PBXGroup;
 			children = (
+				B95964F229CF9183004F6A57 /* APIClient */,
 				B95964F129CF9134004F6A57 /* Assets */,
 				B95964EF29CF9113004F6A57 /* Utility */,
 				B95964ED29CF9104004F6A57 /* Controllers */,
@@ -94,6 +105,8 @@
 			children = (
 				B95964D729CF90C4004F6A57 /* AppDelegate.swift */,
 				B95964D929CF90C4004F6A57 /* SceneDelegate.swift */,
+				B95964F529CF91C4004F6A57 /* Debuggable.swift */,
+				B95964F729CF91FF004F6A57 /* Flags.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -113,6 +126,16 @@
 				B95964E029CF90C5004F6A57 /* Assets.xcassets */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		B95964F229CF9183004F6A57 /* APIClient */ = {
+			isa = PBXGroup;
+			children = (
+				B95964F329CF91A4004F6A57 /* TARestAPIService.swift */,
+				B95964F929CF9249004F6A57 /* TAAPIResponse.swift */,
+				B95964FB29CF926D004F6A57 /* TAAPIRequest.swift */,
+			);
+			path = APIClient;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,9 +209,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B95964FC29CF926D004F6A57 /* TAAPIRequest.swift in Sources */,
+				B95964F629CF91C4004F6A57 /* Debuggable.swift in Sources */,
 				B95964DC29CF90C4004F6A57 /* ViewController.swift in Sources */,
 				B95964D829CF90C4004F6A57 /* AppDelegate.swift in Sources */,
+				B95964F829CF91FF004F6A57 /* Flags.swift in Sources */,
+				B95964FA29CF9249004F6A57 /* TAAPIResponse.swift in Sources */,
 				B95964DA29CF90C4004F6A57 /* SceneDelegate.swift in Sources */,
+				B95964F429CF91A4004F6A57 /* TARestAPIService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
