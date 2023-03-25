@@ -34,7 +34,7 @@ final class TARestAPIService: Debuggable {
     ///   - expecting: The type of object that we are expecting in response
     ///   - completion: The completion handler
     public func execute <T: TAAPIResponse>(
-        _ request: TARequest,
+        _ request: TAAPIRequest,
         expecting type: T.Type,
         completion: @escaping (Result<T, Error>) -> Void
     ) {
