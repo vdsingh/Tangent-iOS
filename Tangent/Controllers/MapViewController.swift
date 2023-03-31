@@ -60,6 +60,25 @@ extension MapViewController: TALocationManagerDelegate {
     }
 }
 
+extension MapViewController: UITableViewDelegate {
+    
+}
+
+extension MapViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return businesses.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let businessSelected = self.businesses[indexPath.row]
+        if let cell = tableView.dequeueReusableCell(withIdentifier: TATangentTableViewCell.reuseIdentifier, for: indexPath) as? TATangentTableViewCell {
+            cell.configure(with: businessSelected)
+            return cell
+        }
+        
+        fatalError("$ERR: Couldn't dequeue a TATangentTableViewCell")
+    }
+}
 private extension MKMapView {
   func centerToLocation(
     _ location: CLLocation,
