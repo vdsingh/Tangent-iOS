@@ -17,6 +17,10 @@ class MapViewController: UIViewController {
         TALocationManager.shared.setDelegate(delegate: self)
         TALocationManager.shared.startUpdatingLocation()
     }
+    
+    override func loadView() {
+        self.view = TAMapView(tableViewDelegate: self, tableViewDataSource: self)
+    }
 }
 
 extension MapViewController: TALocationManagerDelegate {
