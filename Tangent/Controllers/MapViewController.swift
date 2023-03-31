@@ -9,8 +9,17 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController {
+//TODO: Docstring
+    //TODO: Docstring
+    var selectedCell: UITableViewCell?
+    
+    let businesses: [TABusiness] = [
+        TABusiness(id: "1", name: "Greenough Sub Shop", rating: 3.5, reviewCount: 10, latitude: 20, longitude: 10, price: .one),
+        TABusiness(id: "2", name: "Frank", rating: 3.5, reviewCount: 10, latitude: 20, longitude: 10, price: .one),
+        TABusiness(id: "3", name: "Worcester", rating: 3.5, reviewCount: 10, latitude: 20, longitude: 10, price: .one),
+        TABusiness(id: "4", name: "Berk", rating: 3.5, reviewCount: 10, latitude: 20, longitude: 10, price: .one)
 
-    @IBOutlet weak var mapView: MKMapView!
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +70,28 @@ extension MapViewController: TALocationManagerDelegate {
 }
 
 extension MapViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cellSelected = tableView.cellForRow(at: indexPath) as? TATangentTableViewCell else {
+            fatalError("$ERR: selected cell was not a TATangentTableViewCell")
+        }
+        
+        if cellSelected == selectedCell {
+            // User clicked "GO"
+        } else {
+            // User clicked
+            cellSelected.setSelected()
+            if let previouslySelectedCell = self.selectedCell as? TATangentTableViewCell {
+                previouslySelectedCell.setDefault()
+            }
+            self.selectedCell = cellSelected
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
 }
 
 extension MapViewController: UITableViewDataSource {
@@ -70,9 +100,9 @@ extension MapViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let businessSelected = self.businesses[indexPath.row]
+        let business = self.businesses[indexPath.row]
         if let cell = tableView.dequeueReusableCell(withIdentifier: TATangentTableViewCell.reuseIdentifier, for: indexPath) as? TATangentTableViewCell {
-            cell.configure(with: businessSelected)
+            cell.configure(with: business)
             return cell
         }
         
