@@ -10,7 +10,6 @@
 		B95964D829CF90C4004F6A57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964D729CF90C4004F6A57 /* AppDelegate.swift */; };
 		B95964DA29CF90C4004F6A57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964D929CF90C4004F6A57 /* SceneDelegate.swift */; };
 		B95964DC29CF90C4004F6A57 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964DB29CF90C4004F6A57 /* MapViewController.swift */; };
-		B95964DF29CF90C4004F6A57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B95964DD29CF90C4004F6A57 /* Main.storyboard */; };
 		B95964E129CF90C5004F6A57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B95964E029CF90C5004F6A57 /* Assets.xcassets */; };
 		B95964E429CF90C5004F6A57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B95964E229CF90C5004F6A57 /* LaunchScreen.storyboard */; };
 		B95964F429CF91A4004F6A57 /* TARestAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964F329CF91A4004F6A57 /* TARestAPIService.swift */; };
@@ -19,6 +18,14 @@
 		B95964FA29CF9249004F6A57 /* TAAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964F929CF9249004F6A57 /* TAAPIResponse.swift */; };
 		B95964FC29CF926D004F6A57 /* TAAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964FB29CF926D004F6A57 /* TAAPIRequest.swift */; };
 		B95964FF29CF99E7004F6A57 /* TALocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964FE29CF99E7004F6A57 /* TALocationManager.swift */; };
+		B959650529D78F36004F6A57 /* TABusinessService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650429D78F36004F6A57 /* TABusinessService.swift */; };
+		B959650729D78FAD004F6A57 /* TAEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650629D78FAD004F6A57 /* TAEndpoint.swift */; };
+		B959650929D79011004F6A57 /* TATangentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650829D79011004F6A57 /* TATangentRequest.swift */; };
+		B959650B29D7908E004F6A57 /* TARequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650A29D7908E004F6A57 /* TARequestBody.swift */; };
+		B959650D29D79201004F6A57 /* TABusiness.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650C29D79201004F6A57 /* TABusiness.swift */; };
+		B959650F29D793EE004F6A57 /* TATangentRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650E29D793EE004F6A57 /* TATangentRequestBody.swift */; };
+		B959651129D7995E004F6A57 /* TAMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959651029D7995E004F6A57 /* TAMapView.swift */; };
+		B959651329D79D6D004F6A57 /* TATangentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959651229D79D6D004F6A57 /* TATangentTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +33,6 @@
 		B95964D729CF90C4004F6A57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B95964D929CF90C4004F6A57 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B95964DB29CF90C4004F6A57 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		B95964DE29CF90C4004F6A57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B95964E029CF90C5004F6A57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B95964E329CF90C5004F6A57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B95964E529CF90C5004F6A57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -36,6 +42,14 @@
 		B95964F929CF9249004F6A57 /* TAAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAAPIResponse.swift; sourceTree = "<group>"; };
 		B95964FB29CF926D004F6A57 /* TAAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAAPIRequest.swift; sourceTree = "<group>"; };
 		B95964FE29CF99E7004F6A57 /* TALocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TALocationManager.swift; sourceTree = "<group>"; };
+		B959650429D78F36004F6A57 /* TABusinessService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TABusinessService.swift; sourceTree = "<group>"; };
+		B959650629D78FAD004F6A57 /* TAEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAEndpoint.swift; sourceTree = "<group>"; };
+		B959650829D79011004F6A57 /* TATangentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentRequest.swift; sourceTree = "<group>"; };
+		B959650A29D7908E004F6A57 /* TARequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TARequestBody.swift; sourceTree = "<group>"; };
+		B959650C29D79201004F6A57 /* TABusiness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TABusiness.swift; sourceTree = "<group>"; };
+		B959650E29D793EE004F6A57 /* TATangentRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentRequestBody.swift; sourceTree = "<group>"; };
+		B959651029D7995E004F6A57 /* TAMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAMapView.swift; sourceTree = "<group>"; };
+		B959651229D79D6D004F6A57 /* TATangentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +82,7 @@
 		B95964D629CF90C4004F6A57 /* Tangent */ = {
 			isa = PBXGroup;
 			children = (
+				B959650329D78F19004F6A57 /* Repository */,
 				B95964FD29CF99D5004F6A57 /* MapService */,
 				B95964F229CF9183004F6A57 /* APIClient */,
 				B95964F129CF9134004F6A57 /* Assets */,
@@ -83,6 +98,7 @@
 		B95964EB29CF90F7004F6A57 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B959650C29D79201004F6A57 /* TABusiness.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -91,6 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				B95964F029CF9126004F6A57 /* Storyboards */,
+				B959651029D7995E004F6A57 /* TAMapView.swift */,
+				B959651229D79D6D004F6A57 /* TATangentTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -117,7 +135,6 @@
 		B95964F029CF9126004F6A57 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				B95964DD29CF90C4004F6A57 /* Main.storyboard */,
 				B95964E229CF90C5004F6A57 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
@@ -137,6 +154,10 @@
 				B95964F329CF91A4004F6A57 /* TARestAPIService.swift */,
 				B95964F929CF9249004F6A57 /* TAAPIResponse.swift */,
 				B95964FB29CF926D004F6A57 /* TAAPIRequest.swift */,
+				B959650629D78FAD004F6A57 /* TAEndpoint.swift */,
+				B959650829D79011004F6A57 /* TATangentRequest.swift */,
+				B959650A29D7908E004F6A57 /* TARequestBody.swift */,
+				B959650E29D793EE004F6A57 /* TATangentRequestBody.swift */,
 			);
 			path = APIClient;
 			sourceTree = "<group>";
@@ -147,6 +168,14 @@
 				B95964FE29CF99E7004F6A57 /* TALocationManager.swift */,
 			);
 			path = MapService;
+			sourceTree = "<group>";
+		};
+		B959650329D78F19004F6A57 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				B959650429D78F36004F6A57 /* TABusinessService.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,7 +238,6 @@
 			files = (
 				B95964E429CF90C5004F6A57 /* LaunchScreen.storyboard in Resources */,
 				B95964E129CF90C5004F6A57 /* Assets.xcassets in Resources */,
-				B95964DF29CF90C4004F6A57 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,14 +248,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B959650929D79011004F6A57 /* TATangentRequest.swift in Sources */,
 				B95964FC29CF926D004F6A57 /* TAAPIRequest.swift in Sources */,
 				B95964F629CF91C4004F6A57 /* Debuggable.swift in Sources */,
 				B95964DC29CF90C4004F6A57 /* MapViewController.swift in Sources */,
+				B959650D29D79201004F6A57 /* TABusiness.swift in Sources */,
 				B95964D829CF90C4004F6A57 /* AppDelegate.swift in Sources */,
 				B95964F829CF91FF004F6A57 /* Flags.swift in Sources */,
 				B95964FF29CF99E7004F6A57 /* TALocationManager.swift in Sources */,
+				B959651129D7995E004F6A57 /* TAMapView.swift in Sources */,
+				B959651329D79D6D004F6A57 /* TATangentTableViewCell.swift in Sources */,
+				B959650B29D7908E004F6A57 /* TARequestBody.swift in Sources */,
+				B959650729D78FAD004F6A57 /* TAEndpoint.swift in Sources */,
+				B959650529D78F36004F6A57 /* TABusinessService.swift in Sources */,
 				B95964FA29CF9249004F6A57 /* TAAPIResponse.swift in Sources */,
 				B95964DA29CF90C4004F6A57 /* SceneDelegate.swift in Sources */,
+				B959650F29D793EE004F6A57 /* TATangentRequestBody.swift in Sources */,
 				B95964F429CF91A4004F6A57 /* TARestAPIService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,14 +271,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B95964DD29CF90C4004F6A57 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B95964DE29CF90C4004F6A57 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		B95964E229CF90C5004F6A57 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -378,9 +406,9 @@
 				DEVELOPMENT_TEAM = VJUSE27PV3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tangent/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses your location to personalize your app experience.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -406,9 +434,9 @@
 				DEVELOPMENT_TEAM = VJUSE27PV3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tangent/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses your location to personalize your app experience.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
