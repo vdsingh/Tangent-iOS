@@ -8,8 +8,10 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
 //TODO: Docstring
+class MapViewController: UIViewController, Debuggable {
+    let debug = true
+    
     //TODO: Docstring
     var selectedCell: UITableViewCell?
     
@@ -21,27 +23,28 @@ class MapViewController: UIViewController {
 
     ]
     
+    var mapManager: TAMapManager?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        TALocationManager.shared.setDelegate(delegate: self)
-        TALocationManager.shared.startUpdatingLocation()
+//        TAUserLocationManager.shared.setDelegate(delegate: self)
+        TAUserLocationManager.shared.startUpdatingLocation()
+        let routeData: [CLLocation] = [
+            CLLocation(
+                latitude: CLLocationDegrees(floatLiteral: 37.322998),
+                longitude: CLLocationDegrees(floatLiteral: -122.032181)
+            ),
+            
+            CLLocation(
+                latitude: CLLocationDegrees(floatLiteral: 42.319519),
+                longitude: CLLocationDegrees(floatLiteral: -72.629761)
+            ),
+        ]
+        self.mapManager?.plotRoute(routeData: routeData)
     }
     
     override func loadView() {
-        self.view = TAMapView(tableViewDelegate: self, tableViewDataSource: self)
-    }
-}
-
-extension MapViewController: TALocationManagerDelegate {
-    
-    func handleLocationAuthorizationFailure(authorizationStatus: CLAuthorizationStatus) {
-        switch authorizationStatus {
-        case .restricted, .denied:
-            print("$ERR: authorization status failure: \(authorizationStatus)")
-        case .notDetermined:
-            TALocationManager.shared.requestWhenInUseAuthorization()
-        default:
-            print("$ERR: authorization failure called with a successful status: \(authorizationStatus)")
         let tangentView = TAMapView(
             tableViewDelegate: self,
             tableViewDataSource: self
@@ -57,18 +60,6 @@ extension MapViewController: TALocationManagerDelegate {
         TAUserLocationManager.shared.setDelegate(delegate: mapManager)
     }
     
-    func locationManager(
-        _ manager: CLLocationManager,
-        didUpdateLocations locations: [CLLocation]
-    ) {
-        if let location = locations.last {
-            let latitude = location.coordinate.latitude
-            let longitude = location.coordinate.longitude
-            print("$LOG: Last user location: (\(latitude), \(longitude))")
-            self.mapView.centerToLocation(CLLocation(latitude: latitude, longitude: longitude))
-            // Handle location update
-        } else {
-            print("$ERR: User locations is empty.")
     private func getView() -> TAMapView {
         guard let tangentView = self.view as? TAMapView else {
             fatalError("$ERR: Couldn't retrieve View as TAMapView")
@@ -76,15 +67,48 @@ extension MapViewController: TALocationManagerDelegate {
         
         return tangentView
     }
-
-    func locationManager(
-        _ manager: CLLocationManager,
-        didFailWithError error: Error
-    ) {
-        print("$ERR: failed to update location with error: \(String(describing: error))")
-        // Handle failure to get a user’s location
+    
+    func printDebug(_ message: String) {
+        print("$LOG: \(message)")
     }
 }
+
+//TODO: Docstring
+//extension MapViewController: TALocationManagerDelegate {
+//    
+//    func handleLocationAuthorizationFailure(authorizationStatus: CLAuthorizationStatus) {
+//        switch authorizationStatus {
+//        case .restricted, .denied:
+//            print("$ERR: Authorization status failure: \(authorizationStatus)")
+//        case .notDetermined:
+//            TAUserLocationManager.shared.requestWhenInUseAuthorization()
+//        default:
+//            print("$ERR: Authorization failure detected with a successful status: \(authorizationStatus)")
+//        }
+//    }
+//    
+//    func locationManager(
+//        _ manager: CLLocationManager,
+//        didUpdateLocations locations: [CLLocation]
+//    ) {
+//        if let location = locations.last {
+//            let latitude = location.coordinate.latitude
+//            let longitude = location.coordinate.longitude
+//            printDebug("Last user location: (\(latitude), \(longitude))")
+////            self.mapView.centerToLocation(CLLocation(latitude: latitude, longitude: longitude))
+//            // Handle location update
+//        } else {
+//            print("$ERR: User locations is empty.")
+//        }
+//    }
+//
+//    func locationManager(
+//        _ manager: CLLocationManager,
+//        didFailWithError error: Error
+//    ) {
+//        print("$ERR: failed to update location with error: \(String(describing: error))")
+//    }
+//}
 
 extension MapViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

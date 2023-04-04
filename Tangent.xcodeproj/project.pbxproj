@@ -17,7 +17,7 @@
 		B95964F829CF91FF004F6A57 /* Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964F729CF91FF004F6A57 /* Flags.swift */; };
 		B95964FA29CF9249004F6A57 /* TAAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964F929CF9249004F6A57 /* TAAPIResponse.swift */; };
 		B95964FC29CF926D004F6A57 /* TAAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964FB29CF926D004F6A57 /* TAAPIRequest.swift */; };
-		B95964FF29CF99E7004F6A57 /* TALocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964FE29CF99E7004F6A57 /* TALocationManager.swift */; };
+		B95964FF29CF99E7004F6A57 /* TAUserLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964FE29CF99E7004F6A57 /* TAUserLocationManager.swift */; };
 		B959650529D78F36004F6A57 /* TABusinessService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650429D78F36004F6A57 /* TABusinessService.swift */; };
 		B959650729D78FAD004F6A57 /* TAEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650629D78FAD004F6A57 /* TAEndpoint.swift */; };
 		B959650929D79011004F6A57 /* TATangentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650829D79011004F6A57 /* TATangentRequest.swift */; };
@@ -26,6 +26,8 @@
 		B959650F29D793EE004F6A57 /* TATangentRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650E29D793EE004F6A57 /* TATangentRequestBody.swift */; };
 		B959651129D7995E004F6A57 /* TAMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959651029D7995E004F6A57 /* TAMapView.swift */; };
 		B959651329D79D6D004F6A57 /* TATangentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959651229D79D6D004F6A57 /* TATangentTableViewCell.swift */; };
+		B9645FC029DB5A2A001DDF3A /* TAMapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9645FBF29DB5A2A001DDF3A /* TAMapManager.swift */; };
+		B9645FC229DB5F38001DDF3A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9645FC129DB5F38001DDF3A /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +43,7 @@
 		B95964F729CF91FF004F6A57 /* Flags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flags.swift; sourceTree = "<group>"; };
 		B95964F929CF9249004F6A57 /* TAAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAAPIResponse.swift; sourceTree = "<group>"; };
 		B95964FB29CF926D004F6A57 /* TAAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAAPIRequest.swift; sourceTree = "<group>"; };
-		B95964FE29CF99E7004F6A57 /* TALocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TALocationManager.swift; sourceTree = "<group>"; };
+		B95964FE29CF99E7004F6A57 /* TAUserLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAUserLocationManager.swift; sourceTree = "<group>"; };
 		B959650429D78F36004F6A57 /* TABusinessService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TABusinessService.swift; sourceTree = "<group>"; };
 		B959650629D78FAD004F6A57 /* TAEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAEndpoint.swift; sourceTree = "<group>"; };
 		B959650829D79011004F6A57 /* TATangentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentRequest.swift; sourceTree = "<group>"; };
@@ -50,6 +52,8 @@
 		B959650E29D793EE004F6A57 /* TATangentRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentRequestBody.swift; sourceTree = "<group>"; };
 		B959651029D7995E004F6A57 /* TAMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAMapView.swift; sourceTree = "<group>"; };
 		B959651229D79D6D004F6A57 /* TATangentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentTableViewCell.swift; sourceTree = "<group>"; };
+		B9645FBF29DB5A2A001DDF3A /* TAMapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAMapManager.swift; sourceTree = "<group>"; };
+		B9645FC129DB5F38001DDF3A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +132,7 @@
 				B95964D929CF90C4004F6A57 /* SceneDelegate.swift */,
 				B95964F529CF91C4004F6A57 /* Debuggable.swift */,
 				B95964F729CF91FF004F6A57 /* Flags.swift */,
+				B9645FC129DB5F38001DDF3A /* Extensions.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -165,7 +170,8 @@
 		B95964FD29CF99D5004F6A57 /* MapService */ = {
 			isa = PBXGroup;
 			children = (
-				B95964FE29CF99E7004F6A57 /* TALocationManager.swift */,
+				B95964FE29CF99E7004F6A57 /* TAUserLocationManager.swift */,
+				B9645FBF29DB5A2A001DDF3A /* TAMapManager.swift */,
 			);
 			path = MapService;
 			sourceTree = "<group>";
@@ -255,10 +261,12 @@
 				B959650D29D79201004F6A57 /* TABusiness.swift in Sources */,
 				B95964D829CF90C4004F6A57 /* AppDelegate.swift in Sources */,
 				B95964F829CF91FF004F6A57 /* Flags.swift in Sources */,
-				B95964FF29CF99E7004F6A57 /* TALocationManager.swift in Sources */,
+				B9645FC229DB5F38001DDF3A /* Extensions.swift in Sources */,
+				B95964FF29CF99E7004F6A57 /* TAUserLocationManager.swift in Sources */,
 				B959651129D7995E004F6A57 /* TAMapView.swift in Sources */,
 				B959651329D79D6D004F6A57 /* TATangentTableViewCell.swift in Sources */,
 				B959650B29D7908E004F6A57 /* TARequestBody.swift in Sources */,
+				B9645FC029DB5A2A001DDF3A /* TAMapManager.swift in Sources */,
 				B959650729D78FAD004F6A57 /* TAEndpoint.swift in Sources */,
 				B959650529D78F36004F6A57 /* TABusinessService.swift in Sources */,
 				B95964FA29CF9249004F6A57 /* TAAPIResponse.swift in Sources */,
