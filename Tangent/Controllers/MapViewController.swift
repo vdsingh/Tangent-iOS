@@ -42,7 +42,19 @@ extension MapViewController: TALocationManagerDelegate {
             TALocationManager.shared.requestWhenInUseAuthorization()
         default:
             print("$ERR: authorization failure called with a successful status: \(authorizationStatus)")
+        let tangentView = TAMapView(
+            tableViewDelegate: self,
+            tableViewDataSource: self
+        )
+        
+        self.view = tangentView
+        
+        let mapManager = TAMapManager(mapView: tangentView.getMapView())
+        tangentView.setZoomToUserCallback {
+            mapManager.centerToUserLocation()
         }
+        self.mapManager = mapManager
+        TAUserLocationManager.shared.setDelegate(delegate: mapManager)
     }
     
     func locationManager(
@@ -57,7 +69,12 @@ extension MapViewController: TALocationManagerDelegate {
             // Handle location update
         } else {
             print("$ERR: User locations is empty.")
+    private func getView() -> TAMapView {
+        guard let tangentView = self.view as? TAMapView else {
+            fatalError("$ERR: Couldn't retrieve View as TAMapView")
         }
+        
+        return tangentView
     }
 
     func locationManager(
