@@ -16,12 +16,12 @@ protocol TALocationManagerDelegate: CLLocationManagerDelegate {
 }
 
 //TODO: Docstring
-class TALocationManager: Debuggable {
+class TAUserLocationManager: Debuggable {
     
     let debug = true
     
     //TODO: Docstring
-    static let shared = TALocationManager()
+    static let shared = TAUserLocationManager()
     
     //TODO: Docstring
     private var delegate: TALocationManagerDelegate?
@@ -50,11 +50,17 @@ class TALocationManager: Debuggable {
     func setDelegate(delegate: TALocationManagerDelegate) {
         self.locationManager.delegate = delegate
         self.delegate = delegate
+        self.requestUserLocationOnce()
     }
     
     //TODO: Docstring
     func requestWhenInUseAuthorization() {
         self.locationManager.requestWhenInUseAuthorization()
+    }
+    
+    //TODO: Docstring
+    func requestUserLocationOnce() {
+        locationManager.requestLocation()
     }
     
     //TODO: Docstring
