@@ -110,7 +110,7 @@ final class TARestAPIService: Debuggable {
     /// - Parameter message: The message to print
     func printDebug(_ message: String) {
         if Flags.debugAPIClient || self.debug {
-            print("$Log: \(message)")
+            print("$Log (TARestAPIService): \(message)")
         }
     }
 }
