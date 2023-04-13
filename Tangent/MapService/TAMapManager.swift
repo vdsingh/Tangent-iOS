@@ -21,7 +21,13 @@ final class TAMapManager: UIViewController, Debuggable {
     var currentOverlay: MKOverlay?
     
     //TODO: docstring
-    var lastUserLocation: CLLocation?
+    var lastUserLocation: CLLocation? {
+        didSet {
+            if let lastUserLocation = self.lastUserLocation {
+                TAUserLocationManager.shared.setLastUserLocation(location: lastUserLocation)
+            }
+        }
+    }
     
     //TODO: Docstring
     init(mapView: MKMapView) {
@@ -30,6 +36,10 @@ final class TAMapManager: UIViewController, Debuggable {
         mapView.delegate = self
     }
     
+    
+    // MARK: - Private Functions
+    
+    // TODO: Docstring
     private func removeCurrentOverlay() {
         if let currentOverlay = self.currentOverlay {
             self.mapView.removeOverlay(currentOverlay)
@@ -38,16 +48,8 @@ final class TAMapManager: UIViewController, Debuggable {
         }
     }
     
-    // MARK: - Public Functions
-    
     //TODO: Docstring
-    func resetMap() {
-        self.removeCurrentOverlay()
-        self.centerToUserLocation()
-    }
-    
-    //TODO: Docstring
-    func plotRoute(routeData: [CLLocation]) {
+    private func plotRoute(routeData: [CLLocation]) {
         print("$LOG: Attempting to plot route data. Count: \(routeData.count)")
         
         if routeData.isEmpty {
@@ -60,7 +62,6 @@ final class TAMapManager: UIViewController, Debuggable {
         DispatchQueue.main.async {
             self.removeCurrentOverlay()
             let currentOverlay = MKPolyline(coordinates: coordinates, count: coordinates.count)
-//            self.mapView.addOverlay(currentOverlay, level: .aboveRoads)
             self.mapView.addOverlay(currentOverlay, level: .aboveRoads)
             self.currentOverlay = currentOverlay
             
@@ -68,6 +69,45 @@ final class TAMapManager: UIViewController, Debuggable {
             self.mapView.setVisibleMapRect(currentOverlay.boundingMapRect, edgePadding: customEdgePadding, animated: false)
         }
     }
+    
+    // MARK: - Public Functions
+    
+    //TODO: Docstring
+    func resetMap() {
+        self.removeCurrentOverlay()
+        self.centerToUserLocation()
+    }
+    
+    func plotRoute(to business: TABusiness) {
+        guard let lastUserLocation = self.lastUserLocation else {
+            print("$ERR: tried to plot a route to business \(business.name) but last user location was nil.")
+            return
+        }
+        
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: MKPlacemark(coordinate: lastUserLocation.coordinate, addressDictionary: nil))
+        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: business.getBusinessLocation(), addressDictionary: nil))
+        request.requestsAlternateRoutes = true
+        request.transportType = .automobile
+        
+        let directions = MKDirections(request: request)
+        
+        directions.calculate { [unowned self] response, error in
+            guard let unwrappedResponse = response else { return }
+            
+            //for getting just one route
+            if let route = unwrappedResponse.routes.first {
+                //show on map
+                self.mapView.addOverlay(route.polyline)
+                //set the map area to show the route
+                self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets.init(top: 80.0, left: 20.0, bottom: 100.0, right: 20.0), animated: true)
+            }
+            
+            //if you want to show multiple routes then you can get all routes in a loop in the following statement
+            //for route in unwrappedResponse.routes {}
+        }
+    }
+    
     
     func centerToUserLocation() {
         if let lastUserLocation = self.lastUserLocation {
