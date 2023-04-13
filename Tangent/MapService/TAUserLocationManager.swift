@@ -28,6 +28,9 @@ class TAUserLocationManager: Debuggable {
     
     //TODO: Docstring
     private let locationManager: CLLocationManager = CLLocationManager()
+    
+    //TODO: Docstring
+    private var lastUserLocation: CLLocation?
         
     //TODO: Docstring
     private init() { }
@@ -45,6 +48,14 @@ class TAUserLocationManager: Debuggable {
     }
     
     // MARK: - Public Functions
+    
+    func setLastUserLocation(location: CLLocation) {
+        self.lastUserLocation = location
+    }
+    
+    func getLastUserLocation() -> CLLocationCoordinate2D? {
+        return self.lastUserLocation?.coordinate ?? nil
+    }
     
     //TODO: Docstring
     func setDelegate(delegate: TALocationManagerDelegate) {
@@ -64,13 +75,13 @@ class TAUserLocationManager: Debuggable {
     }
     
     //TODO: Docstring
-    func startUpdatingLocation() {
+    func startUpdatingLocation(completion: () -> Void) {
         if self.validateAuthorizationStatus() {
             self.locationManager.startUpdatingLocation()
             printDebug("Started Updating Location: \(locationManager.requestLocation())")
         } else {
             guard let delegate = self.delegate else {
-                print("$ERR: LocationManager Delegate not set")
+                print("$ERR (TAUserLocationManager): LocationManager Delegate not set")
                 return
             }
             
@@ -85,6 +96,6 @@ class TAUserLocationManager: Debuggable {
     }
     
     func printDebug(_ message: String) {
-        print("$LOG: \(message)")
+        print("$LOG (TAUserLocationManager): \(message)")
     }
 }
