@@ -15,33 +15,27 @@ class MapViewController: UIViewController, Debuggable {
     //TODO: Docstring
     var selectedCell: UITableViewCell?
     
-    let businesses: [TABusiness] = [
-        TABusiness(id: "1", name: "Greenough Sub Shop", rating: 3.5, reviewCount: 10, latitude: 20, longitude: 10, price: .one),
-        TABusiness(id: "2", name: "Frank", rating: 3.5, reviewCount: 10, latitude: 20, longitude: 10, price: .one),
-        TABusiness(id: "3", name: "Worcester", rating: 3.5, reviewCount: 10, latitude: 20, longitude: 10, price: .one),
-        TABusiness(id: "4", name: "Berk", rating: 3.5, reviewCount: 10, latitude: 20, longitude: 10, price: .one)
-
-    ]
+    var businesses = [TABusiness]()
     
     var mapManager: TAMapManager?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        TAUserLocationManager.shared.setDelegate(delegate: self)
         TAUserLocationManager.shared.startUpdatingLocation()
-        let routeData: [CLLocation] = [
-            CLLocation(
-                latitude: CLLocationDegrees(floatLiteral: 37.322998),
-                longitude: CLLocationDegrees(floatLiteral: -122.032181)
-            ),
-            
-            CLLocation(
-                latitude: CLLocationDegrees(floatLiteral: 42.319519),
-                longitude: CLLocationDegrees(floatLiteral: -72.629761)
-            ),
-        ]
-        self.mapManager?.plotRoute(routeData: routeData)
+        self.businesses = Mocking.shared.generateMockBusinesses(count: 10)
+//        let routeData: [CLLocation] = [
+//            CLLocation(
+//                latitude: CLLocationDegrees(floatLiteral: 37.322998),
+//                longitude: CLLocationDegrees(floatLiteral: -122.032181)
+//            ),
+//
+//            CLLocation(
+//                latitude: CLLocationDegrees(floatLiteral: 42.319519),
+//                longitude: CLLocationDegrees(floatLiteral: -72.629761)
+//            ),
+//        ]
+//        self.mapManager?.plotRoute(routeData: routeData)
     }
     
     override func loadView() {
@@ -55,6 +49,7 @@ class MapViewController: UIViewController, Debuggable {
         let mapManager = TAMapManager(mapView: tangentView.getMapView())
         tangentView.setZoomToUserCallback {
             mapManager.centerToUserLocation()
+            self.businesses = Mocking.shared.generateMockBusinesses(count: 10)
         }
         self.mapManager = mapManager
         TAUserLocationManager.shared.setDelegate(delegate: mapManager)
@@ -73,53 +68,25 @@ class MapViewController: UIViewController, Debuggable {
     }
 }
 
-//TODO: Docstring
-//extension MapViewController: TALocationManagerDelegate {
-//    
-//    func handleLocationAuthorizationFailure(authorizationStatus: CLAuthorizationStatus) {
-//        switch authorizationStatus {
-//        case .restricted, .denied:
-//            print("$ERR: Authorization status failure: \(authorizationStatus)")
-//        case .notDetermined:
-//            TAUserLocationManager.shared.requestWhenInUseAuthorization()
-//        default:
-//            print("$ERR: Authorization failure detected with a successful status: \(authorizationStatus)")
-//        }
-//    }
-//    
-//    func locationManager(
-//        _ manager: CLLocationManager,
-//        didUpdateLocations locations: [CLLocation]
-//    ) {
-//        if let location = locations.last {
-//            let latitude = location.coordinate.latitude
-//            let longitude = location.coordinate.longitude
-//            printDebug("Last user location: (\(latitude), \(longitude))")
-////            self.mapView.centerToLocation(CLLocation(latitude: latitude, longitude: longitude))
-//            // Handle location update
-//        } else {
-//            print("$ERR: User locations is empty.")
-//        }
-//    }
-//
-//    func locationManager(
-//        _ manager: CLLocationManager,
-//        didFailWithError error: Error
-//    ) {
-//        print("$ERR: failed to update location with error: \(String(describing: error))")
-//    }
-//}
-
 extension MapViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cellSelected = tableView.cellForRow(at: indexPath) as? TATangentTableViewCell else {
             fatalError("$ERR: selected cell was not a TATangentTableViewCell")
         }
         
+//        let businessSelected = self.businesses[indexPath.row]
+        
+        
         if cellSelected == selectedCell {
             // User clicked "GO"
+            guard let business = cellSelected.getBusiness() else {
+                print("$ERR: Cell's business was nil (make sure cell.configure was called.)")
+                return
+            }
+            
+            self.mapManager?.plotRoute(to: business)
         } else {
-            // User clicked
+            // User clicked on the business
             cellSelected.setSelected()
             if let previouslySelectedCell = self.selectedCell as? TATangentTableViewCell {
                 previouslySelectedCell.setDefault()

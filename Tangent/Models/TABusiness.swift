@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MapKit
 
 //TODO: Docstrings
 struct TABusiness: Decodable {
@@ -16,10 +17,14 @@ struct TABusiness: Decodable {
     let latitude: Float
     let longitude: Float
     let price: TAPrice
+    
+    func getBusinessLocation() -> CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: Double(self.latitude), longitude: Double(self.longitude))
+    }
 }
 
 //TODO: Docstrings
-enum TAPrice: Int, Codable {
+enum TAPrice: Int, Codable, CaseIterable {
     case one = 1
     case two = 2
     case three = 3

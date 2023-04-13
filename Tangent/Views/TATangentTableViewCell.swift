@@ -8,10 +8,12 @@
 import Foundation
 import UIKit
 
+//TODO: Docstrings
+
 class TATangentTableViewCell: UITableViewCell {
     static let reuseIdentifier = "TATangentTableViewCell"
     
-    var business: TABusiness?
+    private var business: TABusiness?
     
     let nameLabel: UILabel = {
         let label = UILabel()
@@ -19,12 +21,18 @@ class TATangentTableViewCell: UITableViewCell {
         return label
     }()
     
+    // MARK: - Public Functions
+    
     func configure(with business: TABusiness) {
         self.business = business
         self.nameLabel.text = business.name
         self.nameLabel.textColor = .label
         self.backgroundColor = .systemBackground
         self.addSubviewsAndEstablishConstraints()
+    }
+    
+    func getBusiness() -> TABusiness? {
+        return self.business
     }
     
     func setSelected() {
@@ -40,6 +48,8 @@ class TATangentTableViewCell: UITableViewCell {
         self.configure(with: business)
         self.backgroundColor = .systemBackground
     }
+    
+    // MARK: - Private Functions
     
     private func addSubviewsAndEstablishConstraints() {
         for view in contentView.subviews {

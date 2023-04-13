@@ -7,6 +7,8 @@
 
 import Foundation
 class TABusinessService {
+    // TODO: Miguel Implement the Business Service
+    
     static let shared = TABusinessService()
     
     private init() { }
