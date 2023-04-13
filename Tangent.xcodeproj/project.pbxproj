@@ -28,6 +28,7 @@
 		B959651329D79D6D004F6A57 /* TATangentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959651229D79D6D004F6A57 /* TATangentTableViewCell.swift */; };
 		B9645FC029DB5A2A001DDF3A /* TAMapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9645FBF29DB5A2A001DDF3A /* TAMapManager.swift */; };
 		B9645FC229DB5F38001DDF3A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9645FC129DB5F38001DDF3A /* Extensions.swift */; };
+		B9A98C0C29E7707100D866A9 /* Mocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C0B29E7707100D866A9 /* Mocking.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		B959651229D79D6D004F6A57 /* TATangentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentTableViewCell.swift; sourceTree = "<group>"; };
 		B9645FBF29DB5A2A001DDF3A /* TAMapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAMapManager.swift; sourceTree = "<group>"; };
 		B9645FC129DB5F38001DDF3A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B9A98C0B29E7707100D866A9 /* Mocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocking.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				B95964EC29CF9100004F6A57 /* Views */,
 				B95964EB29CF90F7004F6A57 /* Models */,
 				B95964E529CF90C5004F6A57 /* Info.plist */,
+				B9A98C0B29E7707100D866A9 /* Mocking.swift */,
 			);
 			path = Tangent;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				B959650729D78FAD004F6A57 /* TAEndpoint.swift in Sources */,
 				B959650529D78F36004F6A57 /* TABusinessService.swift in Sources */,
 				B95964FA29CF9249004F6A57 /* TAAPIResponse.swift in Sources */,
+				B9A98C0C29E7707100D866A9 /* Mocking.swift in Sources */,
 				B95964DA29CF90C4004F6A57 /* SceneDelegate.swift in Sources */,
 				B959650F29D793EE004F6A57 /* TATangentRequestBody.swift in Sources */,
 				B95964F429CF91A4004F6A57 /* TARestAPIService.swift in Sources */,
