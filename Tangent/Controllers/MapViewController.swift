@@ -22,7 +22,11 @@ class MapViewController: UIViewController, Debuggable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        TAUserLocationManager.shared.startUpdatingLocation()
+        TAUserLocationManager.shared.startUpdatingLocation(completion: {
+            
+            
+        })
+        
         self.businesses = Mocking.shared.generateMockBusinesses(count: 10)
 //        let routeData: [CLLocation] = [
 //            CLLocation(
