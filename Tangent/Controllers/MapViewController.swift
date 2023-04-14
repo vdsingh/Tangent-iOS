@@ -10,6 +10,8 @@ import MapKit
 
 //TODO: Docstring
 class MapViewController: UIViewController, Debuggable {
+    var selectedPin: MKPlacemark? = nil
+
     let debug = true
     
     //TODO: Docstring
@@ -18,57 +20,80 @@ class MapViewController: UIViewController, Debuggable {
     var businesses = [TABusiness]()
     
     var mapManager: TAMapManager?
+        
+    var searchBar: UISearchBar? = nil
+    
+    var tangentView: TAMapView? = nil
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("MAP VIEW CONTROLLER VIEWDIDLOAD")
         TAUserLocationManager.shared.startUpdatingLocation(completion: {
             
             
         })
         
         self.businesses = Mocking.shared.generateMockBusinesses(count: 10)
-//        let routeData: [CLLocation] = [
-//            CLLocation(
-//                latitude: CLLocationDegrees(floatLiteral: 37.322998),
-//                longitude: CLLocationDegrees(floatLiteral: -122.032181)
-//            ),
-//
-//            CLLocation(
-//                latitude: CLLocationDegrees(floatLiteral: 42.319519),
-//                longitude: CLLocationDegrees(floatLiteral: -72.629761)
-//            ),
-//        ]
-//        self.mapManager?.plotRoute(routeData: routeData)
     }
     
     override func loadView() {
+        print("LOADVIEW")
+        self.title = "Map"
+        
         let tangentView = TAMapView(
             tableViewDelegate: self,
             tableViewDataSource: self
         )
+
+        self.tangentView = tangentView
+        self.definesPresentationContext = true
         
-        self.view = tangentView
+//        NSLayoutConstraint.activate([
+//            tangentView.topAnchor.constraint(equalTo: tangentView.topAnchor),
+//            tangentView.bottomAnchor.constraint(equalTo: tangentView.bottomAnchor),
+//            tangentView.leftAnchor.constraint(equalTo: tangentView.leftAnchor),
+//            tangentView.rightAnchor.constraint(equalTo: tangentView.rightAnchor),
+//        ])
+        
+//        view.addSubview(tangentView)
+//        self.view = view
+        
+        let searchResultsController = TASearchResultsTableViewController(mapView: tangentView.mapView)
+        let resultSearchController = UISearchController(searchResultsController: searchResultsController)
+        resultSearchController.searchResultsUpdater = searchResultsController
+        let searchBar = resultSearchController.searchBar
+        self.searchBar = searchBar
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.placeholder = "Search for places"
+        navigationItem.searchController = resultSearchController
+        resultSearchController.obscuresBackgroundDuringPresentation = true
+        searchResultsController.handleMapSearchDelegate = self
         
         let mapManager = TAMapManager(mapView: tangentView.getMapView())
         tangentView.setZoomToUserCallback {
             mapManager.centerToUserLocation()
             self.businesses = Mocking.shared.generateMockBusinesses(count: 10)
         }
+        
         self.mapManager = mapManager
         TAUserLocationManager.shared.setDelegate(delegate: mapManager)
-    }
-    
-    private func getView() -> TAMapView {
-        guard let tangentView = self.view as? TAMapView else {
-            fatalError("$ERR: Couldn't retrieve View as TAMapView")
-        }
         
-        return tangentView
+        self.view = tangentView
     }
+
     
     func printDebug(_ message: String) {
         print("$LOG: \(message)")
+    }
+    
+    func getTangentView() -> TAMapView {
+        guard let tangentView = self.tangentView else {
+            fatalError("$ERR: Tangent View was nil")
+        }
+        
+        return tangentView
     }
 }
 
@@ -77,9 +102,6 @@ extension MapViewController: UITableViewDelegate {
         guard let cellSelected = tableView.cellForRow(at: indexPath) as? TATangentTableViewCell else {
             fatalError("$ERR: selected cell was not a TATangentTableViewCell")
         }
-        
-//        let businessSelected = self.businesses[indexPath.row]
-        
         
         if cellSelected == selectedCell {
             // User clicked "GO"
@@ -120,4 +142,30 @@ extension MapViewController: UITableViewDataSource {
         
         fatalError("$ERR: Couldn't dequeue a TATangentTableViewCell")
     }
+}
+
+extension MapViewController: HandleMapSearch {
+    func dropPinZoomIn(placemark:MKPlacemark){
+        
+        let mapView = self.getTangentView().mapView
+        // cache the pin
+        selectedPin = placemark
+        // clear existing pins
+        mapView.removeAnnotations(mapView.annotations)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placemark.coordinate
+        annotation.title = placemark.name
+        if let city = placemark.locality,
+        let state = placemark.administrativeArea {
+            annotation.subtitle = "(city) (state)"
+        }
+        mapView.addAnnotation(annotation)
+        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
+        mapView.setRegion(region, animated: true)
+    }
+}
+
+protocol HandleMapSearch {
+    func dropPinZoomIn(placemark:MKPlacemark)
 }
