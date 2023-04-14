@@ -16,9 +16,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = MapViewController()
-        self.window = window
+        let mapViewController = MapViewController()
+        let navController = UINavigationController()
+        navController.setViewControllers([mapViewController], animated: true)
+        window.rootViewController = navController
+        window.backgroundColor = .systemBackground
         window.makeKeyAndVisible()
+        self.window = window
     }
 }
 
