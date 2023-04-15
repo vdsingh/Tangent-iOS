@@ -9,13 +9,13 @@ import Foundation
 import MapKit
 
 //TODO: Docstrings
-class Mocking {
+class Mocking: NSObject {
     
     let debug = true
     
     static let shared = Mocking()
     
-    private init() { }
+    private override init() { }
     
     // MARK: - Public Functions
     

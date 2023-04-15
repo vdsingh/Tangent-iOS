@@ -8,7 +8,7 @@
 import Foundation
 
 /// Used to create requests to TA endpoints
-final class TATangentRequest: TAAPIRequest {
+final class TATangentRequest: NSObject, TAAPIRequest {
 
     /// API Constants
     private struct Constants {

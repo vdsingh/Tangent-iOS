@@ -105,6 +105,7 @@ class TAHomeView: UIView {
             printError("tried to zoom to user but callback was not defined.")
             return
         }
+        
         zoomToUserCallback()
     }
     
