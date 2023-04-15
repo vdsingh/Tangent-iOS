@@ -30,6 +30,18 @@ class TAMapView: UIView {
         return mapView
     }()
     
+    var mapLoadingSpinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.style = .large
+        spinner.hidesWhenStopped = true
+        spinner.backgroundColor = .lightGray
+        spinner.tintColor = .purple
+        spinner.color = .orange
+        spinner.layer.cornerRadius = 10
+        return spinner
+    }()
+    
     /// Button that enables users to zoom to their location on the map
     var zoomToUserButton: UIButton = {
         let button = UIButton()
@@ -45,6 +57,7 @@ class TAMapView: UIView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    
     
     /// Function that is called to zoom to the user's location
     private var zoomToUserCallback: (() -> Void)?
@@ -108,6 +121,9 @@ class TAMapView: UIView {
         
         // Add the "Zoom to User" Button
         self.addSubview(self.zoomToUserButton)
+        
+        // Spinner indicates when a route is loading
+        self.addSubview(self.mapLoadingSpinner)
 
         NSLayoutConstraint.activate([
             
@@ -123,6 +139,12 @@ class TAMapView: UIView {
             self.mainStack.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             self.mainStack.leftAnchor.constraint(equalTo: self.leftAnchor),
             self.mainStack.rightAnchor.constraint(equalTo: self.rightAnchor),
+            
+            self.mapLoadingSpinner.heightAnchor.constraint(equalToConstant: 100),
+            self.mapLoadingSpinner.widthAnchor.constraint(equalToConstant: 100),
+            self.mapLoadingSpinner.centerXAnchor.constraint(equalTo: self.mapView.centerXAnchor),
+            self.mapLoadingSpinner.centerYAnchor.constraint(equalTo: self.mapView.centerYAnchor),
+
         ])
     }
     
