@@ -56,7 +56,7 @@ extension TASearchResultsTableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = matchingItems[indexPath.row].placemark
-        handleMapSearchDelegate?.dropPinZoomIn(placemark: selectedItem)
+        handleMapSearchDelegate?.showRoute(placemark: selectedItem)
         dismiss(animated: true, completion: nil)
     }
 }

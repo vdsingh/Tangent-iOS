@@ -10,19 +10,20 @@ import MapKit
 import UIKit
 
 //TODO: Docstrings
-final class TAMapManager: UIViewController, Debuggable {
+final class TAMapViewController: UIViewController, Debuggable {
     
     let debug = false
     
-    //TODO: Docstring
+    /// The MapView
     let mapView: MKMapView
     
+    /// The spinner which indicates whether the map is loading
     let mapSpinner: UIActivityIndicatorView
     
     //TODO: Docstring
     var currentOverlay: MKOverlay?
     
-    //TODO: docstring
+    /// The last user location
     var lastUserLocation: CLLocation? {
         didSet {
             if let lastUserLocation = self.lastUserLocation {
@@ -31,7 +32,11 @@ final class TAMapManager: UIViewController, Debuggable {
         }
     }
     
-    //TODO: Docstring
+    
+    /// Initializes a new TAMapViewController
+    /// - Parameters:
+    ///   - mapView: The Map View
+    ///   - mapSpinner: The Spinner that indicates whether the map is loading
     init(mapView: MKMapView, mapSpinner: UIActivityIndicatorView) {
         self.mapView = mapView
         self.mapSpinner = mapSpinner
@@ -47,16 +52,16 @@ final class TAMapManager: UIViewController, Debuggable {
         if let currentOverlay = self.currentOverlay {
             self.mapView.removeOverlay(currentOverlay)
         } else {
-            print("$LOG: tried to remove an overlay when there wasn't one.")
+            printDebug("tried to remove an overlay when there wasn't one.")
         }
     }
     
     //TODO: Docstring
     private func plotRoute(routeData: [CLLocation]) {
-        print("$LOG: Attempting to plot route data. Count: \(routeData.count)")
+        printDebug("Attempting to plot route data. Count: \(routeData.count)")
         
         if routeData.isEmpty {
-            print("$ERR: there is no route data to plot")
+            printError("there is no route data to plot")
             return
         }
         
@@ -73,46 +78,6 @@ final class TAMapManager: UIViewController, Debuggable {
         }
     }
     
-    private enum TAMapManagerError: Error {
-        case responseWasNil
-    }
-    
-    private func getDirections(
-        source: CLLocationCoordinate2D,
-        destination: CLLocationCoordinate2D,
-        completion: @escaping (Result<MKRoute, Error>) -> Void
-    ) {
-        let request = MKDirections.Request()
-        request.source = MKMapItem(placemark: MKPlacemark(coordinate: source, addressDictionary: nil))
-        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination, addressDictionary: nil))
-        request.requestsAlternateRoutes = true
-        request.transportType = .automobile
-        
-        let directions = MKDirections(request: request)
-        
-        directions.calculate { [weak self] response, error in
-            if let error = error {
-//                print("$ERR (TAMapManager): \(String(describing: error)).")
-                completion(.failure(error))
-                return
-            }
-//            if
-            guard let unwrappedResponse = response else {
-//                print("$ERR (TAMapManager): tried to get directions but response was nil.")
-                completion(.failure(TAMapManagerError.responseWasNil))
-                return
-            }
-            
-            //for getting just one route
-            if let route = unwrappedResponse.routes.first {
-                completion(.success(route))
-                //show on map
-//                self.mapView.addOverlay(route.polyline)
-                //set the map area to show the route
-//                self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets.init(top: 80.0, left: 20.0, bottom: 100.0, right: 20.0), animated: true)
-            }
-        }
-    }
     
     // MARK: - Public Functions
     
@@ -124,28 +89,29 @@ final class TAMapManager: UIViewController, Debuggable {
     
     func plotRoute(to coordinate: CLLocationCoordinate2D) {
         guard let lastUserLocation = self.lastUserLocation else {
-            print("$ERR (TAMapManager): tried to plot a route to coordinate \(coordinate) but last user location was nil.")
+            printError("tried to plot a route to coordinate \(coordinate) but last user location was nil.")
             return
         }
         
         self.mapSpinner.startAnimating()
-        self.getDirections(
+        
+        TADirectionsService.shared.getDirections(
             source: lastUserLocation.coordinate,
             destination: coordinate,
-            completion: { result in
+            completion: { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success(let route):
                     self.mapView.addOverlay(route.polyline)
                     self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets.init(top: 80.0, left: 20.0, bottom: 100.0, right: 20.0), animated: true)
                 case .failure(let error):
-                    print("$ERR: \(String(describing: error))")
+                    self.printError(error)
                 }
                 
                 self.mapSpinner.stopAnimating()
             }
         )
     }
-    
     
     func centerToUserLocation() {
         if let lastUserLocation = self.lastUserLocation {
@@ -156,7 +122,7 @@ final class TAMapManager: UIViewController, Debuggable {
                 )
             )
         } else {
-            print("$ERR: tried to center to User Location when there is no data.")
+            printError("tried to center to User Location when there is no data.")
         }
     }
     
@@ -172,16 +138,16 @@ final class TAMapManager: UIViewController, Debuggable {
 }
 
 //TODO: Docstrings
-extension TAMapManager: TALocationManagerDelegate {
+extension TAMapViewController: TALocationManagerDelegate {
     
     func handleLocationAuthorizationFailure(authorizationStatus: CLAuthorizationStatus) {
         switch authorizationStatus {
         case .restricted, .denied:
-            print("$ERR: Authorization status failure: \(authorizationStatus)")
+            printError("Authorization status failure: \(authorizationStatus)")
         case .notDetermined:
             TAUserLocationManager.shared.requestWhenInUseAuthorization()
         default:
-            print("$ERR: Authorization failure detected with a successful status: \(authorizationStatus)")
+            printError("Authorization failure detected with a successful status: \(authorizationStatus)")
         }
     }
     
@@ -195,7 +161,7 @@ extension TAMapManager: TALocationManagerDelegate {
             printDebug("Last user location: (\(latitude), \(longitude))")
             self.lastUserLocation = location
         } else {
-            print("$ERR: User locations is empty.")
+            printError("User locations is empty.")
         }
     }
     
@@ -203,15 +169,15 @@ extension TAMapManager: TALocationManagerDelegate {
         _ manager: CLLocationManager,
         didFailWithError error: Error
     ) {
-        print("$ERR: failed to update location with error: \(String(describing: error))")
+        printError("failed to update location with error: \(String(describing: error))")
     }
 }
 
-extension TAMapManager: MKMapViewDelegate {
+extension TAMapViewController: MKMapViewDelegate {
     // MARK: - MKMapViewDelegate
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        print("$LOG: renderer for called.")
+        printDebug("renderer for called.")
         
         let renderer = MKPolylineRenderer(overlay: overlay)
         

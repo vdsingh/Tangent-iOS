@@ -9,27 +9,31 @@ import UIKit
 import MapKit
 
 //TODO: Docstring
-class MapViewController: UIViewController, Debuggable {
-    var selectedPin: MKPlacemark? = nil
-
+class TAHomeViewController: UIViewController, Debuggable {
     let debug = true
     
-    //TODO: Docstring
+    /// A pin marking the destination
+    var destinationPin: MKPlacemark? = nil
+    
+    /// The cell that is currently selected in the TableView (nil if none have been selected yet)
     var selectedCell: UITableViewCell?
     
+    // TODO: Remove and use Business Service
     var businesses = [TABusiness]()
     
-    var mapManager: TAMapManager?
-        
-//    var searchBar: UISearchBar? = nil
+    /// Controller for the MapView
+    var mapController: TAMapViewController?
     
-    var tangentView: TAMapView? = nil
-    
+    /// The View for this screen
+    lazy var homeView: TAHomeView = {
+        TAHomeView(
+            tableViewDelegate: self,
+            tableViewDataSource: self
+        )
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("MAP VIEW CONTROLLER VIEWDIDLOAD")
         TAUserLocationManager.shared.startUpdatingLocation(completion: {
             
             
@@ -39,28 +43,10 @@ class MapViewController: UIViewController, Debuggable {
     }
     
     override func loadView() {
-        print("LOADVIEW")
         self.title = "Map"
-        
-        let tangentView = TAMapView(
-            tableViewDelegate: self,
-            tableViewDataSource: self
-        )
-
-        self.tangentView = tangentView
         self.definesPresentationContext = true
         
-//        NSLayoutConstraint.activate([
-//            tangentView.topAnchor.constraint(equalTo: tangentView.topAnchor),
-//            tangentView.bottomAnchor.constraint(equalTo: tangentView.bottomAnchor),
-//            tangentView.leftAnchor.constraint(equalTo: tangentView.leftAnchor),
-//            tangentView.rightAnchor.constraint(equalTo: tangentView.rightAnchor),
-//        ])
-        
-//        view.addSubview(tangentView)
-//        self.view = view
-        
-        let searchResultsController = TASearchResultsTableViewController(mapView: tangentView.mapView)
+        let searchResultsController = TASearchResultsTableViewController(mapView: homeView.mapView)
         let resultSearchController = UISearchController(searchResultsController: searchResultsController)
         resultSearchController.searchResultsUpdater = searchResultsController
         let searchBar = resultSearchController.searchBar
@@ -70,47 +56,53 @@ class MapViewController: UIViewController, Debuggable {
         resultSearchController.obscuresBackgroundDuringPresentation = true
         searchResultsController.handleMapSearchDelegate = self
         
-        let mapManager = TAMapManager(mapView: tangentView.getMapView(), mapSpinner: tangentView.mapLoadingSpinner)
-        tangentView.setZoomToUserCallback {
-            mapManager.centerToUserLocation()
+        let mapController = TAMapViewController(
+            mapView: homeView.getMapView(),
+            mapSpinner: homeView.mapLoadingSpinner
+        )
+        
+        homeView.setZoomToUserCallback {
+            mapController.centerToUserLocation()
             self.businesses = Mocking.shared.generateMockBusinesses(count: 10)
         }
         
-        self.mapManager = mapManager
-        TAUserLocationManager.shared.setDelegate(delegate: mapManager)
+        self.mapController = mapController
+        TAUserLocationManager.shared.setDelegate(delegate: mapController)
         
-        self.view = tangentView
+        self.view = self.homeView
     }
 
     
     func printDebug(_ message: String) {
-        print("$LOG: \(message)")
-    }
-    
-    func getTangentView() -> TAMapView {
-        guard let tangentView = self.tangentView else {
-            fatalError("$ERR: Tangent View was nil")
-        }
-        
-        return tangentView
+        print("$LOG (MapViewController): \(message)")
     }
 }
 
-extension MapViewController: UITableViewDelegate {
+extension TAHomeViewController: UITableViewDelegate {
+    
+    /// This function handles a cell being clicked in the Table View
+    /// - Parameters:
+    ///   - tableView: The TableView in which the cell was clicked
+    ///   - indexPath: The Index of the cell that was clicked
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // Cast the cell selected to type TATangentTableViewCell (Should always work)
         guard let cellSelected = tableView.cellForRow(at: indexPath) as? TATangentTableViewCell else {
             fatalError("$ERR: selected cell was not a TATangentTableViewCell")
         }
         
+        // If the user has already selected this cell
         if cellSelected == selectedCell {
+            
             // User clicked "GO"
             guard let business = cellSelected.getBusiness() else {
                 print("$ERR: Cell's business was nil (make sure cell.configure was called.)")
                 return
             }
             
-            self.mapManager?.plotRoute(to: business.getBusinessLocation())
+            self.mapController?.plotRoute(to: business.getBusinessLocation())
         } else {
+            
             // User clicked on the business
             cellSelected.setSelected()
             if let previouslySelectedCell = self.selectedCell as? TATangentTableViewCell {
@@ -119,19 +111,36 @@ extension MapViewController: UITableViewDelegate {
             self.selectedCell = cellSelected
         }
         
+        // Deselect the row after we selected it
         tableView.deselectRow(at: indexPath, animated: false)
     }
     
+    /// Sets the height for the cells in a TableView
+    /// - Parameters:
+    ///   - tableView: The TableView for which we are setting the cell height
+    ///   - indexPath: The index for the cell for which we are setting the height
+    /// - Returns: The height that the cell was set to
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
 }
 
-extension MapViewController: UITableViewDataSource {
+extension TAHomeViewController: UITableViewDataSource {
+    
+    /// The number of rows in each section of the TableView
+    /// - Parameters:
+    ///   - tableView: The TableView containing the cells
+    ///   - section: The section number
+    /// - Returns: The number of rows in the section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return businesses.count
     }
     
+    /// Dequeues a cell to the TableView
+    /// - Parameters:
+    ///   - tableView: The TableView to which we are dequeuing cells
+    ///   - indexPath: The index of the cell we are dequeuing
+    /// - Returns: The cell that we are dequeuing
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let business = self.businesses[indexPath.row]
         if let cell = tableView.dequeueReusableCell(withIdentifier: TATangentTableViewCell.reuseIdentifier, for: indexPath) as? TATangentTableViewCell {
@@ -143,18 +152,12 @@ extension MapViewController: UITableViewDataSource {
     }
 }
 
-extension MapViewController: TAMapSearchHandler {
-    func dropPinZoomIn(placemark: MKPlacemark) {
-        
-        guard let mapManager = self.mapManager else {
-            print("$ERR: map manager was nil when a location was selected.")
-            return
-        }
-        
-        let mapView = self.getTangentView().mapView
+extension TAHomeViewController: TAMapSearchHandler {
+    func showRoute(placemark: MKPlacemark) {
+        let mapView = self.homeView.mapView
         
         // cache the pin
-        self.selectedPin = placemark
+        self.destinationPin = placemark
         // clear existing pins
         mapView.removeAnnotations(mapView.annotations)
         let annotation = MKPointAnnotation()
@@ -172,5 +175,5 @@ extension MapViewController: TAMapSearchHandler {
 }
 
 protocol TAMapSearchHandler {
-    func dropPinZoomIn(placemark:MKPlacemark)
+    func showRoute(placemark:MKPlacemark)
 }

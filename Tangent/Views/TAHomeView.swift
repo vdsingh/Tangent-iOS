@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 //TODO: Docstring
-class TAMapView: UIView {
+class TAHomeView: UIView {
     
     /// Stack Container for the Map and the TableView
     var mainStack: UIStackView = {
@@ -30,6 +30,7 @@ class TAMapView: UIView {
         return mapView
     }()
     
+    /// Spinner to indicate if the map is loading
     var mapLoadingSpinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView()
         spinner.translatesAutoresizingMaskIntoConstraints = false
