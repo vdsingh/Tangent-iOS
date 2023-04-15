@@ -8,12 +8,9 @@
 import UIKit
 import MapKit
 
-//TODO: Docstring
+/// Controller for the "Home" View
 class TAHomeViewController: UIViewController, Debuggable {
     let debug = true
-    
-    /// A pin marking the destination
-    var destinationPin: MKPlacemark? = nil
     
     /// The cell that is currently selected in the TableView (nil if none have been selected yet)
     var selectedCell: UITableViewCell?
@@ -63,8 +60,7 @@ class TAHomeViewController: UIViewController, Debuggable {
         searchBar.placeholder = "Search for places"
         navigationItem.searchController = resultSearchController
         resultSearchController.obscuresBackgroundDuringPresentation = true
-        searchResultsController.handleMapSearchDelegate = self
-                
+        searchResultsController.handleMapSearchDelegate = self.mapController
         self.view = self.homeView
     }
 
@@ -148,30 +144,4 @@ extension TAHomeViewController: UITableViewDataSource {
         
         fatalError("$ERR: Couldn't dequeue a TATangentTableViewCell")
     }
-}
-
-extension TAHomeViewController: TAMapSearchHandler {
-    func showRoute(placemark: MKPlacemark) {
-        let mapView = self.homeView.mapView
-        
-        // cache the pin
-        self.destinationPin = placemark
-        // clear existing pins
-        mapView.removeAnnotations(mapView.annotations)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = placemark.coordinate
-        annotation.title = placemark.name
-        if let city = placemark.locality,
-        let state = placemark.administrativeArea {
-            annotation.subtitle = "\(city) \(state)"
-        }
-        mapView.addAnnotation(annotation)
-        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-        let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
-        mapView.setRegion(region, animated: true)
-    }
-}
-
-protocol TAMapSearchHandler {
-    func showRoute(placemark: MKPlacemark)
 }

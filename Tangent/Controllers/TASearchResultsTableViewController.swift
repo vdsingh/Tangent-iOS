@@ -9,8 +9,15 @@ import Foundation
 import UIKit
 import MapKit
 
-//TODO: Docstrings
+/// Handles the selection of an option in the search
+protocol TAMapSearchSelectionHandler {
+    
+    /// Handles the search selection
+    /// - Parameter placemark: The selected place
+    func handleSearchSelection(placemark: MKPlacemark)
+}
 
+/// Controller for the search results page
 class TASearchResultsTableViewController: UIViewController {
     
     /// The items that match the search
@@ -24,7 +31,7 @@ class TASearchResultsTableViewController: UIViewController {
     var mapView: MKMapView
     
     /// The handler for the search
-    var handleMapSearchDelegate: TAMapSearchHandler?
+    var handleMapSearchDelegate: TAMapSearchSelectionHandler?
     
     /// TableView that displays the search results
     let tableView: UITableView = {
@@ -52,6 +59,7 @@ class TASearchResultsTableViewController: UIViewController {
     }
 }
 
+/// Handle the TableView Delegate functions
 extension TASearchResultsTableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -60,11 +68,12 @@ extension TASearchResultsTableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = matchingItems[indexPath.row].placemark
-        handleMapSearchDelegate?.showRoute(placemark: selectedItem)
+        handleMapSearchDelegate?.handleSearchSelection(placemark: selectedItem)
         dismiss(animated: true, completion: nil)
     }
 }
 
+/// Handle the TableView Data Source functions
 extension TASearchResultsTableViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -85,6 +94,7 @@ extension TASearchResultsTableViewController: UITableViewDataSource {
     }
 }
 
+/// Updates the results based on the user's search
 extension TASearchResultsTableViewController : UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchBarText = searchController.searchBar.text else { return }

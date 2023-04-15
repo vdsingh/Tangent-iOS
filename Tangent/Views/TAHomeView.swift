@@ -102,7 +102,7 @@ class TAHomeView: UIView {
     /// Calls the zoomToUserCallback in order to zoom to the user
     @objc private func zoomToUser() {
         guard let zoomToUserCallback = self.zoomToUserCallback else {
-            print("$ERR: tried to zoom to user but callback was not defined.")
+            printError("tried to zoom to user but callback was not defined.")
             return
         }
         zoomToUserCallback()

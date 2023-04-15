@@ -9,7 +9,7 @@ import Foundation
 import MapKit
 import UIKit
 
-//TODO: Docstrings
+/// Controller for a MapView
 final class TAMapViewController: UIViewController, Debuggable {
     
     let debug = false
@@ -17,10 +17,13 @@ final class TAMapViewController: UIViewController, Debuggable {
     /// The MapView
     let mapView: MKMapView
     
+    /// A pin marking the destination
+    var destinationPin: MKPlacemark? = nil
+    
     /// The spinner which indicates whether the map is loading
     let mapSpinner: UIActivityIndicatorView
     
-    //TODO: Docstring
+    /// Overlay for the Map View
     var currentOverlay: MKOverlay?
     
     /// Initializes a new TAMapViewController
@@ -37,7 +40,7 @@ final class TAMapViewController: UIViewController, Debuggable {
     
     // MARK: - Private Functions
     
-    // TODO: Docstring
+    /// Removes the existing overlay from the map
     private func removeCurrentOverlay() {
         if let currentOverlay = self.currentOverlay {
             self.mapView.removeOverlay(currentOverlay)
@@ -46,7 +49,8 @@ final class TAMapViewController: UIViewController, Debuggable {
         }
     }
     
-    //TODO: Docstring
+    /// Plots a route based on route data
+    /// - Parameter routeData: An array of CLLocation objects, representing the route
     private func plotRoute(routeData: [CLLocation]) {
         printDebug("Attempting to plot route data. Count: \(routeData.count)")
         
@@ -71,12 +75,14 @@ final class TAMapViewController: UIViewController, Debuggable {
     
     // MARK: - Public Functions
     
-    //TODO: Docstring
+    /// Resets the map
     func resetMap() {
         self.removeCurrentOverlay()
         self.centerToUserLocation()
     }
     
+    /// Plots a route to a coordinate
+    /// - Parameter coordinate: The destination
     func plotRoute(to coordinate: CLLocationCoordinate2D) {
         guard let lastUserLocation = TAUserLocationService.shared.getLastUserLocation() else {
             printError("tried to plot a route to coordinate \(coordinate) but last user location was nil.")
@@ -103,6 +109,7 @@ final class TAMapViewController: UIViewController, Debuggable {
         )
     }
     
+    /// Centers the map to the user's last location
     func centerToUserLocation() {
         if let lastUserLocation = TAUserLocationService.shared.getLastUserLocation() {
             self.mapView.centerToLocation(
@@ -127,18 +134,52 @@ final class TAMapViewController: UIViewController, Debuggable {
     }
 }
 
+/// Rendering for Map overlays (to show routes)
 extension TAMapViewController: MKMapViewDelegate {
-    // MARK: - MKMapViewDelegate
-    
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        printDebug("renderer for called.")
-        
+        printDebug("rendererFor MapView called.")
         let renderer = MKPolylineRenderer(overlay: overlay)
-        
         renderer.strokeColor = UIColor(red: 17.0/255.0, green: 147.0/255.0, blue: 255.0/255.0, alpha: 1)
-        
         renderer.lineWidth = 5.0
-        
         return renderer
+    }
+}
+
+/// Handles what happens when a user searches a location and then clicks it
+extension TAMapViewController: TAMapSearchSelectionHandler {
+    func handleSearchSelection(placemark: MKPlacemark) {
+        // cache the pin
+        self.destinationPin = placemark
+        
+        // clear existing pins
+        self.mapView.removeAnnotations(self.mapView.annotations)
+        
+        // create a "pin" for the location
+        let annotation = MKPointAnnotation()
+        
+        // set the pin's coordinate
+        annotation.coordinate = placemark.coordinate
+        
+        // set the pin's title
+        annotation.title = placemark.name
+        
+        // set the pins subtitle
+        if let city = placemark.locality,
+           let state = placemark.administrativeArea {
+            annotation.subtitle = "\(city) \(state)"
+        }
+        
+        // add the pin to the map
+        self.mapView.addAnnotation(annotation)
+        
+        // specify the params for the span of the map that we're showing to the user
+        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        
+        // set the region
+        let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
+        self.mapView.setRegion(region, animated: true)
+        
+        // plot the route from the user's location to the destination on the map
+        self.plotRoute(to: placemark.coordinate)
     }
 }

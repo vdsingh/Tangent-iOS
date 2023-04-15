@@ -11,8 +11,7 @@ import CoreLocation
 //TODO: Docstring
 final class TAUserLocationService: NSObject, Debuggable {
     
-    
-    let debug = true
+    let debug = false
     
     //TODO: Docstring
     static let shared = TAUserLocationService()

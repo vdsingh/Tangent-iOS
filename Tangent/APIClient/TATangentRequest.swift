@@ -57,14 +57,14 @@ final class TATangentRequest: TAAPIRequest {
             // Encode the object as JSON data
             let encoder = JSONEncoder()
             guard let data = try? encoder.encode(requestBody) else {
-                print("$ERR encoding object as JSON data")
+                printError("encoding object as JSON data")
                 return nil
             }
 
             if let string = String(data: data, encoding: String.Encoding.utf8) {
                 printDebug("Request Body DATA: \(string)")
             } else {
-                print("$ERR: Unable to convert request body data to string.")
+                printError("Unable to convert request body data to string.")
             }
             return data
         }

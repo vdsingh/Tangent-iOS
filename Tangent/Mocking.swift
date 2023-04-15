@@ -56,7 +56,7 @@ class Mocking {
             return coordinate
         }
         
-        print("$ERR: Couldn't access user location to generate mock business location")
+        printError("Couldn't access user location to generate mock business location")
         return CLLocationCoordinate2D(latitude: 0, longitude: 0)
     }
     
