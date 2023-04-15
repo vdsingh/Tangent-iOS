@@ -48,7 +48,7 @@ class Mocking {
     }
     
     private func generateRandomCoordinates() -> CLLocationCoordinate2D {
-        if let lastUserLocation = TAUserLocationManager.shared.getLastUserLocation() {
+        if let lastUserLocation = TAUserLocationService.shared.getLastUserLocation() {
             let randomLat = Float.random(in: Float(lastUserLocation.latitude-1)...Float(lastUserLocation.latitude+1))
             let randomLon = Float.random(in: Float(lastUserLocation.longitude-1)...Float(lastUserLocation.longitude+1))
 
@@ -56,7 +56,7 @@ class Mocking {
             return coordinate
         }
         
-        print("$ERR: Couldn't access user location to generate mock business location")
+        printError("Couldn't access user location to generate mock business location")
         return CLLocationCoordinate2D(latitude: 0, longitude: 0)
     }
     

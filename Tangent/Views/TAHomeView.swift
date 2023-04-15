@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 //TODO: Docstring
-class TAMapView: UIView {
+class TAHomeView: UIView {
     
     /// Stack Container for the Map and the TableView
     var mainStack: UIStackView = {
@@ -19,16 +19,28 @@ class TAMapView: UIView {
         stack.axis = .vertical
         stack.alignment = .fill
         stack.distribution = .fillEqually
+        stack.backgroundColor = .blue
         return stack
     }()
-    
-    //TODO: Docstring
     
     /// The Map
     var mapView: MKMapView = {
         let mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
         return mapView
+    }()
+    
+    /// Spinner to indicate if the map is loading
+    var mapLoadingSpinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.style = .large
+        spinner.hidesWhenStopped = true
+        spinner.backgroundColor = .lightGray
+        spinner.tintColor = .purple
+        spinner.color = .orange
+        spinner.layer.cornerRadius = 10
+        return spinner
     }()
     
     /// Button that enables users to zoom to their location on the map
@@ -47,6 +59,7 @@ class TAMapView: UIView {
         return tableView
     }()
     
+    
     /// Function that is called to zoom to the user's location
     private var zoomToUserCallback: (() -> Void)?
     
@@ -59,15 +72,15 @@ class TAMapView: UIView {
         tableViewDataSource: UITableViewDataSource
     ) {
         super.init(frame: .zero)
-        self.backgroundColor = .green
-        self.translatesAutoresizingMaskIntoConstraints = false
         self.tableView.delegate = tableViewDelegate
         self.tableView.dataSource = tableViewDataSource
-        self.addSubviewsAndEstablishConstraints()
-        
+
         self.tableView.register(TATangentTableViewCell.self, forCellReuseIdentifier: TATangentTableViewCell.reuseIdentifier)
         
         self.zoomToUserButton.addTarget(self, action: #selector(zoomToUser), for: .touchUpInside)
+        
+        self.addSubviewsAndEstablishConstraints()
+
     }
     
     // MARK: - Public Functions
@@ -89,14 +102,14 @@ class TAMapView: UIView {
     /// Calls the zoomToUserCallback in order to zoom to the user
     @objc private func zoomToUser() {
         guard let zoomToUserCallback = self.zoomToUserCallback else {
-            print("$ERR: tried to zoom to user but callback was not defined.")
+            printError("tried to zoom to user but callback was not defined.")
             return
         }
         zoomToUserCallback()
     }
     
     /// Adds the Sub Views and establishes all constraints
-    private func addSubviewsAndEstablishConstraints() {
+    func addSubviewsAndEstablishConstraints() {
         
         // Add the map
         self.mainStack.addArrangedSubview(self.mapView)
@@ -105,15 +118,16 @@ class TAMapView: UIView {
         self.mainStack.addArrangedSubview(self.tableView)
         
         // Add the main stack to the View
-        self.addSubview(mainStack)
+        self.addSubview(self.mainStack)
         
         // Add the "Zoom to User" Button
         self.addSubview(self.zoomToUserButton)
         
-        // Add the address search bar
-        self.addSubview(self.searchBar)
-        
+        // Spinner indicates when a route is loading
+        self.addSubview(self.mapLoadingSpinner)
+
         NSLayoutConstraint.activate([
+            
             // Zoom to User Button Constraints
             self.zoomToUserButton.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -5),
             self.zoomToUserButton.rightAnchor.constraint(equalTo: self.mapView.rightAnchor, constant: -5),
@@ -127,11 +141,11 @@ class TAMapView: UIView {
             self.mainStack.leftAnchor.constraint(equalTo: self.leftAnchor),
             self.mainStack.rightAnchor.constraint(equalTo: self.rightAnchor),
             
-            // Search Bar Constraints
-            self.searchBar.topAnchor.constraint(equalTo: self.topAnchor, constant: 60),
-            self.searchBar.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
-            self.searchBar.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20),
-            self.searchBar.heightAnchor.constraint(equalToConstant: 60),
+            self.mapLoadingSpinner.heightAnchor.constraint(equalToConstant: 100),
+            self.mapLoadingSpinner.widthAnchor.constraint(equalToConstant: 100),
+            self.mapLoadingSpinner.centerXAnchor.constraint(equalTo: self.mapView.centerXAnchor),
+            self.mapLoadingSpinner.centerYAnchor.constraint(equalTo: self.mapView.centerYAnchor),
+
         ])
     }
     

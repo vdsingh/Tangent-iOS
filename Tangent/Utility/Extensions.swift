@@ -8,10 +8,9 @@
 import Foundation
 import MapKit
 
-//TODO: Docstring
 extension MKMapView {
     
-    //TODO: Docstring
+    /// Centers the MapView to a specified location
     func centerToLocation(
         _ location: CLLocation,
         regionRadius: CLLocationDistance = 1000
@@ -21,5 +20,15 @@ extension MKMapView {
             latitudinalMeters: regionRadius,
             longitudinalMeters: regionRadius)
         setRegion(coordinateRegion, animated: true)
+    }
+}
+
+extension NSObject {
+    func printError(_ errorMessage: String) {
+        print("$ERR: \(errorMessage)")
+    }
+    
+    func printError(_ error: Error) {
+        print("$ERR: \(String(describing: error))")
     }
 }
