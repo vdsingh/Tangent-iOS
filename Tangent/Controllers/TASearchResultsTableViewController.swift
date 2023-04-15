@@ -13,16 +13,20 @@ import MapKit
 
 class TASearchResultsTableViewController: UIViewController {
     
+    /// The items that match the search
     var matchingItems:[MKMapItem] = [] {
         didSet {
-            print("MATCHING ITEMS: \(matchingItems)")
             self.tableView.reloadData()
         }
     }
+    
+    /// The map view that the search results are for
     var mapView: MKMapView
     
+    /// The handler for the search
     var handleMapSearchDelegate: TAMapSearchHandler?
     
+    /// TableView that displays the search results
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false

@@ -22,28 +22,37 @@ class TAHomeViewController: UIViewController, Debuggable {
     var businesses = [TABusiness]()
     
     /// Controller for the MapView
-    var mapController: TAMapViewController?
+    lazy var mapController: TAMapViewController = {
+        return TAMapViewController(
+            mapView: homeView.getMapView(),
+            mapSpinner: homeView.mapLoadingSpinner
+        )
+    }()
     
     /// The View for this screen
     lazy var homeView: TAHomeView = {
-        TAHomeView(
+        let homeView = TAHomeView(
             tableViewDelegate: self,
             tableViewDataSource: self
         )
+        
+        homeView.setZoomToUserCallback { [weak self] in
+            guard let self = self else { return }
+            self.mapController.centerToUserLocation()
+            self.businesses = Mocking.shared.generateMockBusinesses(count: 10)
+        }
+        
+        return homeView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        TAUserLocationManager.shared.startUpdatingLocation(completion: {
-            
-            
-        })
-        
+        TAUserLocationService.shared.startUpdatingLocation()
         self.businesses = Mocking.shared.generateMockBusinesses(count: 10)
     }
     
     override func loadView() {
-        self.title = "Map"
+        self.title = "Home"
         self.definesPresentationContext = true
         
         let searchResultsController = TASearchResultsTableViewController(mapView: homeView.mapView)
@@ -55,20 +64,7 @@ class TAHomeViewController: UIViewController, Debuggable {
         navigationItem.searchController = resultSearchController
         resultSearchController.obscuresBackgroundDuringPresentation = true
         searchResultsController.handleMapSearchDelegate = self
-        
-        let mapController = TAMapViewController(
-            mapView: homeView.getMapView(),
-            mapSpinner: homeView.mapLoadingSpinner
-        )
-        
-        homeView.setZoomToUserCallback {
-            mapController.centerToUserLocation()
-            self.businesses = Mocking.shared.generateMockBusinesses(count: 10)
-        }
-        
-        self.mapController = mapController
-        TAUserLocationManager.shared.setDelegate(delegate: mapController)
-        
+                
         self.view = self.homeView
     }
 
@@ -78,6 +74,7 @@ class TAHomeViewController: UIViewController, Debuggable {
     }
 }
 
+/// Handle everything associated with the TableView Delegate here
 extension TAHomeViewController: UITableViewDelegate {
     
     /// This function handles a cell being clicked in the Table View
@@ -96,11 +93,11 @@ extension TAHomeViewController: UITableViewDelegate {
             
             // User clicked "GO"
             guard let business = cellSelected.getBusiness() else {
-                print("$ERR: Cell's business was nil (make sure cell.configure was called.)")
+                printError("Cell's business was nil (make sure cell.configure was called.)")
                 return
             }
             
-            self.mapController?.plotRoute(to: business.getBusinessLocation())
+            self.mapController.plotRoute(to: business.getBusinessLocation())
         } else {
             
             // User clicked on the business
@@ -125,6 +122,7 @@ extension TAHomeViewController: UITableViewDelegate {
     }
 }
 
+/// Handle everything associated with the TableView Data Source here
 extension TAHomeViewController: UITableViewDataSource {
     
     /// The number of rows in each section of the TableView
@@ -175,5 +173,5 @@ extension TAHomeViewController: TAMapSearchHandler {
 }
 
 protocol TAMapSearchHandler {
-    func showRoute(placemark:MKPlacemark)
+    func showRoute(placemark: MKPlacemark)
 }

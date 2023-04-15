@@ -23,16 +23,6 @@ final class TAMapViewController: UIViewController, Debuggable {
     //TODO: Docstring
     var currentOverlay: MKOverlay?
     
-    /// The last user location
-    var lastUserLocation: CLLocation? {
-        didSet {
-            if let lastUserLocation = self.lastUserLocation {
-                TAUserLocationManager.shared.setLastUserLocation(location: lastUserLocation)
-            }
-        }
-    }
-    
-    
     /// Initializes a new TAMapViewController
     /// - Parameters:
     ///   - mapView: The Map View
@@ -88,7 +78,7 @@ final class TAMapViewController: UIViewController, Debuggable {
     }
     
     func plotRoute(to coordinate: CLLocationCoordinate2D) {
-        guard let lastUserLocation = self.lastUserLocation else {
+        guard let lastUserLocation = TAUserLocationService.shared.getLastUserLocation() else {
             printError("tried to plot a route to coordinate \(coordinate) but last user location was nil.")
             return
         }
@@ -96,7 +86,7 @@ final class TAMapViewController: UIViewController, Debuggable {
         self.mapSpinner.startAnimating()
         
         TADirectionsService.shared.getDirections(
-            source: lastUserLocation.coordinate,
+            source: lastUserLocation,
             destination: coordinate,
             completion: { [weak self] result in
                 guard let self = self else { return }
@@ -114,11 +104,11 @@ final class TAMapViewController: UIViewController, Debuggable {
     }
     
     func centerToUserLocation() {
-        if let lastUserLocation = self.lastUserLocation {
+        if let lastUserLocation = TAUserLocationService.shared.getLastUserLocation() {
             self.mapView.centerToLocation(
                 CLLocation(
-                    latitude: lastUserLocation.coordinate.latitude,
-                    longitude: lastUserLocation.coordinate.longitude
+                    latitude: lastUserLocation.latitude,
+                    longitude: lastUserLocation.longitude
                 )
             )
         } else {
@@ -134,42 +124,6 @@ final class TAMapViewController: UIViewController, Debuggable {
     
     required init?(coder: NSCoder) {
         return nil
-    }
-}
-
-//TODO: Docstrings
-extension TAMapViewController: TALocationManagerDelegate {
-    
-    func handleLocationAuthorizationFailure(authorizationStatus: CLAuthorizationStatus) {
-        switch authorizationStatus {
-        case .restricted, .denied:
-            printError("Authorization status failure: \(authorizationStatus)")
-        case .notDetermined:
-            TAUserLocationManager.shared.requestWhenInUseAuthorization()
-        default:
-            printError("Authorization failure detected with a successful status: \(authorizationStatus)")
-        }
-    }
-    
-    func locationManager(
-        _ manager: CLLocationManager,
-        didUpdateLocations locations: [CLLocation]
-    ) {
-        if let location = locations.last {
-            let latitude = location.coordinate.latitude
-            let longitude = location.coordinate.longitude
-            printDebug("Last user location: (\(latitude), \(longitude))")
-            self.lastUserLocation = location
-        } else {
-            printError("User locations is empty.")
-        }
-    }
-    
-    func locationManager(
-        _ manager: CLLocationManager,
-        didFailWithError error: Error
-    ) {
-        printError("failed to update location with error: \(String(describing: error))")
     }
 }
 

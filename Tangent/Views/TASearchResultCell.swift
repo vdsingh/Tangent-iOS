@@ -22,7 +22,6 @@ class TASearchResultCell: UITableViewCell {
     }()
     
     func configure(with placemark: MKPlacemark) {
-        print("CONFIGURING CELL")
         self.title.text = placemark.title
         self.addSubviewsAndEstablishConstraints()
         self.backgroundColor = .red

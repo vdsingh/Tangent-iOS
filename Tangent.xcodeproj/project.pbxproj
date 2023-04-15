@@ -17,7 +17,7 @@
 		B95964F829CF91FF004F6A57 /* Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964F729CF91FF004F6A57 /* Flags.swift */; };
 		B95964FA29CF9249004F6A57 /* TAAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964F929CF9249004F6A57 /* TAAPIResponse.swift */; };
 		B95964FC29CF926D004F6A57 /* TAAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964FB29CF926D004F6A57 /* TAAPIRequest.swift */; };
-		B95964FF29CF99E7004F6A57 /* TAUserLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964FE29CF99E7004F6A57 /* TAUserLocationManager.swift */; };
+		B95964FF29CF99E7004F6A57 /* TAUserLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964FE29CF99E7004F6A57 /* TAUserLocationService.swift */; };
 		B959650529D78F36004F6A57 /* TABusinessService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650429D78F36004F6A57 /* TABusinessService.swift */; };
 		B959650729D78FAD004F6A57 /* TAEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650629D78FAD004F6A57 /* TAEndpoint.swift */; };
 		B959650929D79011004F6A57 /* TATangentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650829D79011004F6A57 /* TATangentRequest.swift */; };
@@ -47,7 +47,7 @@
 		B95964F729CF91FF004F6A57 /* Flags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flags.swift; sourceTree = "<group>"; };
 		B95964F929CF9249004F6A57 /* TAAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAAPIResponse.swift; sourceTree = "<group>"; };
 		B95964FB29CF926D004F6A57 /* TAAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAAPIRequest.swift; sourceTree = "<group>"; };
-		B95964FE29CF99E7004F6A57 /* TAUserLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAUserLocationManager.swift; sourceTree = "<group>"; };
+		B95964FE29CF99E7004F6A57 /* TAUserLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAUserLocationService.swift; sourceTree = "<group>"; };
 		B959650429D78F36004F6A57 /* TABusinessService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TABusinessService.swift; sourceTree = "<group>"; };
 		B959650629D78FAD004F6A57 /* TAEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAEndpoint.swift; sourceTree = "<group>"; };
 		B959650829D79011004F6A57 /* TATangentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentRequest.swift; sourceTree = "<group>"; };
@@ -95,7 +95,6 @@
 			isa = PBXGroup;
 			children = (
 				B959650329D78F19004F6A57 /* Repository */,
-				B95964FD29CF99D5004F6A57 /* MapService */,
 				B95964F229CF9183004F6A57 /* APIClient */,
 				B95964F129CF9134004F6A57 /* Assets */,
 				B95964EF29CF9113004F6A57 /* Utility */,
@@ -179,19 +178,12 @@
 			path = APIClient;
 			sourceTree = "<group>";
 		};
-		B95964FD29CF99D5004F6A57 /* MapService */ = {
-			isa = PBXGroup;
-			children = (
-				B95964FE29CF99E7004F6A57 /* TAUserLocationManager.swift */,
-				B9A98C1329EAA1DE00D866A9 /* TADirectionsService.swift */,
-			);
-			path = MapService;
-			sourceTree = "<group>";
-		};
 		B959650329D78F19004F6A57 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
 				B959650429D78F36004F6A57 /* TABusinessService.swift */,
+				B95964FE29CF99E7004F6A57 /* TAUserLocationService.swift */,
+				B9A98C1329EAA1DE00D866A9 /* TADirectionsService.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -277,7 +269,7 @@
 				B95964D829CF90C4004F6A57 /* AppDelegate.swift in Sources */,
 				B95964F829CF91FF004F6A57 /* Flags.swift in Sources */,
 				B9645FC229DB5F38001DDF3A /* Extensions.swift in Sources */,
-				B95964FF29CF99E7004F6A57 /* TAUserLocationManager.swift in Sources */,
+				B95964FF29CF99E7004F6A57 /* TAUserLocationService.swift in Sources */,
 				B959651129D7995E004F6A57 /* TAHomeView.swift in Sources */,
 				B959651329D79D6D004F6A57 /* TATangentTableViewCell.swift in Sources */,
 				B959650B29D7908E004F6A57 /* TARequestBody.swift in Sources */,
