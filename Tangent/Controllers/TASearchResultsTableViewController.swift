@@ -21,7 +21,7 @@ class TASearchResultsTableViewController: UIViewController {
     }
     var mapView: MKMapView
     
-    var handleMapSearchDelegate: HandleMapSearch?
+    var handleMapSearchDelegate: TAMapSearchHandler?
     
     let tableView: UITableView = {
         let tableView = UITableView()

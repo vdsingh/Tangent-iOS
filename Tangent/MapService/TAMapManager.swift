@@ -12,10 +12,12 @@ import UIKit
 //TODO: Docstrings
 final class TAMapManager: UIViewController, Debuggable {
     
-    let debug = true
+    let debug = false
     
     //TODO: Docstring
     let mapView: MKMapView
+    
+    let mapSpinner: UIActivityIndicatorView
     
     //TODO: Docstring
     var currentOverlay: MKOverlay?
@@ -30,8 +32,9 @@ final class TAMapManager: UIViewController, Debuggable {
     }
     
     //TODO: Docstring
-    init(mapView: MKMapView) {
+    init(mapView: MKMapView, mapSpinner: UIActivityIndicatorView) {
         self.mapView = mapView
+        self.mapSpinner = mapSpinner
         super.init(nibName: nil, bundle: nil)
         mapView.delegate = self
     }
@@ -70,6 +73,47 @@ final class TAMapManager: UIViewController, Debuggable {
         }
     }
     
+    private enum TAMapManagerError: Error {
+        case responseWasNil
+    }
+    
+    private func getDirections(
+        source: CLLocationCoordinate2D,
+        destination: CLLocationCoordinate2D,
+        completion: @escaping (Result<MKRoute, Error>) -> Void
+    ) {
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: MKPlacemark(coordinate: source, addressDictionary: nil))
+        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination, addressDictionary: nil))
+        request.requestsAlternateRoutes = true
+        request.transportType = .automobile
+        
+        let directions = MKDirections(request: request)
+        
+        directions.calculate { [weak self] response, error in
+            if let error = error {
+//                print("$ERR (TAMapManager): \(String(describing: error)).")
+                completion(.failure(error))
+                return
+            }
+//            if
+            guard let unwrappedResponse = response else {
+//                print("$ERR (TAMapManager): tried to get directions but response was nil.")
+                completion(.failure(TAMapManagerError.responseWasNil))
+                return
+            }
+            
+            //for getting just one route
+            if let route = unwrappedResponse.routes.first {
+                completion(.success(route))
+                //show on map
+//                self.mapView.addOverlay(route.polyline)
+                //set the map area to show the route
+//                self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets.init(top: 80.0, left: 20.0, bottom: 100.0, right: 20.0), animated: true)
+            }
+        }
+    }
+    
     // MARK: - Public Functions
     
     //TODO: Docstring
@@ -78,34 +122,28 @@ final class TAMapManager: UIViewController, Debuggable {
         self.centerToUserLocation()
     }
     
-    func plotRoute(to business: TABusiness) {
+    func plotRoute(to coordinate: CLLocationCoordinate2D) {
         guard let lastUserLocation = self.lastUserLocation else {
-            print("$ERR: tried to plot a route to business \(business.name) but last user location was nil.")
+            print("$ERR (TAMapManager): tried to plot a route to coordinate \(coordinate) but last user location was nil.")
             return
         }
         
-        let request = MKDirections.Request()
-        request.source = MKMapItem(placemark: MKPlacemark(coordinate: lastUserLocation.coordinate, addressDictionary: nil))
-        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: business.getBusinessLocation(), addressDictionary: nil))
-        request.requestsAlternateRoutes = true
-        request.transportType = .automobile
-        
-        let directions = MKDirections(request: request)
-        
-        directions.calculate { [unowned self] response, error in
-            guard let unwrappedResponse = response else { return }
-            
-            //for getting just one route
-            if let route = unwrappedResponse.routes.first {
-                //show on map
-                self.mapView.addOverlay(route.polyline)
-                //set the map area to show the route
-                self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets.init(top: 80.0, left: 20.0, bottom: 100.0, right: 20.0), animated: true)
+        self.mapSpinner.startAnimating()
+        self.getDirections(
+            source: lastUserLocation.coordinate,
+            destination: coordinate,
+            completion: { result in
+                switch result {
+                case .success(let route):
+                    self.mapView.addOverlay(route.polyline)
+                    self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets.init(top: 80.0, left: 20.0, bottom: 100.0, right: 20.0), animated: true)
+                case .failure(let error):
+                    print("$ERR: \(String(describing: error))")
+                }
+                
+                self.mapSpinner.stopAnimating()
             }
-            
-            //if you want to show multiple routes then you can get all routes in a loop in the following statement
-            //for route in unwrappedResponse.routes {}
-        }
+        )
     }
     
     

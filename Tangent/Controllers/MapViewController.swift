@@ -21,7 +21,7 @@ class MapViewController: UIViewController, Debuggable {
     
     var mapManager: TAMapManager?
         
-    var searchBar: UISearchBar? = nil
+//    var searchBar: UISearchBar? = nil
     
     var tangentView: TAMapView? = nil
     
@@ -64,14 +64,13 @@ class MapViewController: UIViewController, Debuggable {
         let resultSearchController = UISearchController(searchResultsController: searchResultsController)
         resultSearchController.searchResultsUpdater = searchResultsController
         let searchBar = resultSearchController.searchBar
-        self.searchBar = searchBar
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.placeholder = "Search for places"
         navigationItem.searchController = resultSearchController
         resultSearchController.obscuresBackgroundDuringPresentation = true
         searchResultsController.handleMapSearchDelegate = self
         
-        let mapManager = TAMapManager(mapView: tangentView.getMapView())
+        let mapManager = TAMapManager(mapView: tangentView.getMapView(), mapSpinner: tangentView.mapLoadingSpinner)
         tangentView.setZoomToUserCallback {
             mapManager.centerToUserLocation()
             self.businesses = Mocking.shared.generateMockBusinesses(count: 10)
@@ -110,7 +109,7 @@ extension MapViewController: UITableViewDelegate {
                 return
             }
             
-            self.mapManager?.plotRoute(to: business)
+            self.mapManager?.plotRoute(to: business.getBusinessLocation())
         } else {
             // User clicked on the business
             cellSelected.setSelected()
@@ -144,12 +143,18 @@ extension MapViewController: UITableViewDataSource {
     }
 }
 
-extension MapViewController: HandleMapSearch {
-    func dropPinZoomIn(placemark:MKPlacemark){
+extension MapViewController: TAMapSearchHandler {
+    func dropPinZoomIn(placemark: MKPlacemark) {
+        
+        guard let mapManager = self.mapManager else {
+            print("$ERR: map manager was nil when a location was selected.")
+            return
+        }
         
         let mapView = self.getTangentView().mapView
+        
         // cache the pin
-        selectedPin = placemark
+        self.selectedPin = placemark
         // clear existing pins
         mapView.removeAnnotations(mapView.annotations)
         let annotation = MKPointAnnotation()
@@ -157,7 +162,7 @@ extension MapViewController: HandleMapSearch {
         annotation.title = placemark.name
         if let city = placemark.locality,
         let state = placemark.administrativeArea {
-            annotation.subtitle = "(city) (state)"
+            annotation.subtitle = "\(city) \(state)"
         }
         mapView.addAnnotation(annotation)
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
@@ -166,6 +171,6 @@ extension MapViewController: HandleMapSearch {
     }
 }
 
-protocol HandleMapSearch {
+protocol TAMapSearchHandler {
     func dropPinZoomIn(placemark:MKPlacemark)
 }
