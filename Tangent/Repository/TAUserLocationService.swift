@@ -78,7 +78,9 @@ final class TAUserLocationService: NSObject, Debuggable {
     }
     
     func printDebug(_ message: String) {
-        print("$LOG (TAUserLocationManager): \(message)")
+        if self.debug {
+            print("$LOG (TAUserLocationService): \(message)")
+        }
     }
 }
 

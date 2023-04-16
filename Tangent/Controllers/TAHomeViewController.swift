@@ -8,9 +8,12 @@
 import UIKit
 import MapKit
 
-/// Controller for the "Home" View
+//TODO: Docstring
 class TAHomeViewController: UIViewController, Debuggable {
     let debug = true
+    
+    /// A pin marking the destination
+    var destinationPin: MKPlacemark? = nil
     
     /// The cell that is currently selected in the TableView (nil if none have been selected yet)
     var selectedCell: UITableViewCell?
@@ -22,7 +25,8 @@ class TAHomeViewController: UIViewController, Debuggable {
     lazy var mapController: TAMapViewController = {
         return TAMapViewController(
             mapView: homeView.getMapView(),
-            mapSpinner: homeView.mapLoadingSpinner
+            mapSpinner: homeView.mapLoadingSpinner,
+            listeners: [self]
         )
     }()
     
@@ -36,7 +40,7 @@ class TAHomeViewController: UIViewController, Debuggable {
         homeView.setZoomToUserCallback { [weak self] in
             guard let self = self else { return }
             self.mapController.centerToUserLocation()
-            self.businesses = Mocking.shared.generateMockBusinesses(count: 10)
+//            self.businesses = Mocking.shared.generateMockBusinesses(count: 10)
         }
         
         return homeView
@@ -45,7 +49,7 @@ class TAHomeViewController: UIViewController, Debuggable {
     override func viewDidLoad() {
         super.viewDidLoad()
         TAUserLocationService.shared.startUpdatingLocation()
-        self.businesses = Mocking.shared.generateMockBusinesses(count: 10)
+//        self.businesses = Mocking.shared.generateMockBusinesses(count: 10)
     }
     
     override func loadView() {
@@ -61,6 +65,7 @@ class TAHomeViewController: UIViewController, Debuggable {
         navigationItem.searchController = resultSearchController
         resultSearchController.obscuresBackgroundDuringPresentation = true
         searchResultsController.handleMapSearchDelegate = self.mapController
+                
         self.view = self.homeView
     }
 
@@ -93,7 +98,8 @@ extension TAHomeViewController: UITableViewDelegate {
                 return
             }
             
-            self.mapController.plotRoute(to: business.getBusinessLocation())
+            self.mapController.handleTangentSelection(tangent: business)
+//            self.mapController.plotRoute(to: business.getBusinessLocation())
         } else {
             
             // User clicked on the business
@@ -143,5 +149,17 @@ extension TAHomeViewController: UITableViewDataSource {
         }
         
         fatalError("$ERR: Couldn't dequeue a TATangentTableViewCell")
+    }
+}
+
+
+//TODO: Docstring
+extension TAHomeViewController: TangentsUpdateListener {
+    func tangentsWereUpdated(businesses: [TABusiness]) {
+//        self.tableView.reload
+        DispatchQueue.main.async {
+            self.businesses = businesses
+            self.homeView.tableView.reloadData()
+        }
     }
 }

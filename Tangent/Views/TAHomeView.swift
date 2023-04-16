@@ -38,7 +38,7 @@ class TAHomeView: UIView {
         spinner.hidesWhenStopped = true
         spinner.backgroundColor = .lightGray
         spinner.tintColor = .purple
-        spinner.color = .orange
+        spinner.color = .white
         spinner.layer.cornerRadius = 10
         return spinner
     }()

@@ -19,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let mapViewController = TAHomeViewController()
         let navController = UINavigationController()
         navController.setViewControllers([mapViewController], animated: true)
+        UINavigationBar.appearance().isTranslucent = false
         window.rootViewController = navController
         window.backgroundColor = .systemBackground
         window.makeKeyAndVisible()

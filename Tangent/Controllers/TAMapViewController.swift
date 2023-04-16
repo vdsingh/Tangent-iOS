@@ -9,6 +9,10 @@ import Foundation
 import MapKit
 import UIKit
 
+protocol TangentsUpdateListener {
+    func tangentsWereUpdated(businesses: [TABusiness])
+}
+
 /// Controller for a MapView
 final class TAMapViewController: UIViewController, Debuggable {
     
@@ -17,37 +21,43 @@ final class TAMapViewController: UIViewController, Debuggable {
     /// The MapView
     let mapView: MKMapView
     
-    /// A pin marking the destination
-    var destinationPin: MKPlacemark? = nil
+    /// A pin marking the final destination (not a tangent)
+    var finalDestinationPin: MKPlacemark? = nil
     
     /// The spinner which indicates whether the map is loading
     let mapSpinner: UIActivityIndicatorView
     
     /// Overlay for the Map View
-    var currentOverlay: MKOverlay?
+//    var currentOverlay: MKOverlay?
+    
+    var tangentsWereUpdatedListeners = [TangentsUpdateListener]()
     
     /// Initializes a new TAMapViewController
     /// - Parameters:
     ///   - mapView: The Map View
     ///   - mapSpinner: The Spinner that indicates whether the map is loading
-    init(mapView: MKMapView, mapSpinner: UIActivityIndicatorView) {
+    init(mapView: MKMapView, mapSpinner: UIActivityIndicatorView, listeners: [TangentsUpdateListener]) {
         self.mapView = mapView
         self.mapSpinner = mapSpinner
         super.init(nibName: nil, bundle: nil)
+        self.tangentsWereUpdatedListeners.append(contentsOf: listeners)
+        
         mapView.delegate = self
+        mapView.showsUserLocation = true
+        mapView.setUserTrackingMode(.follow, animated: true)
     }
     
     
     // MARK: - Private Functions
     
     /// Removes the existing overlay from the map
-    private func removeCurrentOverlay() {
-        if let currentOverlay = self.currentOverlay {
-            self.mapView.removeOverlay(currentOverlay)
-        } else {
-            printDebug("tried to remove an overlay when there wasn't one.")
-        }
-    }
+//    private func removeCurrentOverlay() {
+//        if let currentOverlay = self.currentOverlay {
+//            self.mapView.removeOverlay(currentOverlay)
+//        } else {
+//            printDebug("tried to remove an overlay when there wasn't one.")
+//        }
+//    }
     
     /// Plots a route based on route data
     /// - Parameter routeData: An array of CLLocation objects, representing the route
@@ -62,10 +72,10 @@ final class TAMapViewController: UIViewController, Debuggable {
         let coordinates = routeData.map { $0.coordinate }
         
         DispatchQueue.main.async {
-            self.removeCurrentOverlay()
+//            self.removeCurrentOverlay()
             let currentOverlay = MKPolyline(coordinates: coordinates, count: coordinates.count)
             self.mapView.addOverlay(currentOverlay, level: .aboveRoads)
-            self.currentOverlay = currentOverlay
+//            self.currentOverlay = currentOverlay
             
             let customEdgePadding: UIEdgeInsets = UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 20)
             self.mapView.setVisibleMapRect(currentOverlay.boundingMapRect, edgePadding: customEdgePadding, animated: false)
@@ -75,25 +85,23 @@ final class TAMapViewController: UIViewController, Debuggable {
     
     // MARK: - Public Functions
     
-    /// Resets the map
-    func resetMap() {
-        self.removeCurrentOverlay()
-        self.centerToUserLocation()
-    }
-    
     /// Plots a route to a coordinate
     /// - Parameter coordinate: The destination
-    func plotRoute(to coordinate: CLLocationCoordinate2D) {
-        guard let lastUserLocation = TAUserLocationService.shared.getLastUserLocation() else {
-            printError("tried to plot a route to coordinate \(coordinate) but last user location was nil.")
-            return
-        }
+    func plotRoute(from source: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D, removeCurrentOverlays: Bool) {
+//        guard let lastUserLocation = TAUserLocationService.shared.getLastUserLocation() else {
+//            printError("tried to plot a route to coordinate \(coordinate) but last user location was nil.")
+//            return
+//        }
         
+        if removeCurrentOverlays {
+            self.mapView.removeOverlays(self.mapView.overlays)
+        }
+//        self.mapView.overlays.removeAll()
         self.mapSpinner.startAnimating()
         
         TADirectionsService.shared.getDirections(
-            source: lastUserLocation,
-            destination: coordinate,
+            source: source,
+            destination: destination,
             completion: { [weak self] result in
                 guard let self = self else { return }
                 switch result {
@@ -109,6 +117,26 @@ final class TAMapViewController: UIViewController, Debuggable {
         )
     }
     
+    func addPin(for business: TABusiness) {
+        // create a "pin" for the business
+        let annotation = MKPointAnnotation()
+        
+        // set the pin's coordinate
+        annotation.coordinate = business.coordinate.clLocationCoordinate
+        
+        // set the pin's title
+        annotation.title = business.name
+        
+        // set the pins subtitle
+//        if let city = placemark.locality,
+//           let state = placemark.administrativeArea {
+//            annotation.subtitle = "\(city) \(state)"
+//        }
+        
+        // add the pin to the map
+        self.mapView.addAnnotation(annotation)
+    }
+    
     /// Centers the map to the user's last location
     func centerToUserLocation() {
         if let lastUserLocation = TAUserLocationService.shared.getLastUserLocation() {
@@ -121,6 +149,10 @@ final class TAMapViewController: UIViewController, Debuggable {
         } else {
             printError("tried to center to User Location when there is no data.")
         }
+    }
+    
+    func addTangentsUpdateListener(listener: TangentsUpdateListener) {
+        self.tangentsWereUpdatedListeners.append(listener)
     }
     
     func printDebug(_ message: String) {
@@ -149,7 +181,7 @@ extension TAMapViewController: MKMapViewDelegate {
 extension TAMapViewController: TAMapSearchSelectionHandler {
     func handleSearchSelection(placemark: MKPlacemark) {
         // cache the pin
-        self.destinationPin = placemark
+        self.finalDestinationPin = placemark
         
         // clear existing pins
         self.mapView.removeAnnotations(self.mapView.annotations)
@@ -179,7 +211,69 @@ extension TAMapViewController: TAMapSearchSelectionHandler {
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
         self.mapView.setRegion(region, animated: true)
         
+        
+        guard
+            let lastUserLocation = TAUserLocationService.shared.getLastUserLocation() else {
+            printError("last user location was nil.")
+            return
+        }
+        
         // plot the route from the user's location to the destination on the map
-        self.plotRoute(to: placemark.coordinate)
+        self.plotRoute(from: lastUserLocation, to: placemark.coordinate, removeCurrentOverlays: true)
+        
+        if let lastUserLocation = TAUserLocationService.shared.getLastUserLocation() {
+            let userLat = Float(lastUserLocation.latitude)
+            let userLon = Float(lastUserLocation.longitude)
+            
+            let requestBody = TATangentRequestBody(
+                startLatitude: userLat,
+                startLongitude: userLon,
+                endLatitude: Float(placemark.coordinate.latitude),
+                endLongitude: Float(placemark.coordinate.longitude),
+                preferenceRadius: 24140,
+                term: .restaurants,
+                price: [.one],
+                openNow: false,
+                responseLimit: 20
+            )
+            
+            TABusinessService.shared.fetchTangents(
+                requestBody: requestBody,
+                completion: { [weak self] response in
+                    guard let self = self else { return }
+                    switch response {
+                    case .success(let response):
+                        let businesses = response.businesses
+                        for business in businesses {
+                            self.addPin(for: business)
+                        }
+                        
+                        for listener in self.tangentsWereUpdatedListeners {
+                            listener.tangentsWereUpdated(businesses: businesses)
+                        }
+
+                    case .failure(let error):
+                        self.printError(error)
+                    }
+                }
+            )
+        }
+    }
+}
+
+extension TAMapViewController {
+    func handleTangentSelection(tangent: TABusiness) {
+        guard
+            let lastUserLocation = TAUserLocationService.shared.getLastUserLocation(),
+            let finalDestinationPin = self.finalDestinationPin else {
+            printError("last user location was nil.")
+            return
+        }
+        
+        
+        let tangentDestination = tangent.getBusinessLocation()
+        
+        self.plotRoute(from: lastUserLocation, to: tangentDestination, removeCurrentOverlays: true)
+        self.plotRoute(from: tangentDestination, to: finalDestinationPin.coordinate, removeCurrentOverlays: false)
     }
 }

@@ -61,7 +61,6 @@ class TASearchResultsTableViewController: UIViewController {
 
 /// Handle the TableView Delegate functions
 extension TASearchResultsTableViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }

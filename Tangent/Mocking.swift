@@ -30,9 +30,14 @@ class Mocking: NSObject {
                 name: self.generateRandomBusinessName(),
                 rating: Float.random(in: 0...5),
                 reviewCount: Int.random(in: 0...1000),
-                latitude: Float(coordinate.latitude),
-                longitude: Float(coordinate.longitude),
-                price: TAPrice.allCases.randomElement() ?? .one
+                coordinate: Coordinate(
+                    latitude: Float(coordinate.latitude),
+                    longitude: Float(coordinate.longitude)
+                ),
+//                latitude: Float(coordinate.latitude),
+//                longitude: Float(coordinate.longitude),
+                price: TAPrice.allCases.randomElement() ?? .one,
+                categories: []
             )
             businesses.append(business)
         }

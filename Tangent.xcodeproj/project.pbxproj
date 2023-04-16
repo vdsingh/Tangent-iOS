@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		B95964D829CF90C4004F6A57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964D729CF90C4004F6A57 /* AppDelegate.swift */; };
 		B95964DA29CF90C4004F6A57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964D929CF90C4004F6A57 /* SceneDelegate.swift */; };
-		B95964DC29CF90C4004F6A57 /* TAHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964DB29CF90C4004F6A57 /* TAHomeViewController.swift */; };
 		B95964E129CF90C5004F6A57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B95964E029CF90C5004F6A57 /* Assets.xcassets */; };
 		B95964E429CF90C5004F6A57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B95964E229CF90C5004F6A57 /* LaunchScreen.storyboard */; };
 		B95964F429CF91A4004F6A57 /* TARestAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964F329CF91A4004F6A57 /* TARestAPIService.swift */; };
@@ -17,28 +16,29 @@
 		B95964F829CF91FF004F6A57 /* Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964F729CF91FF004F6A57 /* Flags.swift */; };
 		B95964FA29CF9249004F6A57 /* TAAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964F929CF9249004F6A57 /* TAAPIResponse.swift */; };
 		B95964FC29CF926D004F6A57 /* TAAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964FB29CF926D004F6A57 /* TAAPIRequest.swift */; };
-		B95964FF29CF99E7004F6A57 /* TAUserLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95964FE29CF99E7004F6A57 /* TAUserLocationService.swift */; };
 		B959650529D78F36004F6A57 /* TABusinessService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650429D78F36004F6A57 /* TABusinessService.swift */; };
 		B959650729D78FAD004F6A57 /* TAEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650629D78FAD004F6A57 /* TAEndpoint.swift */; };
 		B959650929D79011004F6A57 /* TATangentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650829D79011004F6A57 /* TATangentRequest.swift */; };
 		B959650B29D7908E004F6A57 /* TARequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650A29D7908E004F6A57 /* TARequestBody.swift */; };
 		B959650D29D79201004F6A57 /* TABusiness.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650C29D79201004F6A57 /* TABusiness.swift */; };
 		B959650F29D793EE004F6A57 /* TATangentRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650E29D793EE004F6A57 /* TATangentRequestBody.swift */; };
-		B959651129D7995E004F6A57 /* TAHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959651029D7995E004F6A57 /* TAHomeView.swift */; };
 		B959651329D79D6D004F6A57 /* TATangentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959651229D79D6D004F6A57 /* TATangentTableViewCell.swift */; };
-		B9645FC029DB5A2A001DDF3A /* TAMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9645FBF29DB5A2A001DDF3A /* TAMapViewController.swift */; };
 		B9645FC229DB5F38001DDF3A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9645FC129DB5F38001DDF3A /* Extensions.swift */; };
 		B9A98C0C29E7707100D866A9 /* Mocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C0B29E7707100D866A9 /* Mocking.swift */; };
-		B9A98C0E29E8C8D200D866A9 /* TASearchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C0D29E8C8D200D866A9 /* TASearchResultsTableViewController.swift */; };
 		B9A98C1029E8D0C600D866A9 /* TASearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C0F29E8D0C600D866A9 /* TASearchResultCell.swift */; };
-		B9A98C1429EAA1DE00D866A9 /* TADirectionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C1329EAA1DE00D866A9 /* TADirectionsService.swift */; };
+		B9A98C1229EA947200D866A9 /* TATangentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C1129EA947200D866A9 /* TATangentResponse.swift */; };
+		B9A98C1729EB689700D866A9 /* TADirectionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C1529EB689700D866A9 /* TADirectionsService.swift */; };
+		B9A98C1829EB689700D866A9 /* TAUserLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C1629EB689700D866A9 /* TAUserLocationService.swift */; };
+		B9A98C1C29EB68AC00D866A9 /* TAMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C1929EB68AB00D866A9 /* TAMapViewController.swift */; };
+		B9A98C1D29EB68AC00D866A9 /* TASearchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C1A29EB68AB00D866A9 /* TASearchResultsTableViewController.swift */; };
+		B9A98C1E29EB68AC00D866A9 /* TAHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C1B29EB68AC00D866A9 /* TAHomeViewController.swift */; };
+		B9A98C2029EB68CF00D866A9 /* TAHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C1F29EB68CF00D866A9 /* TAHomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B95964D429CF90C4004F6A57 /* Tangent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tangent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B95964D729CF90C4004F6A57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B95964D929CF90C4004F6A57 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B95964DB29CF90C4004F6A57 /* TAHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAHomeViewController.swift; sourceTree = "<group>"; };
 		B95964E029CF90C5004F6A57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B95964E329CF90C5004F6A57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B95964E529CF90C5004F6A57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -47,21 +47,23 @@
 		B95964F729CF91FF004F6A57 /* Flags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flags.swift; sourceTree = "<group>"; };
 		B95964F929CF9249004F6A57 /* TAAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAAPIResponse.swift; sourceTree = "<group>"; };
 		B95964FB29CF926D004F6A57 /* TAAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAAPIRequest.swift; sourceTree = "<group>"; };
-		B95964FE29CF99E7004F6A57 /* TAUserLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAUserLocationService.swift; sourceTree = "<group>"; };
 		B959650429D78F36004F6A57 /* TABusinessService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TABusinessService.swift; sourceTree = "<group>"; };
 		B959650629D78FAD004F6A57 /* TAEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAEndpoint.swift; sourceTree = "<group>"; };
 		B959650829D79011004F6A57 /* TATangentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentRequest.swift; sourceTree = "<group>"; };
 		B959650A29D7908E004F6A57 /* TARequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TARequestBody.swift; sourceTree = "<group>"; };
 		B959650C29D79201004F6A57 /* TABusiness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TABusiness.swift; sourceTree = "<group>"; };
 		B959650E29D793EE004F6A57 /* TATangentRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentRequestBody.swift; sourceTree = "<group>"; };
-		B959651029D7995E004F6A57 /* TAHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAHomeView.swift; sourceTree = "<group>"; };
 		B959651229D79D6D004F6A57 /* TATangentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentTableViewCell.swift; sourceTree = "<group>"; };
-		B9645FBF29DB5A2A001DDF3A /* TAMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAMapViewController.swift; sourceTree = "<group>"; };
 		B9645FC129DB5F38001DDF3A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B9A98C0B29E7707100D866A9 /* Mocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocking.swift; sourceTree = "<group>"; };
-		B9A98C0D29E8C8D200D866A9 /* TASearchResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TASearchResultsTableViewController.swift; sourceTree = "<group>"; };
 		B9A98C0F29E8D0C600D866A9 /* TASearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TASearchResultCell.swift; sourceTree = "<group>"; };
-		B9A98C1329EAA1DE00D866A9 /* TADirectionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TADirectionsService.swift; sourceTree = "<group>"; };
+		B9A98C1129EA947200D866A9 /* TATangentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentResponse.swift; sourceTree = "<group>"; };
+		B9A98C1529EB689700D866A9 /* TADirectionsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TADirectionsService.swift; sourceTree = "<group>"; };
+		B9A98C1629EB689700D866A9 /* TAUserLocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TAUserLocationService.swift; sourceTree = "<group>"; };
+		B9A98C1929EB68AB00D866A9 /* TAMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TAMapViewController.swift; sourceTree = "<group>"; };
+		B9A98C1A29EB68AB00D866A9 /* TASearchResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TASearchResultsTableViewController.swift; sourceTree = "<group>"; };
+		B9A98C1B29EB68AC00D866A9 /* TAHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TAHomeViewController.swift; sourceTree = "<group>"; };
+		B9A98C1F29EB68CF00D866A9 /* TAHomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TAHomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,8 +120,8 @@
 		B95964EC29CF9100004F6A57 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B9A98C1F29EB68CF00D866A9 /* TAHomeView.swift */,
 				B95964F029CF9126004F6A57 /* Storyboards */,
-				B959651029D7995E004F6A57 /* TAHomeView.swift */,
 				B959651229D79D6D004F6A57 /* TATangentTableViewCell.swift */,
 				B9A98C0F29E8D0C600D866A9 /* TASearchResultCell.swift */,
 			);
@@ -129,9 +131,9 @@
 		B95964ED29CF9104004F6A57 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B9645FBF29DB5A2A001DDF3A /* TAMapViewController.swift */,
-				B95964DB29CF90C4004F6A57 /* TAHomeViewController.swift */,
-				B9A98C0D29E8C8D200D866A9 /* TASearchResultsTableViewController.swift */,
+				B9A98C1B29EB68AC00D866A9 /* TAHomeViewController.swift */,
+				B9A98C1929EB68AB00D866A9 /* TAMapViewController.swift */,
+				B9A98C1A29EB68AB00D866A9 /* TASearchResultsTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -174,6 +176,7 @@
 				B959650829D79011004F6A57 /* TATangentRequest.swift */,
 				B959650A29D7908E004F6A57 /* TARequestBody.swift */,
 				B959650E29D793EE004F6A57 /* TATangentRequestBody.swift */,
+				B9A98C1129EA947200D866A9 /* TATangentResponse.swift */,
 			);
 			path = APIClient;
 			sourceTree = "<group>";
@@ -182,8 +185,8 @@
 			isa = PBXGroup;
 			children = (
 				B959650429D78F36004F6A57 /* TABusinessService.swift */,
-				B95964FE29CF99E7004F6A57 /* TAUserLocationService.swift */,
-				B9A98C1329EAA1DE00D866A9 /* TADirectionsService.swift */,
+				B9A98C1529EB689700D866A9 /* TADirectionsService.swift */,
+				B9A98C1629EB689700D866A9 /* TAUserLocationService.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -258,24 +261,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9A98C1229EA947200D866A9 /* TATangentResponse.swift in Sources */,
 				B959650929D79011004F6A57 /* TATangentRequest.swift in Sources */,
+				B9A98C2029EB68CF00D866A9 /* TAHomeView.swift in Sources */,
 				B9A98C1029E8D0C600D866A9 /* TASearchResultCell.swift in Sources */,
-				B9A98C1429EAA1DE00D866A9 /* TADirectionsService.swift in Sources */,
-				B9A98C0E29E8C8D200D866A9 /* TASearchResultsTableViewController.swift in Sources */,
 				B95964FC29CF926D004F6A57 /* TAAPIRequest.swift in Sources */,
+				B9A98C1729EB689700D866A9 /* TADirectionsService.swift in Sources */,
 				B95964F629CF91C4004F6A57 /* Debuggable.swift in Sources */,
-				B95964DC29CF90C4004F6A57 /* TAHomeViewController.swift in Sources */,
+				B9A98C1E29EB68AC00D866A9 /* TAHomeViewController.swift in Sources */,
+				B9A98C1D29EB68AC00D866A9 /* TASearchResultsTableViewController.swift in Sources */,
 				B959650D29D79201004F6A57 /* TABusiness.swift in Sources */,
 				B95964D829CF90C4004F6A57 /* AppDelegate.swift in Sources */,
+				B9A98C1C29EB68AC00D866A9 /* TAMapViewController.swift in Sources */,
 				B95964F829CF91FF004F6A57 /* Flags.swift in Sources */,
 				B9645FC229DB5F38001DDF3A /* Extensions.swift in Sources */,
-				B95964FF29CF99E7004F6A57 /* TAUserLocationService.swift in Sources */,
-				B959651129D7995E004F6A57 /* TAHomeView.swift in Sources */,
 				B959651329D79D6D004F6A57 /* TATangentTableViewCell.swift in Sources */,
 				B959650B29D7908E004F6A57 /* TARequestBody.swift in Sources */,
-				B9645FC029DB5A2A001DDF3A /* TAMapViewController.swift in Sources */,
 				B959650729D78FAD004F6A57 /* TAEndpoint.swift in Sources */,
 				B959650529D78F36004F6A57 /* TABusinessService.swift in Sources */,
+				B9A98C1829EB689700D866A9 /* TAUserLocationService.swift in Sources */,
 				B95964FA29CF9249004F6A57 /* TAAPIResponse.swift in Sources */,
 				B9A98C0C29E7707100D866A9 /* Mocking.swift in Sources */,
 				B95964DA29CF90C4004F6A57 /* SceneDelegate.swift in Sources */,

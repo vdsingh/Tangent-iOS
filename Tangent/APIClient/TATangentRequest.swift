@@ -12,7 +12,7 @@ final class TATangentRequest: NSObject, TAAPIRequest {
 
     /// API Constants
     private struct Constants {
-        static let baseUrl = "https://"
+        static let baseUrl = "http://localhost:3000"
     }
 
     /// Desired Endpoint
@@ -72,6 +72,24 @@ final class TATangentRequest: NSObject, TAAPIRequest {
         printDebug("requestBody is nil.")
         return nil
     }
+    
+    //TODO: Docstrings, move
+    static func queryItems<T: Encodable>(from object: T) -> [URLQueryItem]? {
+        guard let encodedData = try? JSONEncoder().encode(object),
+            let jsonObject = try? JSONSerialization.jsonObject(with: encodedData, options: []),
+            let dictionary = jsonObject as? [String: Any] else {
+                return nil
+        }
+        
+        let queryItems = dictionary.compactMap { key, value -> URLQueryItem? in
+            guard let encodedValue = "\(value)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+                return nil
+            }
+            return URLQueryItem(name: key, value: encodedValue)
+        }
+        
+        return queryItems
+    }
 
     /// Reads the relevant flags and prints debug messages only if they are enabled
     /// - Parameter message: The message to print
@@ -126,5 +144,19 @@ final class TATangentRequest: NSObject, TAAPIRequest {
 extension TATangentRequest {
 
     //TODO: Miguel (Static Function to create a TATangentRequest)
-    
+    static func createTangentsRequest(requestParams: TATangentRequestBody) -> TATangentRequest? {
+        
+        guard let queryItems = TATangentRequest.queryItems(from: requestParams) else {
+            print("$ERR (TATangentRequest): Error converting the TATangentRequestBody to an array of Query Items.")
+            return nil
+        }
+        
+        let request = TATangentRequest(
+            endpoint: .tangents,
+            requestBody: nil,
+            queryParameters: queryItems
+        )
+        
+        return request
+    }
 }
