@@ -43,12 +43,22 @@ class TAHomeView: UIView {
         return spinner
     }()
     
+    //TODO: Docstring
+    var zoomToUserContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 20
+        return view
+    }()
+    
     /// Button that enables users to zoom to their location on the map
     var zoomToUserButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.text = "ZOOM TO USER"
-        button.backgroundColor = .cyan
+        button.setImage(TASystemImage.location.uiImage, for: .normal)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
         return button
     }()
     
@@ -97,6 +107,10 @@ class TAHomeView: UIView {
         return self.mapView
     }
     
+    func showTableView(_ show: Bool) {
+        tableView.isHidden = !show
+    }
+    
     // MARK: - Private Functions
     
     /// Calls the zoomToUserCallback in order to zoom to the user
@@ -110,7 +124,7 @@ class TAHomeView: UIView {
     }
     
     /// Adds the Sub Views and establishes all constraints
-    func addSubviewsAndEstablishConstraints() {
+    private func addSubviewsAndEstablishConstraints() {
         
         // Add the map
         self.mainStack.addArrangedSubview(self.mapView)
@@ -121,8 +135,11 @@ class TAHomeView: UIView {
         // Add the main stack to the View
         self.addSubview(self.mainStack)
         
+        // Add the "Zoom to User" Button container
+        self.zoomToUserContainer.addSubview(zoomToUserButton)
+        
         // Add the "Zoom to User" Button
-        self.addSubview(self.zoomToUserButton)
+        self.addSubview(self.zoomToUserContainer)
         
         // Spinner indicates when a route is loading
         self.addSubview(self.mapLoadingSpinner)
@@ -130,11 +147,17 @@ class TAHomeView: UIView {
         NSLayoutConstraint.activate([
             
             // Zoom to User Button Constraints
-            self.zoomToUserButton.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -5),
-            self.zoomToUserButton.rightAnchor.constraint(equalTo: self.mapView.rightAnchor, constant: -5),
-            self.zoomToUserButton.heightAnchor.constraint(equalToConstant: 60),
-            self.zoomToUserButton.widthAnchor.constraint(equalToConstant: 60),
+            self.zoomToUserButton.centerXAnchor.constraint(equalTo: self.zoomToUserContainer.centerXAnchor),
+            self.zoomToUserButton.centerYAnchor.constraint(equalTo: self.zoomToUserContainer.centerYAnchor),
+            self.zoomToUserButton.heightAnchor.constraint(equalToConstant: 20),
+            self.zoomToUserButton.widthAnchor.constraint(equalToConstant: 20),
 
+            
+            // Zoom to User Button Container Constraints
+            self.zoomToUserContainer.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -30),
+            self.zoomToUserContainer.rightAnchor.constraint(equalTo: self.mapView.rightAnchor, constant: -30),
+            self.zoomToUserContainer.heightAnchor.constraint(equalToConstant: 40),
+            self.zoomToUserContainer.widthAnchor.constraint(equalToConstant: 40),
 
             // Main Stack Constraints
             self.mainStack.topAnchor.constraint(equalTo: self.topAnchor),
@@ -142,11 +165,11 @@ class TAHomeView: UIView {
             self.mainStack.leftAnchor.constraint(equalTo: self.leftAnchor),
             self.mainStack.rightAnchor.constraint(equalTo: self.rightAnchor),
             
+            // Spinner Constraints
             self.mapLoadingSpinner.heightAnchor.constraint(equalToConstant: 100),
             self.mapLoadingSpinner.widthAnchor.constraint(equalToConstant: 100),
             self.mapLoadingSpinner.centerXAnchor.constraint(equalTo: self.mapView.centerXAnchor),
             self.mapLoadingSpinner.centerYAnchor.constraint(equalTo: self.mapView.centerYAnchor),
-
         ])
     }
     

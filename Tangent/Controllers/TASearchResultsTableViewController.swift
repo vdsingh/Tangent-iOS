@@ -62,7 +62,7 @@ class TASearchResultsTableViewController: UIViewController {
 /// Handle the TableView Delegate functions
 extension TASearchResultsTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return 80
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -84,7 +84,7 @@ extension TASearchResultsTableViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: TASearchResultCell.reuseIdentifier) as? TASearchResultCell {
-            let selectedItem = matchingItems[indexPath.row].placemark
+            let selectedItem = matchingItems[indexPath.row]
             cell.configure(with: selectedItem)
             return cell
         }
