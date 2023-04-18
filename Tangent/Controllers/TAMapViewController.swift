@@ -36,11 +36,11 @@ final class TAMapViewController: UIViewController, Debuggable {
     /// - Parameters:
     ///   - mapView: The Map View
     ///   - mapSpinner: The Spinner that indicates whether the map is loading
-    init(mapView: MKMapView, mapSpinner: UIActivityIndicatorView, listeners: [TangentsUpdateListener]) {
+    init(mapView: MKMapView, mapSpinner: UIActivityIndicatorView) {
         self.mapView = mapView
         self.mapSpinner = mapSpinner
         super.init(nibName: nil, bundle: nil)
-        self.tangentsWereUpdatedListeners.append(contentsOf: listeners)
+        TABusinessService.shared.appendListener(self)
         
         mapView.delegate = self
         mapView.showsUserLocation = true
@@ -257,6 +257,15 @@ extension TAMapViewController: TAMapSearchSelectionHandler {
                     }
                 }
             )
+        }
+    }
+}
+
+extension TAMapViewController: TangentsUpdateListener {
+    func tangentsWereUpdated(businesses: [TABusiness]) {
+        for business in businesses {
+            self.addPin(for: business)
+            self.zoomToFitAllAnnotations()
         }
     }
 }

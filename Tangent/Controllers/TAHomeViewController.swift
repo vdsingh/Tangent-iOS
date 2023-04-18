@@ -48,8 +48,8 @@ class TAHomeViewController: UIViewController, Debuggable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        TABusinessService.shared.appendListener(self)
         TAUserLocationService.shared.startUpdatingLocation()
-//        self.businesses = Mocking.shared.generateMockBusinesses(count: 10)
     }
     
     override func loadView() {
