@@ -25,8 +25,7 @@ class TAHomeViewController: UIViewController, Debuggable {
     lazy var mapController: TAMapViewController = {
         return TAMapViewController(
             mapView: homeView.getMapView(),
-            mapSpinner: homeView.mapLoadingSpinner,
-            listeners: [self]
+            mapSpinner: homeView.mapLoadingSpinner
         )
     }()
     
@@ -40,7 +39,6 @@ class TAHomeViewController: UIViewController, Debuggable {
         homeView.setZoomToUserCallback { [weak self] in
             guard let self = self else { return }
             self.mapController.centerToUserLocation()
-//            self.businesses = Mocking.shared.generateMockBusinesses(count: 10)
         }
         
         return homeView
@@ -66,6 +64,7 @@ class TAHomeViewController: UIViewController, Debuggable {
         resultSearchController.obscuresBackgroundDuringPresentation = true
         searchResultsController.handleMapSearchDelegate = self.mapController
                 
+        self.homeView.showTableView(false)
         self.view = self.homeView
     }
 
@@ -93,13 +92,7 @@ extension TAHomeViewController: UITableViewDelegate {
         if cellSelected == selectedCell {
             
             // User clicked "GO"
-            guard let business = cellSelected.getBusiness() else {
-                printError("Cell's business was nil (make sure cell.configure was called.)")
-                return
-            }
-            
-            self.mapController.handleTangentSelection(tangent: business)
-//            self.mapController.plotRoute(to: business.getBusinessLocation())
+           
         } else {
             
             // User clicked on the business
@@ -107,6 +100,13 @@ extension TAHomeViewController: UITableViewDelegate {
             if let previouslySelectedCell = self.selectedCell as? TATangentTableViewCell {
                 previouslySelectedCell.setDefault()
             }
+            
+            guard let business = cellSelected.getBusiness() else {
+                printError("Cell's business was nil (make sure cell.configure was called.)")
+                return
+            }
+            
+            self.mapController.handleTangentSelection(tangent: business)
             self.selectedCell = cellSelected
         }
         
@@ -156,8 +156,9 @@ extension TAHomeViewController: UITableViewDataSource {
 //TODO: Docstring
 extension TAHomeViewController: TangentsUpdateListener {
     func tangentsWereUpdated(businesses: [TABusiness]) {
-//        self.tableView.reload
+        printDebug("Tangents did update: \(businesses.compactMap({ $0.name })))")
         DispatchQueue.main.async {
+            self.homeView.showTableView(true)
             self.businesses = businesses
             self.homeView.tableView.reloadData()
         }

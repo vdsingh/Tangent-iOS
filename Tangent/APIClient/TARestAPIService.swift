@@ -8,7 +8,7 @@
 import Foundation
 
 /// Used to execute REST API requests
-final class TARestAPIService: Debuggable {
+final class TARestAPIService: NSObject, Debuggable {
     
     let debug = true
     
@@ -16,7 +16,7 @@ final class TARestAPIService: Debuggable {
     public static let shared = TARestAPIService()
     
     /// Private initializer forces use of shared.
-    private init() { }
+    private override init() { }
     
     /// Possible errors that can be encountered
     enum TAServiceError: Error {
@@ -42,8 +42,10 @@ final class TARestAPIService: Debuggable {
         
         // Unwrap the urlRequest property from the TARequest object
         guard let urlRequest = request.urlRequest else {
-            completion(.failure(TAServiceError.failedToUnwrapURLRequest))
-            print("$Error: url request is nil.")
+            DispatchQueue.main.async {
+                completion(.failure(TAServiceError.failedToUnwrapURLRequest))
+            }
+            printError("(TARestAPIService) url request is nil.")
             return
         }
         
@@ -51,26 +53,32 @@ final class TARestAPIService: Debuggable {
             with: urlRequest,
             completionHandler: { [weak self] data, response, error in
                 guard let self = self else {
-                    fatalError("$Error: TAService self is nil.")
+                    fatalError("$ERR: TAService self is nil.")
                 }
                 
                 // There was an error fetching the data.
                 if let error = error {
-                    print("$Error: \(String(describing: error))")
-                    completion(.failure(error))
+                    printError("\(String(describing: error))")
+                    DispatchQueue.main.async {
+                        completion(.failure(error))
+                    }
                 }
                 
                 // The data came back nil
                 guard let data = data else {
-                    print("$Error: data is nil.")
-                    completion(.failure(TAServiceError.failedToUnwrapData))
+                    printError("(TARestAPIService) data is nil.")
+                    DispatchQueue.main.async {
+                        completion(.failure(TAServiceError.failedToUnwrapData))
+                    }
                     return
                 }
                 
                 // There was an invalid response code.
                 guard let httpResponse = response as? HTTPURLResponse else {
-                    print("$Error: couldn't read response as HTTPURLResponse.")
-                    completion(.failure(TAServiceError.failedToUnwrapResponse))
+                    printError("(TARestAPIService) couldn't read response as HTTPURLResponse.")
+                    DispatchQueue.main.async {
+                        completion(.failure(TAServiceError.failedToUnwrapResponse))
+                    }
                     return
                 }
                 
@@ -79,8 +87,10 @@ final class TARestAPIService: Debuggable {
                         print("Data: \(JSONString)")
                     }
                     
-                    print("$Error: invalid response code: \(httpResponse.statusCode).")
-                    completion(.failure(TAServiceError.invalidResponseCode))
+                    printError("(TARestAPIService) invalid response code: \(httpResponse.statusCode).")
+                    DispatchQueue.main.async {
+                        completion(.failure(TAServiceError.invalidResponseCode))
+                    }
                     return
                 }
                 
@@ -89,20 +99,27 @@ final class TARestAPIService: Debuggable {
                     let decoder = JSONDecoder()
                     let responseObject = try decoder.decode(type, from: data)
                     self.printDebug("successfully decoded data to type \(type). Response Object: \(responseObject)")
-                    completion(.success(responseObject))
+                    DispatchQueue.main.async {
+                        completion(.success(responseObject))
+                    }
                 } catch let error {
                     if let decodingError = error as? DecodingError {
                         // There was an error decoding the data
-                        self.printDebug("$Error decoding response data \(String(describing: decodingError))")
-                        completion(.failure(TAServiceError.failedToDecodeData))
+                        self.printError("(TARestAPIService) decoding response data \(String(describing: decodingError))")
+                        DispatchQueue.main.async {
+                            completion(.failure(TAServiceError.failedToDecodeData))
+                        }
                     } else {
                         // There was some other error
-                        self.printDebug("$Error: \(String(describing: error))")
-                        completion(.failure(error))
+                        self.printError("(TARestAPIService) \(String(describing: error))")
+                        DispatchQueue.main.async {
+                            completion(.failure(error))
+                        }
                     }
                 }
             }
         )
+        
         task.resume()
     }
     
