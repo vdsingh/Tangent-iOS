@@ -141,8 +141,6 @@ class TASearchResultCell: UITableViewCell {
             image = .cafe
         }
         
-        
-        
         else if category == MKPointOfInterestCategory.campground {
             image = .campground
         }

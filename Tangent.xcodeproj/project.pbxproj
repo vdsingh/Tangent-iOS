@@ -24,6 +24,7 @@
 		B959650F29D793EE004F6A57 /* TATangentRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650E29D793EE004F6A57 /* TATangentRequestBody.swift */; };
 		B959651329D79D6D004F6A57 /* TATangentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959651229D79D6D004F6A57 /* TATangentTableViewCell.swift */; };
 		B9645FC229DB5F38001DDF3A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9645FC129DB5F38001DDF3A /* Extensions.swift */; };
+		B97BB07129F1F903008F1A5B /* TAFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07029F1F903008F1A5B /* TAFiltersView.swift */; };
 		B9A98C0C29E7707100D866A9 /* Mocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C0B29E7707100D866A9 /* Mocking.swift */; };
 		B9A98C1029E8D0C600D866A9 /* TASearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C0F29E8D0C600D866A9 /* TASearchResultCell.swift */; };
 		B9A98C1229EA947200D866A9 /* TATangentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C1129EA947200D866A9 /* TATangentResponse.swift */; };
@@ -57,6 +58,7 @@
 		B959650E29D793EE004F6A57 /* TATangentRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentRequestBody.swift; sourceTree = "<group>"; };
 		B959651229D79D6D004F6A57 /* TATangentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentTableViewCell.swift; sourceTree = "<group>"; };
 		B9645FC129DB5F38001DDF3A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B97BB07029F1F903008F1A5B /* TAFiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFiltersView.swift; sourceTree = "<group>"; };
 		B9A98C0B29E7707100D866A9 /* Mocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocking.swift; sourceTree = "<group>"; };
 		B9A98C0F29E8D0C600D866A9 /* TASearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TASearchResultCell.swift; sourceTree = "<group>"; };
 		B9A98C1129EA947200D866A9 /* TATangentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentResponse.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				B959651229D79D6D004F6A57 /* TATangentTableViewCell.swift */,
 				B9A98C0F29E8D0C600D866A9 /* TASearchResultCell.swift */,
 				B9A98C3329EF0DFE00D866A9 /* TASystemImage.swift */,
+				B97BB07029F1F903008F1A5B /* TAFiltersView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				B9645FC229DB5F38001DDF3A /* Extensions.swift in Sources */,
 				B959651329D79D6D004F6A57 /* TATangentTableViewCell.swift in Sources */,
 				B959650B29D7908E004F6A57 /* TARequestBody.swift in Sources */,
+				B97BB07129F1F903008F1A5B /* TAFiltersView.swift in Sources */,
 				B959650729D78FAD004F6A57 /* TAEndpoint.swift in Sources */,
 				B959650529D78F36004F6A57 /* TABusinessService.swift in Sources */,
 				B9A98C2329EBB15400D866A9 /* TAPointAnnotation.swift in Sources */,
