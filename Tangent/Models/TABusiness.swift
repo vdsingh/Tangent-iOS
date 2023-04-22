@@ -14,9 +14,8 @@ struct TABusiness: Decodable {
     let name: String
     let rating: Float
     let reviewCount: Int
+    let imageURL: String?
     let coordinate: Coordinate
-//    let latitude: Float
-//    let longitude: Float
     let price: TAPrice
     let categories: [Category]
     
@@ -28,10 +27,11 @@ struct TABusiness: Decodable {
         case id = "Id"
         case name = "Name"
         case rating = "Rating"
-        case reviewCount = "Review_count"
+        case reviewCount = "Review_Count"
         case coordinate = "Coordinates"
         case price = "Price"
         case categories = "Categories"
+        case imageURL = "Image_Url"
     }
 }
 
