@@ -25,7 +25,8 @@ class TAHomeViewController: UIViewController, Debuggable {
     lazy var mapController: TAMapViewController = {
         return TAMapViewController(
             mapView: homeView.getMapView(),
-            mapSpinner: homeView.mapLoadingSpinner
+            mapSpinner: homeView.mapLoadingSpinner,
+            errorShowingController: self
         )
     }()
     
@@ -162,5 +163,16 @@ extension TAHomeViewController: TangentsUpdateListener {
             self.businesses = businesses
             self.homeView.tableView.reloadData()
         }
+    }
+}
+
+extension TAHomeViewController: ErrorShowingController {
+    func showErrorPopup(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        //        if let viewController = UIApplication.shared.keyWindow?.rootViewController {
+        self.present(alertController, animated: true, completion: nil)
+        //        }
     }
 }

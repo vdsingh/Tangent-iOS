@@ -9,6 +9,10 @@ import Foundation
 import MapKit
 import UIKit
 
+protocol ErrorShowingController {
+    func showErrorPopup(title: String, message: String)
+}
+
 
 /// Controller for a MapView
 final class TAMapViewController: UIViewController, Debuggable {
@@ -28,6 +32,8 @@ final class TAMapViewController: UIViewController, Debuggable {
     var overlayColorMap = [MKPolyline: UIColor]()
     
     var tangentOverlays = [MKOverlay]()
+    
+    var errorShowingController: ErrorShowingController
 
     //TODO: Docstring
 //    var tangentsWereUpdatedListeners = [TangentsUpdateListener]()
@@ -36,9 +42,11 @@ final class TAMapViewController: UIViewController, Debuggable {
     /// - Parameters:
     ///   - mapView: The Map View
     ///   - mapSpinner: The Spinner that indicates whether the map is loading
-    init(mapView: MKMapView, mapSpinner: UIActivityIndicatorView) {
+    init(mapView: MKMapView, mapSpinner: UIActivityIndicatorView, errorShowingController: ErrorShowingController) {
         self.mapView = mapView
         self.mapSpinner = mapSpinner
+        self.errorShowingController = errorShowingController
+        
         super.init(nibName: nil, bundle: nil)
         TABusinessService.shared.appendListener(self)
         
@@ -271,6 +279,7 @@ extension TAMapViewController: TAMapSearchSelectionHandler {
                        
                     case .failure(let error):
                         self.printError(error)
+                        self.errorShowingController.showErrorPopup(title: "Error", message: error.localizedDescription)
                     }
                 }
             )
