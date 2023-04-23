@@ -25,6 +25,8 @@
 		B959651329D79D6D004F6A57 /* TATangentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959651229D79D6D004F6A57 /* TATangentTableViewCell.swift */; };
 		B9645FC229DB5F38001DDF3A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9645FC129DB5F38001DDF3A /* Extensions.swift */; };
 		B97BB07129F1F903008F1A5B /* TAFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07029F1F903008F1A5B /* TAFiltersView.swift */; };
+		B97BB07329F4DD9F008F1A5B /* TAFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07229F4DD9F008F1A5B /* TAFilterViewController.swift */; };
+		B97BB07629F4DDFA008F1A5B /* TAPriceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07529F4DDFA008F1A5B /* TAPriceSelectionView.swift */; };
 		B9A98C0C29E7707100D866A9 /* Mocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C0B29E7707100D866A9 /* Mocking.swift */; };
 		B9A98C1029E8D0C600D866A9 /* TASearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C0F29E8D0C600D866A9 /* TASearchResultCell.swift */; };
 		B9A98C1229EA947200D866A9 /* TATangentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C1129EA947200D866A9 /* TATangentResponse.swift */; };
@@ -59,6 +61,8 @@
 		B959651229D79D6D004F6A57 /* TATangentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentTableViewCell.swift; sourceTree = "<group>"; };
 		B9645FC129DB5F38001DDF3A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B97BB07029F1F903008F1A5B /* TAFiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFiltersView.swift; sourceTree = "<group>"; };
+		B97BB07229F4DD9F008F1A5B /* TAFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFilterViewController.swift; sourceTree = "<group>"; };
+		B97BB07529F4DDFA008F1A5B /* TAPriceSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAPriceSelectionView.swift; sourceTree = "<group>"; };
 		B9A98C0B29E7707100D866A9 /* Mocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocking.swift; sourceTree = "<group>"; };
 		B9A98C0F29E8D0C600D866A9 /* TASearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TASearchResultCell.swift; sourceTree = "<group>"; };
 		B9A98C1129EA947200D866A9 /* TATangentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentResponse.swift; sourceTree = "<group>"; };
@@ -126,6 +130,7 @@
 		B95964EC29CF9100004F6A57 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B97BB07429F4DDF0008F1A5B /* FilterViews */,
 				B9A98C2129EBB12B00D866A9 /* DesignSystem */,
 				B9A98C1F29EB68CF00D866A9 /* TAHomeView.swift */,
 				B95964F029CF9126004F6A57 /* Storyboards */,
@@ -143,6 +148,7 @@
 				B9A98C1B29EB68AC00D866A9 /* TAHomeViewController.swift */,
 				B9A98C1929EB68AB00D866A9 /* TAMapViewController.swift */,
 				B9A98C1A29EB68AB00D866A9 /* TASearchResultsTableViewController.swift */,
+				B97BB07229F4DD9F008F1A5B /* TAFilterViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -198,6 +204,14 @@
 				B9A98C1629EB689700D866A9 /* TAUserLocationService.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		B97BB07429F4DDF0008F1A5B /* FilterViews */ = {
+			isa = PBXGroup;
+			children = (
+				B97BB07529F4DDFA008F1A5B /* TAPriceSelectionView.swift */,
+			);
+			path = FilterViews;
 			sourceTree = "<group>";
 		};
 		B9A98C2129EBB12B00D866A9 /* DesignSystem */ = {
@@ -287,6 +301,7 @@
 				B95964F629CF91C4004F6A57 /* Debuggable.swift in Sources */,
 				B9A98C1E29EB68AC00D866A9 /* TAHomeViewController.swift in Sources */,
 				B9A98C1D29EB68AC00D866A9 /* TASearchResultsTableViewController.swift in Sources */,
+				B97BB07329F4DD9F008F1A5B /* TAFilterViewController.swift in Sources */,
 				B959650D29D79201004F6A57 /* TABusiness.swift in Sources */,
 				B95964D829CF90C4004F6A57 /* AppDelegate.swift in Sources */,
 				B9A98C1C29EB68AC00D866A9 /* TAMapViewController.swift in Sources */,
@@ -298,6 +313,7 @@
 				B959650729D78FAD004F6A57 /* TAEndpoint.swift in Sources */,
 				B959650529D78F36004F6A57 /* TABusinessService.swift in Sources */,
 				B9A98C2329EBB15400D866A9 /* TAPointAnnotation.swift in Sources */,
+				B97BB07629F4DDFA008F1A5B /* TAPriceSelectionView.swift in Sources */,
 				B9A98C1829EB689700D866A9 /* TAUserLocationService.swift in Sources */,
 				B95964FA29CF9249004F6A57 /* TAAPIResponse.swift in Sources */,
 				B9A98C0C29E7707100D866A9 /* Mocking.swift in Sources */,

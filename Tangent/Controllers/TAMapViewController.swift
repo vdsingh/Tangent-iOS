@@ -55,7 +55,6 @@ final class TAMapViewController: UIViewController, Debuggable {
         mapView.setUserTrackingMode(.follow, animated: true)
     }
     
-    
     // MARK: - Private Functions
     
     //TODO: Docstring
