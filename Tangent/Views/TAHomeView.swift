@@ -12,6 +12,8 @@ import MapKit
 //TODO: Docstring
 class TAHomeView: UIView {
     
+    let controller: UIViewController
+    
     /// Stack Container for the Map and the TableView
     var mainStack: UIStackView = {
         let stack = UIStackView()
@@ -28,6 +30,12 @@ class TAHomeView: UIView {
         let mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
         return mapView
+    }()
+    
+    // TODO: Docstrings
+    lazy var filtersView: TAFiltersView = {
+        let filtersView = TAFiltersView(filters: [.price(uiString: "Price"), .businessType(uiString: "Business Type")], controller: self.controller)
+        return filtersView
     }()
     
     /// Spinner to indicate if the map is loading
@@ -70,8 +78,11 @@ class TAHomeView: UIView {
     }()
     
     
+    
     /// Function that is called to zoom to the user's location
     private var zoomToUserCallback: (() -> Void)?
+    
+//    let navigationBar: UINavigationBar!
     
     /// Normal Initializer
     /// - Parameters:
@@ -79,8 +90,13 @@ class TAHomeView: UIView {
     ///   - tableViewDataSource: DataSource for the Business TableView
     init(
         tableViewDelegate: UITableViewDelegate,
-        tableViewDataSource: UITableViewDataSource
+        tableViewDataSource: UITableViewDataSource,
+        controller: UIViewController
+//        navigationBar: UINavigationBar
     ) {
+//        self.navigationBar = navigationBar
+//        navigationItem
+        self.controller = controller
         super.init(frame: .zero)
         self.tableView.delegate = tableViewDelegate
         self.tableView.dataSource = tableViewDataSource
@@ -126,6 +142,8 @@ class TAHomeView: UIView {
     /// Adds the Sub Views and establishes all constraints
     private func addSubviewsAndEstablishConstraints() {
         
+//        self.navigationBar.addSubview(self.filtersView)
+        
         // Add the map
         self.mainStack.addArrangedSubview(self.mapView)
         
@@ -143,6 +161,9 @@ class TAHomeView: UIView {
         
         // Spinner indicates when a route is loading
         self.addSubview(self.mapLoadingSpinner)
+        
+        //TODO: Docstrings
+//        self.addSubview(self.filtersView)
 
         NSLayoutConstraint.activate([
             
@@ -170,6 +191,12 @@ class TAHomeView: UIView {
             self.mapLoadingSpinner.widthAnchor.constraint(equalToConstant: 100),
             self.mapLoadingSpinner.centerXAnchor.constraint(equalTo: self.mapView.centerXAnchor),
             self.mapLoadingSpinner.centerYAnchor.constraint(equalTo: self.mapView.centerYAnchor),
+            
+            // Filter View Constraints
+//            self.filtersView.topAnchor.constraint(equalTo: self.mapView.topAnchor, constant: 10),
+//            self.filtersView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10),
+//            self.filtersView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
+//            self.filtersView.heightAnchor.constraint(equalToConstant: 40),
         ])
     }
     

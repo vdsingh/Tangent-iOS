@@ -34,7 +34,9 @@ class TAHomeViewController: UIViewController, Debuggable {
     lazy var homeView: TAHomeView = {
         let homeView = TAHomeView(
             tableViewDelegate: self,
-            tableViewDataSource: self
+            tableViewDataSource: self,
+            controller: self
+//            navigationBar: self.navigationController!.navigationBar
         )
         
         homeView.setZoomToUserCallback { [weak self] in
@@ -49,6 +51,9 @@ class TAHomeViewController: UIViewController, Debuggable {
         super.viewDidLoad()
         TABusinessService.shared.appendListener(self)
         TAUserLocationService.shared.startUpdatingLocation()
+        
+//        self.navigationItem.titleView = self.homeView.filtersView
+
     }
     
     override func loadView() {
@@ -66,6 +71,11 @@ class TAHomeViewController: UIViewController, Debuggable {
         searchResultsController.handleMapSearchDelegate = self.mapController
                 
         self.homeView.showTableView(false)
+        
+        self.navigationController?.navigationBar.addSubview(self.homeView.filtersView)
+        self.navigationItem.titleView = self.homeView.filtersView
+        
+        
         self.view = self.homeView
     }
 
