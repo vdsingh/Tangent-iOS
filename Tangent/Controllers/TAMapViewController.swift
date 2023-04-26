@@ -62,6 +62,7 @@ final class TAMapViewController: UIViewController, Debuggable {
         self.mapView.removeOverlays(self.mapView.overlays)
     }
     
+    //TODO: Docstring
     private func removeTangentOverlays() {
         self.mapView.removeOverlays(self.tangentOverlays)
     }

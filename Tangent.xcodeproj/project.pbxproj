@@ -27,6 +27,16 @@
 		B97BB07129F1F903008F1A5B /* TAFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07029F1F903008F1A5B /* TAFiltersView.swift */; };
 		B97BB07329F4DD9F008F1A5B /* TAFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07229F4DD9F008F1A5B /* TAFilterViewController.swift */; };
 		B97BB07629F4DDFA008F1A5B /* TAPriceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07529F4DDFA008F1A5B /* TAPriceSelectionView.swift */; };
+		B97BB07829F6369A008F1A5B /* TAFiltersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07729F6369A008F1A5B /* TAFiltersService.swift */; };
+		B97BB07A29F67149008F1A5B /* TABusinessTerm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07929F67149008F1A5B /* TABusinessTerm.swift */; };
+		B97BB07C29F6715D008F1A5B /* TAPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07B29F6715D008F1A5B /* TAPrice.swift */; };
+		B97BB07E29F67173008F1A5B /* TACategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07D29F67173008F1A5B /* TACategory.swift */; };
+		B97BB08029F67198008F1A5B /* TACoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07F29F67198008F1A5B /* TACoordinate.swift */; };
+		B97BB08629F7A310008F1A5B /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08529F7A310008F1A5B /* Observable.swift */; };
+		B97BB08829F7B8B8008F1A5B /* TAFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08729F7B8B8008F1A5B /* TAFilterView.swift */; };
+		B97BB08B29F7B8E9008F1A5B /* TAFilterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08A29F7B8E9008F1A5B /* TAFilterState.swift */; };
+		B97BB08D29F7B901008F1A5B /* TAFilterValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08C29F7B901008F1A5B /* TAFilterValue.swift */; };
+		B97BB08F29F7B908008F1A5B /* TAFilterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08E29F7B908008F1A5B /* TAFilterOption.swift */; };
 		B9A98C0C29E7707100D866A9 /* Mocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C0B29E7707100D866A9 /* Mocking.swift */; };
 		B9A98C1029E8D0C600D866A9 /* TASearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C0F29E8D0C600D866A9 /* TASearchResultCell.swift */; };
 		B9A98C1229EA947200D866A9 /* TATangentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C1129EA947200D866A9 /* TATangentResponse.swift */; };
@@ -63,6 +73,16 @@
 		B97BB07029F1F903008F1A5B /* TAFiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFiltersView.swift; sourceTree = "<group>"; };
 		B97BB07229F4DD9F008F1A5B /* TAFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFilterViewController.swift; sourceTree = "<group>"; };
 		B97BB07529F4DDFA008F1A5B /* TAPriceSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAPriceSelectionView.swift; sourceTree = "<group>"; };
+		B97BB07729F6369A008F1A5B /* TAFiltersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFiltersService.swift; sourceTree = "<group>"; };
+		B97BB07929F67149008F1A5B /* TABusinessTerm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TABusinessTerm.swift; sourceTree = "<group>"; };
+		B97BB07B29F6715D008F1A5B /* TAPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAPrice.swift; sourceTree = "<group>"; };
+		B97BB07D29F67173008F1A5B /* TACategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TACategory.swift; sourceTree = "<group>"; };
+		B97BB07F29F67198008F1A5B /* TACoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TACoordinate.swift; sourceTree = "<group>"; };
+		B97BB08529F7A310008F1A5B /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		B97BB08729F7B8B8008F1A5B /* TAFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFilterView.swift; sourceTree = "<group>"; };
+		B97BB08A29F7B8E9008F1A5B /* TAFilterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFilterState.swift; sourceTree = "<group>"; };
+		B97BB08C29F7B901008F1A5B /* TAFilterValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFilterValue.swift; sourceTree = "<group>"; };
+		B97BB08E29F7B908008F1A5B /* TAFilterOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFilterOption.swift; sourceTree = "<group>"; };
 		B9A98C0B29E7707100D866A9 /* Mocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocking.swift; sourceTree = "<group>"; };
 		B9A98C0F29E8D0C600D866A9 /* TASearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TASearchResultCell.swift; sourceTree = "<group>"; };
 		B9A98C1129EA947200D866A9 /* TATangentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentResponse.swift; sourceTree = "<group>"; };
@@ -122,7 +142,12 @@
 		B95964EB29CF90F7004F6A57 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B97BB08929F7B8DA008F1A5B /* Filters */,
 				B959650C29D79201004F6A57 /* TABusiness.swift */,
+				B97BB07929F67149008F1A5B /* TABusinessTerm.swift */,
+				B97BB07B29F6715D008F1A5B /* TAPrice.swift */,
+				B97BB07D29F67173008F1A5B /* TACategory.swift */,
+				B97BB07F29F67198008F1A5B /* TACoordinate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -130,14 +155,13 @@
 		B95964EC29CF9100004F6A57 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B97BB07429F4DDF0008F1A5B /* FilterViews */,
+				B97BB07429F4DDF0008F1A5B /* Filters */,
 				B9A98C2129EBB12B00D866A9 /* DesignSystem */,
 				B9A98C1F29EB68CF00D866A9 /* TAHomeView.swift */,
 				B95964F029CF9126004F6A57 /* Storyboards */,
 				B959651229D79D6D004F6A57 /* TATangentTableViewCell.swift */,
 				B9A98C0F29E8D0C600D866A9 /* TASearchResultCell.swift */,
 				B9A98C3329EF0DFE00D866A9 /* TASystemImage.swift */,
-				B97BB07029F1F903008F1A5B /* TAFiltersView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -161,6 +185,7 @@
 				B95964F529CF91C4004F6A57 /* Debuggable.swift */,
 				B95964F729CF91FF004F6A57 /* Flags.swift */,
 				B9645FC129DB5F38001DDF3A /* Extensions.swift */,
+				B97BB08529F7A310008F1A5B /* Observable.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -202,16 +227,29 @@
 				B959650429D78F36004F6A57 /* TABusinessService.swift */,
 				B9A98C1529EB689700D866A9 /* TADirectionsService.swift */,
 				B9A98C1629EB689700D866A9 /* TAUserLocationService.swift */,
+				B97BB07729F6369A008F1A5B /* TAFiltersService.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
 		};
-		B97BB07429F4DDF0008F1A5B /* FilterViews */ = {
+		B97BB07429F4DDF0008F1A5B /* Filters */ = {
 			isa = PBXGroup;
 			children = (
+				B97BB07029F1F903008F1A5B /* TAFiltersView.swift */,
 				B97BB07529F4DDFA008F1A5B /* TAPriceSelectionView.swift */,
+				B97BB08729F7B8B8008F1A5B /* TAFilterView.swift */,
 			);
-			path = FilterViews;
+			path = Filters;
+			sourceTree = "<group>";
+		};
+		B97BB08929F7B8DA008F1A5B /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				B97BB08A29F7B8E9008F1A5B /* TAFilterState.swift */,
+				B97BB08C29F7B901008F1A5B /* TAFilterValue.swift */,
+				B97BB08E29F7B908008F1A5B /* TAFilterOption.swift */,
+			);
+			path = Filters;
 			sourceTree = "<group>";
 		};
 		B9A98C2129EBB12B00D866A9 /* DesignSystem */ = {
@@ -304,22 +342,32 @@
 				B97BB07329F4DD9F008F1A5B /* TAFilterViewController.swift in Sources */,
 				B959650D29D79201004F6A57 /* TABusiness.swift in Sources */,
 				B95964D829CF90C4004F6A57 /* AppDelegate.swift in Sources */,
+				B97BB07829F6369A008F1A5B /* TAFiltersService.swift in Sources */,
 				B9A98C1C29EB68AC00D866A9 /* TAMapViewController.swift in Sources */,
 				B95964F829CF91FF004F6A57 /* Flags.swift in Sources */,
 				B9645FC229DB5F38001DDF3A /* Extensions.swift in Sources */,
+				B97BB07C29F6715D008F1A5B /* TAPrice.swift in Sources */,
 				B959651329D79D6D004F6A57 /* TATangentTableViewCell.swift in Sources */,
 				B959650B29D7908E004F6A57 /* TARequestBody.swift in Sources */,
+				B97BB08829F7B8B8008F1A5B /* TAFilterView.swift in Sources */,
+				B97BB08D29F7B901008F1A5B /* TAFilterValue.swift in Sources */,
 				B97BB07129F1F903008F1A5B /* TAFiltersView.swift in Sources */,
+				B97BB07E29F67173008F1A5B /* TACategory.swift in Sources */,
 				B959650729D78FAD004F6A57 /* TAEndpoint.swift in Sources */,
+				B97BB08B29F7B8E9008F1A5B /* TAFilterState.swift in Sources */,
 				B959650529D78F36004F6A57 /* TABusinessService.swift in Sources */,
 				B9A98C2329EBB15400D866A9 /* TAPointAnnotation.swift in Sources */,
+				B97BB08029F67198008F1A5B /* TACoordinate.swift in Sources */,
 				B97BB07629F4DDFA008F1A5B /* TAPriceSelectionView.swift in Sources */,
 				B9A98C1829EB689700D866A9 /* TAUserLocationService.swift in Sources */,
 				B95964FA29CF9249004F6A57 /* TAAPIResponse.swift in Sources */,
+				B97BB08F29F7B908008F1A5B /* TAFilterOption.swift in Sources */,
 				B9A98C0C29E7707100D866A9 /* Mocking.swift in Sources */,
 				B9A98C3429EF0DFE00D866A9 /* TASystemImage.swift in Sources */,
 				B95964DA29CF90C4004F6A57 /* SceneDelegate.swift in Sources */,
+				B97BB08629F7A310008F1A5B /* Observable.swift in Sources */,
 				B959650F29D793EE004F6A57 /* TATangentRequestBody.swift in Sources */,
+				B97BB07A29F67149008F1A5B /* TABusinessTerm.swift in Sources */,
 				B95964F429CF91A4004F6A57 /* TARestAPIService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

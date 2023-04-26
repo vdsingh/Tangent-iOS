@@ -32,9 +32,9 @@ class TAHomeView: UIView {
         return mapView
     }()
     
-    // TODO: Docstrings
+    // TODO: Docstring
     lazy var filtersView: TAFiltersView = {
-        let filtersView = TAFiltersView(filters: [.price(uiString: "Price"), .businessType(uiString: "Business Type")], controller: self.controller)
+        let filtersView = TAFiltersView(filterStates: TAFiltersService.shared.getAllFilterStates(), controller: self.controller)
         return filtersView
     }()
     
@@ -92,10 +92,7 @@ class TAHomeView: UIView {
         tableViewDelegate: UITableViewDelegate,
         tableViewDataSource: UITableViewDataSource,
         controller: UIViewController
-//        navigationBar: UINavigationBar
     ) {
-//        self.navigationBar = navigationBar
-//        navigationItem
         self.controller = controller
         super.init(frame: .zero)
         self.tableView.delegate = tableViewDelegate
@@ -123,6 +120,7 @@ class TAHomeView: UIView {
         return self.mapView
     }
     
+    //TODO: Docstring
     func showTableView(_ show: Bool) {
         tableView.isHidden = !show
     }
@@ -141,9 +139,6 @@ class TAHomeView: UIView {
     
     /// Adds the Sub Views and establishes all constraints
     private func addSubviewsAndEstablishConstraints() {
-        
-//        self.navigationBar.addSubview(self.filtersView)
-        
         // Add the map
         self.mainStack.addArrangedSubview(self.mapView)
         
@@ -161,9 +156,6 @@ class TAHomeView: UIView {
         
         // Spinner indicates when a route is loading
         self.addSubview(self.mapLoadingSpinner)
-        
-        //TODO: Docstrings
-//        self.addSubview(self.filtersView)
 
         NSLayoutConstraint.activate([
             
@@ -191,12 +183,6 @@ class TAHomeView: UIView {
             self.mapLoadingSpinner.widthAnchor.constraint(equalToConstant: 100),
             self.mapLoadingSpinner.centerXAnchor.constraint(equalTo: self.mapView.centerXAnchor),
             self.mapLoadingSpinner.centerYAnchor.constraint(equalTo: self.mapView.centerYAnchor),
-            
-            // Filter View Constraints
-//            self.filtersView.topAnchor.constraint(equalTo: self.mapView.topAnchor, constant: 10),
-//            self.filtersView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10),
-//            self.filtersView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
-//            self.filtersView.heightAnchor.constraint(equalToConstant: 40),
         ])
     }
     

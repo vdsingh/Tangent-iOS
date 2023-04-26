@@ -31,7 +31,7 @@ class Mocking: NSObject {
                 rating: Float.random(in: 0...5),
                 reviewCount: Int.random(in: 0...1000),
                 imageURL: nil,
-                coordinate: Coordinate(
+                coordinate: TACoordinate(
                     latitude: Float(coordinate.latitude),
                     longitude: Float(coordinate.longitude)
                 ),
