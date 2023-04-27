@@ -9,6 +9,7 @@ import Foundation
 import MapKit
 import UIKit
 
+//TODO: docstring
 protocol ErrorShowingController {
     func showErrorPopup(title: String, message: String)
 }
@@ -31,13 +32,12 @@ final class TAMapViewController: UIViewController, Debuggable {
     //TODO: docstring
     var overlayColorMap = [MKPolyline: UIColor]()
     
+    //TODO: docstring
     var tangentOverlays = [MKOverlay]()
     
+    //TODO: docstring
     var errorShowingController: ErrorShowingController
 
-    //TODO: Docstring
-//    var tangentsWereUpdatedListeners = [TangentsUpdateListener]()
-    
     /// Initializes a new TAMapViewController
     /// - Parameters:
     ///   - mapView: The Map View
@@ -305,7 +305,10 @@ extension TAMapViewController: TAMapSearchSelectionHandler {
     }
 }
 
+//TODO: docstring
 extension TAMapViewController: TangentsUpdateListener {
+    
+    //TODO: docstring
     func tangentsWereUpdated(businesses: [TABusiness]) {
         for business in businesses {
             self.addPin(for: business)
@@ -314,11 +317,13 @@ extension TAMapViewController: TangentsUpdateListener {
     }
 }
 
+//TODO: docstring
 extension TAMapViewController {
+    
+    //TODO: docstring
     func handleTangentSelection(tangent: TABusiness) {
-        guard
-            let lastUserLocation = TAUserLocationService.shared.getLastUserLocation(),
-            let finalDestinationPin = self.finalDestinationPin else {
+        guard let lastUserLocation = TAUserLocationService.shared.getLastUserLocation(),
+              let finalDestinationPin = self.finalDestinationPin else {
             printError("last user location was nil.")
             return
         }

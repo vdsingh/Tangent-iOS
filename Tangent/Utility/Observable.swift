@@ -48,7 +48,7 @@ class Observable<T>: Debuggable {
 
     func printDebug(_ message: String) {
         if self.debug {
-            print("$Log (Observable): \(message)")
+            print("$LOG (Observable): \(message)")
         }
     }
 }
@@ -88,7 +88,7 @@ class RequiredObservable<T>: Debuggable {
 
     func printDebug(_ message: String) {
         if self.debug {
-            print("$Log (Observable): \(message)")
+            print("$LOG (Observable): \(message)")
         }
     }
 }

@@ -25,9 +25,19 @@ final class TAFilterViewController: UIViewController {
                 TAFiltersService.shared.getFilterState(for: self.filterState.filterOption).addSelectedValues(values: selectedPrices)
                 self.dismiss(animated: true)
             },
-            filterState: self.filterState
+            filterState: self.filterState,
+            numButtonsPerRow: self.numberButtonsPerRow
         )
     }()
+    
+    var numberButtonsPerRow: Int {
+        switch self.filterState.filterOption {
+        case .price:
+            return 4
+        case .businessType:
+            return 3
+        }
+    }
     
     //TODO: Docstring
     init(filterState: TAFilterState) {

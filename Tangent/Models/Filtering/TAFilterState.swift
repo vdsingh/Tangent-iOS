@@ -30,7 +30,6 @@ class TAFilterState: NSObject {
             if let isSelected = self.valueSelectionMap.value[valueWrapper],
                isSelected {
                 selectedValues.append(valueWrapper.value)
-//                selectedValues.append(value)
             }
         }
         
@@ -38,7 +37,6 @@ class TAFilterState: NSObject {
     }
     
     var possibleValues: [any TAFilterValue] {
-//        return [any TAFilterValue](self.valueSelectionMap.keys)
         return self.valueSelectionMap.value.keys.compactMap({ $0.value }).sorted(by: { $0.stringRepresentation.count < $1.stringRepresentation.count })
     }
     

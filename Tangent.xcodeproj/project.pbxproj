@@ -142,7 +142,7 @@
 		B95964EB29CF90F7004F6A57 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B97BB08929F7B8DA008F1A5B /* Filters */,
+				B97BB08929F7B8DA008F1A5B /* Filtering */,
 				B959650C29D79201004F6A57 /* TABusiness.swift */,
 				B97BB07929F67149008F1A5B /* TABusinessTerm.swift */,
 				B97BB07B29F6715D008F1A5B /* TAPrice.swift */,
@@ -155,7 +155,7 @@
 		B95964EC29CF9100004F6A57 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B97BB07429F4DDF0008F1A5B /* Filters */,
+				B97BB07429F4DDF0008F1A5B /* Filtering */,
 				B9A98C2129EBB12B00D866A9 /* DesignSystem */,
 				B9A98C1F29EB68CF00D866A9 /* TAHomeView.swift */,
 				B95964F029CF9126004F6A57 /* Storyboards */,
@@ -232,24 +232,24 @@
 			path = Repository;
 			sourceTree = "<group>";
 		};
-		B97BB07429F4DDF0008F1A5B /* Filters */ = {
+		B97BB07429F4DDF0008F1A5B /* Filtering */ = {
 			isa = PBXGroup;
 			children = (
 				B97BB07029F1F903008F1A5B /* TAFilterButtonsView.swift */,
 				B97BB07529F4DDFA008F1A5B /* TAFilterSelectionView.swift */,
 				B97BB08729F7B8B8008F1A5B /* TAFilterButtonView.swift */,
 			);
-			path = Filters;
+			path = Filtering;
 			sourceTree = "<group>";
 		};
-		B97BB08929F7B8DA008F1A5B /* Filters */ = {
+		B97BB08929F7B8DA008F1A5B /* Filtering */ = {
 			isa = PBXGroup;
 			children = (
 				B97BB08A29F7B8E9008F1A5B /* TAFilterState.swift */,
 				B97BB08C29F7B901008F1A5B /* TAFilterValue.swift */,
 				B97BB08E29F7B908008F1A5B /* TAFilterOption.swift */,
 			);
-			path = Filters;
+			path = Filtering;
 			sourceTree = "<group>";
 		};
 		B9A98C2129EBB12B00D866A9 /* DesignSystem */ = {

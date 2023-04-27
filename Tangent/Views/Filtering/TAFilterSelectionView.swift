@@ -14,16 +14,16 @@ final class TAFilterSelectionView: UIStackView {
     let debug = true
     
     //TODO: Docstrings
-    let titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Price"
+        label.text = self.filterState.filterOption.rawValue
         return label
     }()
     
     //TODO: Docstrings
-    lazy var priceOptionStack: UIStackView = {
-        return self.createPriceSelectionStack()
+    lazy var valueOptionStack: UIStackView = {
+        return self.createValueSelectionStack(numButtonsPerRow: self.numberButtonsPerRow)
     }()
     
     //TODO: Docstrings
@@ -76,16 +76,20 @@ final class TAFilterSelectionView: UIStackView {
     //TODO: Docstrings
     var buttonSelectedMap = [UIButton: Bool]()
     
+    let numberButtonsPerRow: Int
+    
     //TODO: Docstrings
     init(
         cancelWasPressed: @escaping () -> Void,
         doneWasPressed: @escaping ([any TAFilterValue]) -> Void,
-        filterState: TAFilterState
+        filterState: TAFilterState,
+        numButtonsPerRow: Int
     )
     {
         self.cancelWasPressedCallback = cancelWasPressed
         self.doneWasPressedCallback = doneWasPressed
         self.filterState = filterState
+        self.numberButtonsPerRow = numButtonsPerRow
         super.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.axis = .vertical
@@ -95,15 +99,28 @@ final class TAFilterSelectionView: UIStackView {
     }
     
     //TODO: Docstrings
-    private func createPriceSelectionStack() -> UIStackView {
-        let stack = UIStackView()
-        stack.distribution = .fillEqually
-        stack.spacing = 15
-        stack.axis = .horizontal
-        stack.alignment = .top
-        stack.translatesAutoresizingMaskIntoConstraints = false
+    private func createValueSelectionStack(numButtonsPerRow: Int) -> UIStackView {
+        
+        // The vertical stack contains all of the horizontal stacks
+        let vertStack = UIStackView()
+        vertStack.translatesAutoresizingMaskIntoConstraints = false
+        vertStack.distribution = .fill
+//        vertStack.backgroundColor = .cyan
+        vertStack.spacing = 15
+        vertStack.axis = .vertical
+        vertStack.alignment = .fill
+        
+        var currentHorizontalStack = UIStackView()
+        currentHorizontalStack.translatesAutoresizingMaskIntoConstraints = false
+        currentHorizontalStack.distribution = .fillEqually
+        currentHorizontalStack.alignment = .center
+//        currentHorizontalStack.backgroundColor = .red
+        currentHorizontalStack.spacing = 15
+        currentHorizontalStack.axis = .horizontal
+        
         for possibleValue in self.filterState.possibleValues {
             let possibleValueButton = UIButton()
+            print("ADDING BUTTON WITH VALUE \(possibleValue.stringRepresentation)")
             self.buttonToValueMap[possibleValueButton] = possibleValue
             self.buttonSelectedMap[possibleValueButton] = filterState.valueIsSelected(value: possibleValue)
             possibleValueButton.translatesAutoresizingMaskIntoConstraints = false
@@ -112,18 +129,32 @@ final class TAFilterSelectionView: UIStackView {
             possibleValueButton.backgroundColor = .label
             possibleValueButton.layer.cornerRadius = 10
             
-            
-            possibleValueButton.addTarget(self, action: #selector(self.priceButtonClicked), for: .touchUpInside)
-            stack.addArrangedSubview(possibleValueButton)
+            possibleValueButton.addTarget(self, action: #selector(self.valueButtonClicked), for: .touchUpInside)
+            currentHorizontalStack.addArrangedSubview(possibleValueButton)
             refreshButton(button: possibleValueButton)
+            
+            if currentHorizontalStack.arrangedSubviews.count >= numButtonsPerRow {
+                vertStack.addArrangedSubview(currentHorizontalStack)
+                currentHorizontalStack = UIStackView()
+//                currentHorizontalStack.backgroundColor = .red
+
+                currentHorizontalStack.translatesAutoresizingMaskIntoConstraints = false
+                currentHorizontalStack.distribution = .fillEqually
+                currentHorizontalStack.spacing = 15
+                currentHorizontalStack.axis = .horizontal
+                print("ADDING NEW HORIZ STACK")
+            }
         }
         
-        return stack
+        vertStack.addArrangedSubview(currentHorizontalStack)
+
+        
+        return vertStack
     }
     
     //TODO: Docstrings
-    @objc private func priceButtonClicked(sender: UIButton) {
-        printDebug("Price button with title label \(String(describing: sender.titleLabel?.text)) was clicked")
+    @objc private func valueButtonClicked(sender: UIButton) {
+        printDebug("Value button with title label \(String(describing: sender.titleLabel?.text)) was clicked")
         if let isSelected = self.buttonSelectedMap[sender] {
             self.buttonSelectedMap[sender] = !isSelected
             printDebug("Set button \(String(describing: sender.titleLabel?.text)) selected status to \(!isSelected)")
@@ -171,7 +202,7 @@ final class TAFilterSelectionView: UIStackView {
                     printError("tried to retrieve selected status for button but it was not mapped correctly.")
                 }
             } else {
-                printError("tried to retrieve price from button but it was not mapped correctly.")
+                printError("tried to retrieve value from button but it was not mapped correctly.")
             }
         }
         
@@ -183,7 +214,7 @@ final class TAFilterSelectionView: UIStackView {
     //TODO: Docstrings
     private func addSubviewsAndEstablishConstraints() {
         self.addArrangedSubview(self.titleLabel)
-        self.addArrangedSubview(self.priceOptionStack)
+        self.addArrangedSubview(self.valueOptionStack)
         self.addArrangedSubview(self.buttonsStack)
     }
     
@@ -195,7 +226,7 @@ final class TAFilterSelectionView: UIStackView {
 extension TAFilterSelectionView: Debuggable {
     func printDebug(_ message: String) {
         if self.debug {
-            print("$LOG (TAPriceSelectionView): \(message)")
+            print("$LOG (TAFilterSelectionView): \(message)")
         }
     }
 }
