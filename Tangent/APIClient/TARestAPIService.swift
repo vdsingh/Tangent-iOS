@@ -127,7 +127,7 @@ final class TARestAPIService: NSObject, Debuggable {
     /// - Parameter message: The message to print
     func printDebug(_ message: String) {
         if Flags.debugAPIClient || self.debug {
-            print("$Log (TARestAPIService): \(message)")
+            print("$LOG (TARestAPIService): \(message)")
         }
     }
 }

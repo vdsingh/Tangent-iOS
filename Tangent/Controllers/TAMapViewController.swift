@@ -9,6 +9,7 @@ import Foundation
 import MapKit
 import UIKit
 
+//TODO: docstring
 protocol ErrorShowingController {
     func showErrorPopup(title: String, message: String)
 }
@@ -31,13 +32,12 @@ final class TAMapViewController: UIViewController, Debuggable {
     //TODO: docstring
     var overlayColorMap = [MKPolyline: UIColor]()
     
+    //TODO: docstring
     var tangentOverlays = [MKOverlay]()
     
+    //TODO: docstring
     var errorShowingController: ErrorShowingController
 
-    //TODO: Docstring
-//    var tangentsWereUpdatedListeners = [TangentsUpdateListener]()
-    
     /// Initializes a new TAMapViewController
     /// - Parameters:
     ///   - mapView: The Map View
@@ -55,7 +55,6 @@ final class TAMapViewController: UIViewController, Debuggable {
         mapView.setUserTrackingMode(.follow, animated: true)
     }
     
-    
     // MARK: - Private Functions
     
     //TODO: Docstring
@@ -63,6 +62,7 @@ final class TAMapViewController: UIViewController, Debuggable {
         self.mapView.removeOverlays(self.mapView.overlays)
     }
     
+    //TODO: Docstring
     private func removeTangentOverlays() {
         self.mapView.removeOverlays(self.tangentOverlays)
     }
@@ -257,14 +257,32 @@ extension TAMapViewController: TAMapSearchSelectionHandler {
             let userLat = Float(lastUserLocation.latitude)
             let userLon = Float(lastUserLocation.longitude)
             
+            guard var prices = TAFiltersService.shared.getFilterState(for: .price).selectedValues as? [TAPrice] else {
+                printError("Couldn't cast selected price values to TAPrice type")
+                return
+            }
+            
+            guard var terms = TAFiltersService.shared.getFilterState(for: .businessType).selectedValues as? [TABusinessTerm] else {
+                printError("Couldn't cast selected price values to TABusinessTerm type")
+                return
+            }
+            
+            if prices.isEmpty {
+                prices = TAPrice.allCases
+            }
+            
+            if terms.isEmpty {
+                terms = TABusinessTerm.allCases
+            }
+            
             let requestBody = TATangentRequestBody(
                 startLatitude: userLat,
                 startLongitude: userLon,
                 endLatitude: Float(placemark.coordinate.latitude),
                 endLongitude: Float(placemark.coordinate.longitude),
                 preferenceRadius: 24140,
-                term: .restaurants,
-                price: [.one],
+                term: terms,
+                price: prices,
                 openNow: false,
                 responseLimit: 20
             )
@@ -276,7 +294,7 @@ extension TAMapViewController: TAMapSearchSelectionHandler {
                     switch response {
                     case .success(_):
                         self.printDebug("TAMapController received fetchTangents Completion")
-                       
+
                     case .failure(let error):
                         self.printError(error)
                         self.errorShowingController.showErrorPopup(title: "Error", message: error.localizedDescription)
@@ -287,7 +305,10 @@ extension TAMapViewController: TAMapSearchSelectionHandler {
     }
 }
 
+//TODO: docstring
 extension TAMapViewController: TangentsUpdateListener {
+    
+    //TODO: docstring
     func tangentsWereUpdated(businesses: [TABusiness]) {
         for business in businesses {
             self.addPin(for: business)
@@ -296,11 +317,13 @@ extension TAMapViewController: TangentsUpdateListener {
     }
 }
 
+//TODO: docstring
 extension TAMapViewController {
+    
+    //TODO: docstring
     func handleTangentSelection(tangent: TABusiness) {
-        guard
-            let lastUserLocation = TAUserLocationService.shared.getLastUserLocation(),
-            let finalDestinationPin = self.finalDestinationPin else {
+        guard let lastUserLocation = TAUserLocationService.shared.getLastUserLocation(),
+              let finalDestinationPin = self.finalDestinationPin else {
             printError("last user location was nil.")
             return
         }

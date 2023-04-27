@@ -12,6 +12,8 @@ import MapKit
 //TODO: Docstring
 class TAHomeView: UIView {
     
+    let controller: UIViewController
+    
     /// Stack Container for the Map and the TableView
     var mainStack: UIStackView = {
         let stack = UIStackView()
@@ -28,6 +30,12 @@ class TAHomeView: UIView {
         let mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
         return mapView
+    }()
+    
+    // TODO: Docstring
+    lazy var filtersView: TAFilterButtonsView = {
+        let filtersView = TAFilterButtonsView(filterStates: TAFiltersService.shared.getAllFilterStates(), controller: self.controller)
+        return filtersView
     }()
     
     /// Spinner to indicate if the map is loading
@@ -69,18 +77,19 @@ class TAHomeView: UIView {
         return tableView
     }()
     
-    
     /// Function that is called to zoom to the user's location
     private var zoomToUserCallback: (() -> Void)?
-    
+        
     /// Normal Initializer
     /// - Parameters:
     ///   - tableViewDelegate: Delegate for the Businesses TableView
     ///   - tableViewDataSource: DataSource for the Business TableView
     init(
         tableViewDelegate: UITableViewDelegate,
-        tableViewDataSource: UITableViewDataSource
+        tableViewDataSource: UITableViewDataSource,
+        controller: UIViewController
     ) {
+        self.controller = controller
         super.init(frame: .zero)
         self.tableView.delegate = tableViewDelegate
         self.tableView.dataSource = tableViewDataSource
@@ -107,6 +116,7 @@ class TAHomeView: UIView {
         return self.mapView
     }
     
+    //TODO: Docstring
     func showTableView(_ show: Bool) {
         tableView.isHidden = !show
     }
@@ -125,7 +135,6 @@ class TAHomeView: UIView {
     
     /// Adds the Sub Views and establishes all constraints
     private func addSubviewsAndEstablishConstraints() {
-        
         // Add the map
         self.mainStack.addArrangedSubview(self.mapView)
         
@@ -151,7 +160,6 @@ class TAHomeView: UIView {
             self.zoomToUserButton.centerYAnchor.constraint(equalTo: self.zoomToUserContainer.centerYAnchor),
             self.zoomToUserButton.heightAnchor.constraint(equalToConstant: 20),
             self.zoomToUserButton.widthAnchor.constraint(equalToConstant: 20),
-
             
             // Zoom to User Button Container Constraints
             self.zoomToUserContainer.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -30),
@@ -172,9 +180,7 @@ class TAHomeView: UIView {
             self.mapLoadingSpinner.centerYAnchor.constraint(equalTo: self.mapView.centerYAnchor),
         ])
     }
-    
-    // MARK: - Public Functions
-    
+        
     required init?(coder: NSCoder) {
         fatalError()
     }

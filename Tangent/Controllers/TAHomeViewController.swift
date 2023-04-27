@@ -34,7 +34,8 @@ class TAHomeViewController: UIViewController, Debuggable {
     lazy var homeView: TAHomeView = {
         let homeView = TAHomeView(
             tableViewDelegate: self,
-            tableViewDataSource: self
+            tableViewDataSource: self,
+            controller: self
         )
         
         homeView.setZoomToUserCallback { [weak self] in
@@ -66,7 +67,29 @@ class TAHomeViewController: UIViewController, Debuggable {
         searchResultsController.handleMapSearchDelegate = self.mapController
                 
         self.homeView.showTableView(false)
+        
+        self.navigationController?.navigationBar.addSubview(self.homeView.filtersView)
+        self.navigationItem.titleView = self.homeView.filtersView
+        
+        
         self.view = self.homeView
+        
+        self.bindFilters()
+    }
+    
+    //TODO: Docstring
+    private func bindFilters() {
+        let filterStates = TAFiltersService.shared.getAllFilterStates()
+        for state in filterStates {
+            state.valueSelectionMap.bind { [weak self] _ in
+                if let filtersView = self?.homeView.filtersView {
+                    self?.printDebug("About to refresh view")
+                    filtersView.refreshView(filterState: state)
+                } else {
+                    self?.printError("Couldn't unwrap filtersView")
+                }
+            }
+        }
     }
 
     
