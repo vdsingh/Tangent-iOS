@@ -33,8 +33,8 @@ class TAHomeView: UIView {
     }()
     
     // TODO: Docstring
-    lazy var filtersView: TAFiltersView = {
-        let filtersView = TAFiltersView(filterStates: TAFiltersService.shared.getAllFilterStates(), controller: self.controller)
+    lazy var filtersView: TAFilterButtonsView = {
+        let filtersView = TAFilterButtonsView(filterStates: TAFiltersService.shared.getAllFilterStates(), controller: self.controller)
         return filtersView
     }()
     
@@ -77,13 +77,9 @@ class TAHomeView: UIView {
         return tableView
     }()
     
-    
-    
     /// Function that is called to zoom to the user's location
     private var zoomToUserCallback: (() -> Void)?
-    
-//    let navigationBar: UINavigationBar!
-    
+        
     /// Normal Initializer
     /// - Parameters:
     ///   - tableViewDelegate: Delegate for the Businesses TableView
@@ -164,7 +160,6 @@ class TAHomeView: UIView {
             self.zoomToUserButton.centerYAnchor.constraint(equalTo: self.zoomToUserContainer.centerYAnchor),
             self.zoomToUserButton.heightAnchor.constraint(equalToConstant: 20),
             self.zoomToUserButton.widthAnchor.constraint(equalToConstant: 20),
-
             
             // Zoom to User Button Container Constraints
             self.zoomToUserContainer.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -30),
@@ -185,9 +180,7 @@ class TAHomeView: UIView {
             self.mapLoadingSpinner.centerYAnchor.constraint(equalTo: self.mapView.centerYAnchor),
         ])
     }
-    
-    // MARK: - Public Functions
-    
+        
     required init?(coder: NSCoder) {
         fatalError()
     }

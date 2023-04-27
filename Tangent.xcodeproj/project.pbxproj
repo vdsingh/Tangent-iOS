@@ -24,16 +24,16 @@
 		B959650F29D793EE004F6A57 /* TATangentRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959650E29D793EE004F6A57 /* TATangentRequestBody.swift */; };
 		B959651329D79D6D004F6A57 /* TATangentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959651229D79D6D004F6A57 /* TATangentTableViewCell.swift */; };
 		B9645FC229DB5F38001DDF3A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9645FC129DB5F38001DDF3A /* Extensions.swift */; };
-		B97BB07129F1F903008F1A5B /* TAFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07029F1F903008F1A5B /* TAFiltersView.swift */; };
+		B97BB07129F1F903008F1A5B /* TAFilterButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07029F1F903008F1A5B /* TAFilterButtonsView.swift */; };
 		B97BB07329F4DD9F008F1A5B /* TAFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07229F4DD9F008F1A5B /* TAFilterViewController.swift */; };
-		B97BB07629F4DDFA008F1A5B /* TAPriceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07529F4DDFA008F1A5B /* TAPriceSelectionView.swift */; };
+		B97BB07629F4DDFA008F1A5B /* TAFilterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07529F4DDFA008F1A5B /* TAFilterSelectionView.swift */; };
 		B97BB07829F6369A008F1A5B /* TAFiltersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07729F6369A008F1A5B /* TAFiltersService.swift */; };
 		B97BB07A29F67149008F1A5B /* TABusinessTerm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07929F67149008F1A5B /* TABusinessTerm.swift */; };
 		B97BB07C29F6715D008F1A5B /* TAPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07B29F6715D008F1A5B /* TAPrice.swift */; };
 		B97BB07E29F67173008F1A5B /* TACategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07D29F67173008F1A5B /* TACategory.swift */; };
 		B97BB08029F67198008F1A5B /* TACoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB07F29F67198008F1A5B /* TACoordinate.swift */; };
 		B97BB08629F7A310008F1A5B /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08529F7A310008F1A5B /* Observable.swift */; };
-		B97BB08829F7B8B8008F1A5B /* TAFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08729F7B8B8008F1A5B /* TAFilterView.swift */; };
+		B97BB08829F7B8B8008F1A5B /* TAFilterButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08729F7B8B8008F1A5B /* TAFilterButtonView.swift */; };
 		B97BB08B29F7B8E9008F1A5B /* TAFilterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08A29F7B8E9008F1A5B /* TAFilterState.swift */; };
 		B97BB08D29F7B901008F1A5B /* TAFilterValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08C29F7B901008F1A5B /* TAFilterValue.swift */; };
 		B97BB08F29F7B908008F1A5B /* TAFilterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08E29F7B908008F1A5B /* TAFilterOption.swift */; };
@@ -70,16 +70,16 @@
 		B959650E29D793EE004F6A57 /* TATangentRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentRequestBody.swift; sourceTree = "<group>"; };
 		B959651229D79D6D004F6A57 /* TATangentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentTableViewCell.swift; sourceTree = "<group>"; };
 		B9645FC129DB5F38001DDF3A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		B97BB07029F1F903008F1A5B /* TAFiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFiltersView.swift; sourceTree = "<group>"; };
+		B97BB07029F1F903008F1A5B /* TAFilterButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFilterButtonsView.swift; sourceTree = "<group>"; };
 		B97BB07229F4DD9F008F1A5B /* TAFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFilterViewController.swift; sourceTree = "<group>"; };
-		B97BB07529F4DDFA008F1A5B /* TAPriceSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAPriceSelectionView.swift; sourceTree = "<group>"; };
+		B97BB07529F4DDFA008F1A5B /* TAFilterSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFilterSelectionView.swift; sourceTree = "<group>"; };
 		B97BB07729F6369A008F1A5B /* TAFiltersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFiltersService.swift; sourceTree = "<group>"; };
 		B97BB07929F67149008F1A5B /* TABusinessTerm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TABusinessTerm.swift; sourceTree = "<group>"; };
 		B97BB07B29F6715D008F1A5B /* TAPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAPrice.swift; sourceTree = "<group>"; };
 		B97BB07D29F67173008F1A5B /* TACategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TACategory.swift; sourceTree = "<group>"; };
 		B97BB07F29F67198008F1A5B /* TACoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TACoordinate.swift; sourceTree = "<group>"; };
 		B97BB08529F7A310008F1A5B /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
-		B97BB08729F7B8B8008F1A5B /* TAFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFilterView.swift; sourceTree = "<group>"; };
+		B97BB08729F7B8B8008F1A5B /* TAFilterButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFilterButtonView.swift; sourceTree = "<group>"; };
 		B97BB08A29F7B8E9008F1A5B /* TAFilterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFilterState.swift; sourceTree = "<group>"; };
 		B97BB08C29F7B901008F1A5B /* TAFilterValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFilterValue.swift; sourceTree = "<group>"; };
 		B97BB08E29F7B908008F1A5B /* TAFilterOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFilterOption.swift; sourceTree = "<group>"; };
@@ -235,9 +235,9 @@
 		B97BB07429F4DDF0008F1A5B /* Filters */ = {
 			isa = PBXGroup;
 			children = (
-				B97BB07029F1F903008F1A5B /* TAFiltersView.swift */,
-				B97BB07529F4DDFA008F1A5B /* TAPriceSelectionView.swift */,
-				B97BB08729F7B8B8008F1A5B /* TAFilterView.swift */,
+				B97BB07029F1F903008F1A5B /* TAFilterButtonsView.swift */,
+				B97BB07529F4DDFA008F1A5B /* TAFilterSelectionView.swift */,
+				B97BB08729F7B8B8008F1A5B /* TAFilterButtonView.swift */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -349,16 +349,16 @@
 				B97BB07C29F6715D008F1A5B /* TAPrice.swift in Sources */,
 				B959651329D79D6D004F6A57 /* TATangentTableViewCell.swift in Sources */,
 				B959650B29D7908E004F6A57 /* TARequestBody.swift in Sources */,
-				B97BB08829F7B8B8008F1A5B /* TAFilterView.swift in Sources */,
+				B97BB08829F7B8B8008F1A5B /* TAFilterButtonView.swift in Sources */,
 				B97BB08D29F7B901008F1A5B /* TAFilterValue.swift in Sources */,
-				B97BB07129F1F903008F1A5B /* TAFiltersView.swift in Sources */,
+				B97BB07129F1F903008F1A5B /* TAFilterButtonsView.swift in Sources */,
 				B97BB07E29F67173008F1A5B /* TACategory.swift in Sources */,
 				B959650729D78FAD004F6A57 /* TAEndpoint.swift in Sources */,
 				B97BB08B29F7B8E9008F1A5B /* TAFilterState.swift in Sources */,
 				B959650529D78F36004F6A57 /* TABusinessService.swift in Sources */,
 				B9A98C2329EBB15400D866A9 /* TAPointAnnotation.swift in Sources */,
 				B97BB08029F67198008F1A5B /* TACoordinate.swift in Sources */,
-				B97BB07629F4DDFA008F1A5B /* TAPriceSelectionView.swift in Sources */,
+				B97BB07629F4DDFA008F1A5B /* TAFilterSelectionView.swift in Sources */,
 				B9A98C1829EB689700D866A9 /* TAUserLocationService.swift in Sources */,
 				B95964FA29CF9249004F6A57 /* TAAPIResponse.swift in Sources */,
 				B97BB08F29F7B908008F1A5B /* TAFilterOption.swift in Sources */,

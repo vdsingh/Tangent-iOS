@@ -109,6 +109,12 @@ class TAFilterState: NSObject {
 //        }
     }
     
+    func removeAllSelectedValues() {
+        for value in self.selectedValues {
+            self.removeSelectedValue(value: value)
+        }
+    }
+    
 //    func getValueStateForValue(value: any TAFilterValue) -> TAFilterValueState? {
 //        return self.valueStates.first(where: { $0.value.stringRepresentation == value.stringRepresentation }) ?? nil
 //    }

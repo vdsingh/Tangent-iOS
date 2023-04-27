@@ -6,11 +6,13 @@
 //
 
 import Foundation
+
 //TODO: Docstring
 enum TAFilterOption: String, CaseIterable {
     case price = "Price"
     case businessType = "Type"
     
+    //TODO: Docstrings
     var allPossibleValues: [any TAFilterValue] {
         switch self {
         case .price:

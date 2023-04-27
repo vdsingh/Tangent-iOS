@@ -15,8 +15,8 @@ final class TAFilterViewController: UIViewController {
     let filterState: TAFilterState
     
     //TODO: Docstring
-    lazy var filterView: TAPriceSelectionView = {
-        return TAPriceSelectionView(
+    lazy var filterView: TAFilterSelectionView = {
+        return TAFilterSelectionView(
             cancelWasPressed: { [weak self] in
                 self?.dismiss(animated: true)
             },
