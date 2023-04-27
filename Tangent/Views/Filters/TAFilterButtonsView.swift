@@ -10,15 +10,14 @@ import UIKit
 
 //TODO: Docstrings, separate
 
-class TAFiltersView: UIStackView, Debuggable {
+class TAFilterButtonsView: UIStackView, Debuggable {
     
     let debug = true
     
     let controller: UIViewController
     
-//    var filterViews = [TAFilterx/View]()
     
-    var filterViewDictionary = [TAFilterOption: TAFilterView]()
+    var filterViewDictionary = [TAFilterOption: TAFilterButtonView]()
     
     init(filterStates: [TAFilterState], controller: UIViewController) {
         self.controller = controller
@@ -39,7 +38,7 @@ class TAFiltersView: UIStackView, Debuggable {
     
     private func createAndAddFilterViews(filterStates: [TAFilterState]) {
         for filterState in filterStates {
-            let view = TAFilterView(filterState: filterState, controller: self.controller)
+            let view = TAFilterButtonView(filterState: filterState, controller: self.controller)
             self.filterViewDictionary[filterState.filterOption] = view
             self.addArrangedSubview(view)
         }
