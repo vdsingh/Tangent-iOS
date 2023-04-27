@@ -257,14 +257,32 @@ extension TAMapViewController: TAMapSearchSelectionHandler {
             let userLat = Float(lastUserLocation.latitude)
             let userLon = Float(lastUserLocation.longitude)
             
+            guard var prices = TAFiltersService.shared.getFilterState(for: .price).selectedValues as? [TAPrice] else {
+                printError("Couldn't cast selected price values to TAPrice type")
+                return
+            }
+            
+            guard var terms = TAFiltersService.shared.getFilterState(for: .businessType).selectedValues as? [TABusinessTerm] else {
+                printError("Couldn't cast selected price values to TABusinessTerm type")
+                return
+            }
+            
+            if prices.isEmpty {
+                prices = TAPrice.allCases
+            }
+            
+            if terms.isEmpty {
+                terms = TABusinessTerm.allCases
+            }
+            
             let requestBody = TATangentRequestBody(
                 startLatitude: userLat,
                 startLongitude: userLon,
                 endLatitude: Float(placemark.coordinate.latitude),
                 endLongitude: Float(placemark.coordinate.longitude),
                 preferenceRadius: 24140,
-                term: .restaurants,
-                price: [.one],
+                term: terms,
+                price: prices,
                 openNow: false,
                 responseLimit: 20
             )
@@ -276,7 +294,7 @@ extension TAMapViewController: TAMapSearchSelectionHandler {
                     switch response {
                     case .success(_):
                         self.printDebug("TAMapController received fetchTangents Completion")
-                       
+
                     case .failure(let error):
                         self.printError(error)
                         self.errorShowingController.showErrorPopup(title: "Error", message: error.localizedDescription)

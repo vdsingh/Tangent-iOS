@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 //TODO: Docstrings, separate
-class TAFilterButtonsView: UIStackView, Debuggable {
+class TAFilterButtonsView: UIStackView {
     
     let debug = true
     

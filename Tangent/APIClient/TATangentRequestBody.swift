@@ -9,12 +9,13 @@ import Foundation
 
 //TODO: Docstrings, rename (since we using params not body)
 struct TATangentRequestBody: Encodable {
+    
     private let startLatitude: Float
     private let startLongitude: Float
     private let endLatitude: Float
     private let endLongitude: Float
     private let preferenceRadius: Float
-    private let term: TABusinessTerm
+    private let term: String
     private let price: String
     private let openNow: String
     private let responseLimit: Int
@@ -37,7 +38,7 @@ struct TATangentRequestBody: Encodable {
         endLatitude: Float,
         endLongitude: Float,
         preferenceRadius: Float,
-        term: TABusinessTerm,
+        term: [TABusinessTerm],
         price: [TAPrice],
         openNow: Bool,
         responseLimit: Int
@@ -47,7 +48,7 @@ struct TATangentRequestBody: Encodable {
         self.endLatitude = endLatitude
         self.endLongitude = endLongitude
         self.preferenceRadius = preferenceRadius
-        self.term = term
+        self.term = term.map({ String($0.rawValue) }).joined(separator: ",")
         self.price = price.map({ String($0.intValue) }).joined(separator: ",")
         self.openNow = String(openNow)
         self.responseLimit = responseLimit

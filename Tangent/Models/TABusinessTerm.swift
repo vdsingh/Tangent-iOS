@@ -10,15 +10,28 @@ import Foundation
 //TODO: Docstrings, move
 enum TABusinessTerm: String, TAFilterValue, Encodable  {
 
-    case hotels = "Hotel"
-    case rest_stops = "Rest Stop"
-    case fuel = "Fuel"
-    case restaurants = "Restaurants"
-    case bars = "Bar"
-    case shopping = "Shopping"
+    case hotels
+    case rest_stops
+    case fuel
+    case restaurants
+    case bars
+    case shopping
     
     var stringRepresentation: String {
-        return self.rawValue
+        switch self {
+        case .hotels:
+            return "Hotels"
+        case .rest_stops:
+            return "Rest Stops"
+        case .fuel:
+            return "Fuel"
+        case .restaurants:
+            return "Restaurants"
+        case .bars:
+            return "Bars"
+        case .shopping:
+            return "Shopping"
+        }
     }
     
     var hashValue: Int {

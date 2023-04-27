@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 //TODO: Docstrings
-final class TAFilterSelectionView: UIStackView, Debuggable {
+final class TAFilterSelectionView: UIStackView {
     
     let debug = true
     
