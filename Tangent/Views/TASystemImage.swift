@@ -53,6 +53,7 @@ enum TASystemImage: String {
     case zoo = "tortoise.fill"
     case location = "pin.fill"
     case questionMark = "questionMark.square.fill"
+    case starFill = "star.fill"
     
     /// Constructs the associated UIImage
     var uiImage: UIImage {

@@ -33,11 +33,27 @@ class TATangentTableViewCell: UITableViewCell {
         return label
     }()
     
-    /// Display the business rating
     let ratingLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+        let ratingLabel = UILabel()
+        ratingLabel.translatesAutoresizingMaskIntoConstraints = false
+        return ratingLabel
+    }()
+    
+    let ratingImageView: UIImageView = {
+        let starSymbol = UIImageView(image: TASystemImage.starFill.uiImage)
+        starSymbol.translatesAutoresizingMaskIntoConstraints = false
+        starSymbol.tintColor = .label
+        return starSymbol
+    }()
+    
+    /// Display the business rating
+    lazy var ratingStack: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.spacing = 5
+        stack.addArrangedSubview(self.ratingImageView)
+        stack.addArrangedSubview(self.ratingLabel)
+        return stack
     }()
     
     /// Display the Yelp review count
@@ -127,7 +143,7 @@ class TATangentTableViewCell: UITableViewCell {
         // Add subviews
         self.addSubview(self.tangentImageView)
         self.stack.addArrangedSubview(self.nameLabel)
-        self.stack.addArrangedSubview(self.ratingLabel)
+        self.stack.addArrangedSubview(self.ratingStack)
         self.stack.addArrangedSubview(self.reviewCount)
         
         self.contentView.addSubview(self.stack)
@@ -142,7 +158,10 @@ class TATangentTableViewCell: UITableViewCell {
             self.stack.topAnchor.constraint(equalTo: self.contentView.topAnchor),
             self.stack.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
             self.stack.leftAnchor.constraint(equalTo: self.tangentImageView.rightAnchor, constant: 10),
-            self.stack.rightAnchor.constraint(equalTo: self.contentView.rightAnchor)
+            self.stack.rightAnchor.constraint(equalTo: self.contentView.rightAnchor),
+            
+            self.ratingImageView.heightAnchor.constraint(equalToConstant: 20),
+            self.ratingImageView.widthAnchor.constraint(equalToConstant: 20),
         ])
     }
 }
