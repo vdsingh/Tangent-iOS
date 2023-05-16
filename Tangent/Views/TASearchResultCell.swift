@@ -15,18 +15,21 @@ class TASearchResultCell: UITableViewCell {
     /// Reuse Identifier for the Cell
     static let reuseIdentifier = "TASearchResultCell"
     
+    /// Shows the title for the search result
     let title: UILabel = {
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
     
+    /// Shows a subtitle for the search result
     let subtitle: UILabel = {
         let subtitle = UILabel()
         subtitle.translatesAutoresizingMaskIntoConstraints = false
         return subtitle
     }()
     
+    /// Shows an icon related to the category of the search result
     let iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,6 +37,7 @@ class TASearchResultCell: UITableViewCell {
         return imageView
     }()
     
+    /// StackView to contain the title and subtitle
     let textStack: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -43,6 +47,7 @@ class TASearchResultCell: UITableViewCell {
         return stack
     }()
     
+    /// StackView to contain all UI elements
     let contentStack: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false

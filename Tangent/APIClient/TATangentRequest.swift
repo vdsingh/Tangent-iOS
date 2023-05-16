@@ -144,7 +144,7 @@ final class TATangentRequest: NSObject, TAAPIRequest {
 extension TATangentRequest {
 
     //TODO: Miguel (Static Function to create a TATangentRequest)
-    static func createTangentsRequest(requestParams: TATangentRequestBody) -> TATangentRequest? {
+    static func createTangentsRequest(requestParams: TATangentRequestParameters) -> TATangentRequest? {
         
         guard let queryItems = TATangentRequest.queryItems(from: requestParams) else {
             print("$ERR (TATangentRequest): Error converting the TATangentRequestBody to an array of Query Items.")

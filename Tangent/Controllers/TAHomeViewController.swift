@@ -19,7 +19,7 @@ class TAHomeViewController: UIViewController {
     /// The cell that is currently selected in the TableView (nil if none have been selected yet)
     var selectedCell: UITableViewCell?
     
-    // TODO: Remove and use Business Service
+    /// The businesses currently loaded
     var businesses = [TABusiness]()
     
     /// Controller for the MapView

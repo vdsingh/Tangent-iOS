@@ -13,9 +13,8 @@ final class TAUserLocationService: NSObject, Debuggable {
     
     let debug = false
     
-    //TODO: Docstring
     static let shared = TAUserLocationService()
-    
+
     /// The CLLocationManager to interact with CoreLocation
     private lazy var locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
@@ -26,7 +25,6 @@ final class TAUserLocationService: NSObject, Debuggable {
     /// The last observed user location (nil if there is no last known location)
     private var lastUserLocation: CLLocation?
         
-    //TODO: Docstring
     private override init() { }
     
     

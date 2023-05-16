@@ -32,7 +32,7 @@ class TABusinessService: NSObject, Debuggable {
     ///   - requestBody: The Request details
     ///   - completion: What to do after receiving a response
     func fetchTangents(
-        requestBody: TATangentRequestBody,
+        requestBody: TATangentRequestParameters,
         completion: @escaping (Result<TATangentResponse, Error>) -> Void
     ) {
         printDebug("Fetching tangents.")

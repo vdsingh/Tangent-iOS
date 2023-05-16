@@ -17,6 +17,7 @@ class TATangentTableViewCell: UITableViewCell {
     /// The business that this TableView Cell will show information for
     private var business: TABusiness?
     
+    /// ImageView to display the business image
     let tangentImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -32,25 +33,29 @@ class TATangentTableViewCell: UITableViewCell {
         return label
     }()
     
+    /// Display the business rating
     let ratingLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
+    /// Display the Yelp review count
     let reviewCount: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
+    /// Display the price
     let priceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let stackOne: UIStackView = {
+    /// Stack to contain the UI elements
+    let stack: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
@@ -96,8 +101,6 @@ class TATangentTableViewCell: UITableViewCell {
     
     /// Puts the cell in the "selected" state
     func setSelected() {
-//        self.nameLabel.text = "GO"
-//        self.nameLabel.textColor = .white
         self.backgroundColor = .green
     }
     
@@ -121,14 +124,13 @@ class TATangentTableViewCell: UITableViewCell {
             view.removeFromSuperview()
         }
         
+        // Add subviews
         self.addSubview(self.tangentImageView)
-        // Add the Business name label to the content view
-        self.stackOne.addArrangedSubview(self.nameLabel)
+        self.stack.addArrangedSubview(self.nameLabel)
+        self.stack.addArrangedSubview(self.ratingLabel)
+        self.stack.addArrangedSubview(self.reviewCount)
         
-        self.stackOne.addArrangedSubview(self.ratingLabel)
-        self.stackOne.addArrangedSubview(self.reviewCount)
-        
-        self.contentView.addSubview(self.stackOne)
+        self.contentView.addSubview(self.stack)
         
         // Sets the constraints for the View
         NSLayoutConstraint.activate([
@@ -137,10 +139,10 @@ class TATangentTableViewCell: UITableViewCell {
             self.tangentImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5),
             self.tangentImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
             
-            self.stackOne.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-            self.stackOne.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
-            self.stackOne.leftAnchor.constraint(equalTo: self.tangentImageView.rightAnchor, constant: 10),
-            self.stackOne.rightAnchor.constraint(equalTo: self.contentView.rightAnchor)
+            self.stack.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+            self.stack.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
+            self.stack.leftAnchor.constraint(equalTo: self.tangentImageView.rightAnchor, constant: 10),
+            self.stack.rightAnchor.constraint(equalTo: self.contentView.rightAnchor)
         ])
     }
 }

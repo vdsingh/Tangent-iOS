@@ -1,39 +1,38 @@
 //
-//  Observable.swift
+//  RequiredObservable.swift
 //  Tangent
 //
-//  Created by Vikram Singh on 4/25/23.
+//  Created by Vikram Singh on 5/16/23.
 //
 
 import Foundation
 
-class Observable<T>: Debuggable {
-
-    let debug = false
+class RequiredObservable<T>: Debuggable {
+    let debug = true
 
     let label: String
 
-    var value: T? {
+    var value: T {
         didSet {
             self.didSetValue()
         }
     }
 
-    init(_ value: T?, label: String) {
+    init(_ value: T, label: String) {
         self.value = value
         self.label = label
-        printDebug("initialized Observable with label: [\(label)]. value: [\(String(describing: value))]")
+        printDebug("initialized Observable with label: [\(label)]. value: [\(value)]")
         self.didSetValue()
     }
 
-    private var listener: ((T?) -> Void)?
+    private var listener: ((T) -> Void)?
 
     private func didSetValue() {
         printDebug("value of observable [\(label)] was changed to [\(String(describing: value))]")
         self.listener?(self.value)
     }
 
-    func bind(_ listener: @escaping (T?) -> Void) {
+    func bind(_ listener: @escaping (T) -> Void) {
         printDebug("binded Observable with label [\(label)]")
         listener(self.value)
         self.listener = listener

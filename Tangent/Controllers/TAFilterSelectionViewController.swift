@@ -8,14 +8,14 @@
 import Foundation
 import UIKit
 
-//TODO: Docstring
-final class TAFilterViewController: UIViewController {
+/// ViewController for the View that allows users to select filter options
+final class TAFilterSelectionViewController: UIViewController {
     
-    //TODO: Docstring
+    /// The FilterState associated with the Filter info that we're displaying
     let filterState: TAFilterState
     
-    //TODO: Docstring
-    lazy var filterView: TAFilterSelectionView = {
+    /// View that allows users to select filter options
+    lazy var filterSelectionView: TAFilterSelectionView = {
         return TAFilterSelectionView(
             cancelWasPressed: { [weak self] in
                 self?.dismiss(animated: true)
@@ -30,7 +30,7 @@ final class TAFilterViewController: UIViewController {
         )
     }()
     
-    //TODO: Docstring
+    /// The number of buttons in each row in the selection view
     var numberButtonsPerRow: Int {
         switch self.filterState.filterOption {
         case .price:
@@ -40,7 +40,8 @@ final class TAFilterViewController: UIViewController {
         }
     }
     
-    //TODO: Docstring
+    /// Initializer
+    /// - Parameter filterState: The State associated with the FilterView
     init(filterState: TAFilterState) {
         self.filterState = filterState
         super.init(nibName: nil, bundle: nil)
@@ -49,18 +50,18 @@ final class TAFilterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .cyan
-        self.view.addSubview(self.filterView)
+        self.view.addSubview(self.filterSelectionView)
         NSLayoutConstraint.activate([
-            self.filterView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20),
-            self.filterView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 20),
-            self.filterView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -20),
+            self.filterSelectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20),
+            self.filterSelectionView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 20),
+            self.filterSelectionView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -20),
 
         ])
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
-        self.filterView.updateAllButtons()
+        self.filterSelectionView.updateAllButtons()
     }
     
     required init?(coder: NSCoder) {

@@ -23,13 +23,13 @@ final class TAMapViewController: UIViewController {
     /// The spinner which indicates whether the map is loading
     let mapSpinner: UIActivityIndicatorView
     
-    //TODO: docstring
+    /// Map overlays to their corresponding color
     var overlayColorMap = [MKPolyline: UIColor]()
     
-    //TODO: docstring
+    /// Contains the overlays for any Tangents
     var tangentOverlays = [MKOverlay]()
     
-    //TODO: docstring
+    /// The ViewController that displays errors as necessary
     var errorShowingController: TAErrorShowingController
 
     /// Initializes a new TAMapViewController
@@ -272,7 +272,7 @@ extension TAMapViewController: TAMapSearchSelectionHandler {
                 terms = TABusinessTerm.allCases
             }
             
-            let requestBody = TATangentRequestBody(
+            let requestBody = TATangentRequestParameters(
                 startLatitude: userLat,
                 startLongitude: userLon,
                 endLatitude: Float(placemark.coordinate.latitude),
@@ -312,10 +312,10 @@ extension TAMapViewController: TangentsUpdateListener {
     }
 }
 
-//TODO: docstring
 extension TAMapViewController {
     
-    //TODO: docstring
+    /// Handles what happens after a user has selected a tangent
+    /// - Parameter tangent: The tangent that has been selected
     func handleTangentSelection(tangent: TABusiness) {
         guard let lastUserLocation = TAUserLocationService.shared.getLastUserLocation(),
               let finalDestinationPin = self.finalDestinationPin else {

@@ -7,9 +7,9 @@
 
 import Foundation
 
-//TODO: Docstring
+/// Constants to enable/disable certain things throughout the application
 struct Flags {
     
-    //TODO: Docstrings
+    /// Are we debugging the API client? (will log debug messages if so)
     static let debugAPIClient = false
 }

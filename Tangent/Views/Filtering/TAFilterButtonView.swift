@@ -52,7 +52,7 @@ class TAFilterButtonView: UIView {
     
     //TODO: Docstrings
     @objc private func showFilterOptionPopUp() {
-        let selectionVC = TAFilterViewController(filterState: self.filterState)
+        let selectionVC = TAFilterSelectionViewController(filterState: self.filterState)
         selectionVC.view.backgroundColor = .systemBackground
         let nav = UINavigationController(rootViewController: selectionVC)
 

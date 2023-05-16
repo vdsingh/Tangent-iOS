@@ -7,8 +7,8 @@
 
 import Foundation
 
-//TODO: Docstrings, rename (since we using params not body)
-struct TATangentRequestBody: Encodable {
+/// Struct containing parameters needed for Tangents Request
+struct TATangentRequestParameters: Encodable {
     
     private let startLatitude: Float
     private let startLongitude: Float
