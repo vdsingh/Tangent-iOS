@@ -37,7 +37,7 @@ class TASearchResultsTableViewController: UIViewController {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .blue
+        tableView.backgroundColor = .systemBackground
         return tableView
     }()
     

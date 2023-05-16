@@ -140,7 +140,7 @@ extension TAHomeViewController: UITableViewDelegate {
     ///   - indexPath: The index for the cell for which we are setting the height
     /// - Returns: The height that the cell was set to
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return 100
     }
 }
 
