@@ -41,6 +41,7 @@ class TASearchResultsTableViewController: UIViewController {
         return tableView
     }()
     
+    //TODO: Docstring
     init(mapView: MKMapView) {
         self.mapView = mapView
         super.init(nibName: nil, bundle: nil)

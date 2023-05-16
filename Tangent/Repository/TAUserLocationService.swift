@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-//TODO: Docstring
+/// Interface with User Location
 final class TAUserLocationService: NSObject, Debuggable {
     
     let debug = false
@@ -16,20 +16,22 @@ final class TAUserLocationService: NSObject, Debuggable {
     //TODO: Docstring
     static let shared = TAUserLocationService()
     
-    //TODO: Docstring
+    /// The CLLocationManager to interact with CoreLocation
     private lazy var locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
         locationManager.delegate = self
         return locationManager
     }()
     
-    //TODO: Docstring
+    /// The last observed user location (nil if there is no last known location)
     private var lastUserLocation: CLLocation?
         
     //TODO: Docstring
     private override init() { }
     
-    //TODO: Docstring
+    
+    /// Returns a bool describing whether the app is usable with the current authorization status
+    /// - Returns: a bool describing whether the app is usable with the current authorization status
     private func validateAuthorizationStatus() -> Bool {
         switch self.locationManager.authorizationStatus {
         case .denied, .restricted, .notDetermined:
@@ -43,25 +45,29 @@ final class TAUserLocationService: NSObject, Debuggable {
     
     // MARK: - Public Functions
     
+    /// Sets the last location of the user
+    /// - Parameter location: The last location of the user
     func setLastUserLocation(location: CLLocation) {
         self.lastUserLocation = location
     }
     
+    /// Gets the last location of the user
+    /// - Returns: The last location of the user
     func getLastUserLocation() -> CLLocationCoordinate2D? {
         return self.lastUserLocation?.coordinate ?? nil
     }
     
-    //TODO: Docstring
+    /// Requests the user's location when the app is in use
     func requestWhenInUseAuthorization() {
         self.locationManager.requestWhenInUseAuthorization()
     }
     
-    //TODO: Docstring
+    /// Requests the user's location one time
     func requestUserLocationOnce() {
         locationManager.requestLocation()
     }
     
-    //TODO: Docstring
+    /// Start updating the location of the user
     func startUpdatingLocation() {
         if self.validateAuthorizationStatus() {
             self.locationManager.startUpdatingLocation()
@@ -71,7 +77,7 @@ final class TAUserLocationService: NSObject, Debuggable {
         }
     }
     
-    //TODO: Docstring
+    /// Stops updating the location of the user
     func stopUpdatingLocation() {
         printDebug("Stopped Updating Location")
         self.locationManager.stopUpdatingLocation()
@@ -84,9 +90,12 @@ final class TAUserLocationService: NSObject, Debuggable {
     }
 }
 
-//TODO: Docstrings
+// MARK: - CLLocationManagerDelegate
+
 extension TAUserLocationService: CLLocationManagerDelegate {
     
+    /// Handle user location authorization failure
+    /// - Parameter authorizationStatus: The location authorization status
     func handleLocationAuthorizationFailure(authorizationStatus: CLAuthorizationStatus) {
         switch authorizationStatus {
         case .restricted, .denied:
@@ -98,6 +107,10 @@ extension TAUserLocationService: CLLocationManagerDelegate {
         }
     }
     
+    /// The location manager did update locations
+    /// - Parameters:
+    ///   - manager: The location manager
+    ///   - locations: The updated CL locations
     func locationManager(
         _ manager: CLLocationManager,
         didUpdateLocations locations: [CLLocation]
@@ -112,6 +125,10 @@ extension TAUserLocationService: CLLocationManagerDelegate {
         }
     }
     
+    /// Handle location manager failure
+    /// - Parameters:
+    ///   - manager: The location manager that failed
+    ///   - error: The error
     func locationManager(
         _ manager: CLLocationManager,
         didFailWithError error: Error

@@ -8,13 +8,15 @@
 import Foundation
 
 
+/// Interface with Filters
 final class TAFiltersService: NSObject {
+    
     let debug = false
     
     //TODO: Docstring
     static let shared = TAFiltersService()
     
-    //TODO: Docstring
+    /// Maps the relation between a FilterOption and a FilterState
     private lazy var selectedFiltersMap: [TAFilterOption: TAFilterState] = {
         var map = [TAFilterOption: TAFilterState]()
         for option in TAFilterOption.allCases {
@@ -27,7 +29,9 @@ final class TAFiltersService: NSObject {
     
     private override init() { }
     
-    //TODO: Docstring
+    /// Gets the filter state for a given Filter Option
+    /// - Parameter option: The FilterOption which corresponds to the desired FilterState
+    /// - Returns: The desired FilterState
     public func getFilterState(for option: TAFilterOption) -> TAFilterState {
         if let state = self.selectedFiltersMap[option] {
             return state
@@ -36,7 +40,8 @@ final class TAFiltersService: NSObject {
         fatalError("tried to get filter state for option \(option) but it wasn't in the map.")
     }
     
-    //TODO: Docstring
+    /// Gets all of the FilterStates
+    /// - Returns: all of the FilterStates
     public func getAllFilterStates() -> [TAFilterState] {
         return [TAFilterState](self.selectedFiltersMap.values)
     }

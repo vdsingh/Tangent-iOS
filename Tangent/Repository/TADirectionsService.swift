@@ -8,16 +8,25 @@
 import Foundation
 import MapKit
 
-//TODO: Docstrings
+
+/// Interface with Directions
 final class TADirectionsService {
     static let shared = TADirectionsService()
     
     private init() { }
     
+    
+    /// Errors associated with TADirectionsService
     enum TADirectionsServiceError: Error {
         case responseWasNil
     }
     
+    
+    /// Gets the directions from a source coordinate to a destination coordinate
+    /// - Parameters:
+    ///   - source: The start point for the directions
+    ///   - destination: The end point for the directions
+    ///   - completion: Handle what happens after a response has been received
     func getDirections(
         source: CLLocationCoordinate2D,
         destination: CLLocationCoordinate2D,
@@ -48,5 +57,4 @@ final class TADirectionsService {
             }
         }
     }
-    
 }

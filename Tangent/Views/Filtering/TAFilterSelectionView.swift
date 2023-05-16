@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-//TODO: Docstrings
+/// View to display an interface to select values for a Filter
 final class TAFilterSelectionView: UIStackView {
     
     let debug = true
     
-    //TODO: Docstrings
+    /// Displays the Title of the FilterSelectionView
     lazy var titleLabel: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -21,12 +21,13 @@ final class TAFilterSelectionView: UIStackView {
         return label
     }()
     
-    //TODO: Docstrings
+    /// Stack that contains the Value Options
     lazy var valueOptionStack: UIStackView = {
         return self.createValueSelectionStack(numButtonsPerRow: self.numberButtonsPerRow)
     }()
     
-    //TODO: Docstrings
+    
+    /// Stack that contains the "Done" and "Cancel" buttons
     lazy var buttonsStack: UIStackView = {
         let doneButton = UIButton()
         doneButton.translatesAutoresizingMaskIntoConstraints = false
@@ -61,13 +62,13 @@ final class TAFilterSelectionView: UIStackView {
         return stack
     }()
     
-    //TODO: Docstrings
+    /// Callback for when the cancel button was pressed
     let cancelWasPressedCallback: () -> Void
     
-    //TODO: Docstrings
+    /// Callback for when the done button was pressed
     let doneWasPressedCallback: ([any TAFilterValue]) -> Void
     
-    //TODO: Docstrings
+    /// The FilterState that represents what filter we are selecting for
     let filterState: TAFilterState
     
     //TODO: Docstrings
@@ -76,16 +77,22 @@ final class TAFilterSelectionView: UIStackView {
     //TODO: Docstrings
     var buttonSelectedMap = [UIButton: Bool]()
     
+    /// The number of buttons per row in the selection view
     let numberButtonsPerRow: Int
     
-    //TODO: Docstrings
+    
+    /// Initializer
+    /// - Parameters:
+    ///   - cancelWasPressed: Callback for when the cancel button was pressed
+    ///   - doneWasPressed: Callback for when the done button was pressed
+    ///   - filterState: The FilterState that represents what filter we are selecting for
+    ///   - numButtonsPerRow: The number of buttons per row in the selection view
     init(
         cancelWasPressed: @escaping () -> Void,
         doneWasPressed: @escaping ([any TAFilterValue]) -> Void,
         filterState: TAFilterState,
         numButtonsPerRow: Int
-    )
-    {
+    ) {
         self.cancelWasPressedCallback = cancelWasPressed
         self.doneWasPressedCallback = doneWasPressed
         self.filterState = filterState
@@ -98,14 +105,16 @@ final class TAFilterSelectionView: UIStackView {
         self.addSubviewsAndEstablishConstraints()
     }
     
-    //TODO: Docstrings
+    
+    /// Creates a Stack which contains buttons to select filter values
+    /// - Parameter numButtonsPerRow: The number of buttons to have in each row
+    /// - Returns: A Stack which contains buttons to select filter values
     private func createValueSelectionStack(numButtonsPerRow: Int) -> UIStackView {
         
         // The vertical stack contains all of the horizontal stacks
         let vertStack = UIStackView()
         vertStack.translatesAutoresizingMaskIntoConstraints = false
         vertStack.distribution = .fill
-//        vertStack.backgroundColor = .cyan
         vertStack.spacing = 15
         vertStack.axis = .vertical
         vertStack.alignment = .fill
@@ -114,13 +123,11 @@ final class TAFilterSelectionView: UIStackView {
         currentHorizontalStack.translatesAutoresizingMaskIntoConstraints = false
         currentHorizontalStack.distribution = .fillEqually
         currentHorizontalStack.alignment = .center
-//        currentHorizontalStack.backgroundColor = .red
         currentHorizontalStack.spacing = 15
         currentHorizontalStack.axis = .horizontal
         
         for possibleValue in self.filterState.possibleValues {
             let possibleValueButton = UIButton()
-            print("ADDING BUTTON WITH VALUE \(possibleValue.stringRepresentation)")
             self.buttonToValueMap[possibleValueButton] = possibleValue
             self.buttonSelectedMap[possibleValueButton] = filterState.valueIsSelected(value: possibleValue)
             possibleValueButton.translatesAutoresizingMaskIntoConstraints = false
@@ -129,43 +136,40 @@ final class TAFilterSelectionView: UIStackView {
             possibleValueButton.backgroundColor = .label
             possibleValueButton.layer.cornerRadius = 10
             
-            possibleValueButton.addTarget(self, action: #selector(self.valueButtonClicked), for: .touchUpInside)
+            possibleValueButton.addTarget(self, action: #selector(self.filterValueButtonClicked), for: .touchUpInside)
             currentHorizontalStack.addArrangedSubview(possibleValueButton)
-            refreshButton(button: possibleValueButton)
+            refreshSelectionButton(button: possibleValueButton)
             
             if currentHorizontalStack.arrangedSubviews.count >= numButtonsPerRow {
                 vertStack.addArrangedSubview(currentHorizontalStack)
                 currentHorizontalStack = UIStackView()
-//                currentHorizontalStack.backgroundColor = .red
-
                 currentHorizontalStack.translatesAutoresizingMaskIntoConstraints = false
                 currentHorizontalStack.distribution = .fillEqually
                 currentHorizontalStack.spacing = 15
                 currentHorizontalStack.axis = .horizontal
-                print("ADDING NEW HORIZ STACK")
             }
         }
         
         vertStack.addArrangedSubview(currentHorizontalStack)
-
-        
         return vertStack
     }
     
-    //TODO: Docstrings
-    @objc private func valueButtonClicked(sender: UIButton) {
+    
+    /// A Value button was clicked
+    /// - Parameter sender: The value button that was clicked
+    @objc private func filterValueButtonClicked(sender: UIButton) {
         printDebug("Value button with title label \(String(describing: sender.titleLabel?.text)) was clicked")
         if let isSelected = self.buttonSelectedMap[sender] {
             self.buttonSelectedMap[sender] = !isSelected
             printDebug("Set button \(String(describing: sender.titleLabel?.text)) selected status to \(!isSelected)")
-            self.refreshButton(button: sender)
+            self.refreshSelectionButton(button: sender)
         } else {
             printError("Tried to set button selection status but it was not mapped")
         }
     }
     
-    //TODO: Docstrings
-    private func refreshButton(button: UIButton) {
+    /// Refreshes a given selection button
+    private func refreshSelectionButton(button: UIButton) {
         if let isSelected = self.buttonSelectedMap[button] {
             if isSelected {
                 button.setTitleColor(.tintColor, for: .normal)
@@ -176,19 +180,21 @@ final class TAFilterSelectionView: UIStackView {
     }
     
     //TODO: Docstrings
-    public func updateAllButtons() {
+    func updateAllButtons() {
         for button in self.buttonToValueMap.keys {
             printDebug("Updating button with title \(String(describing: button.titleLabel?.text))")
-            self.refreshButton(button: button)
+            self.refreshSelectionButton(button: button)
         }
     }
     
-    //TODO: Docstrings
+    /// Cancel Button was pressed
+    /// - Parameter sender: Cancel Button
     @objc private func cancelWasPressed(sender: UIButton) {
         self.cancelWasPressedCallback()
     }
     
-    //TODO: Docstrings
+    /// Done Button was pressed
+    /// - Parameter sender: Done Button
     @objc private func doneWasPressed(sender: UIButton) {
         printDebug("Done Button was pressed")
         var selectedValues = [any TAFilterValue]()
@@ -211,7 +217,8 @@ final class TAFilterSelectionView: UIStackView {
         self.doneWasPressedCallback(selectedValues)
     }
     
-    //TODO: Docstrings
+    
+    /// Adds the necessary subviews and establish the constraints
     private func addSubviewsAndEstablishConstraints() {
         self.addArrangedSubview(self.titleLabel)
         self.addArrangedSubview(self.valueOptionStack)

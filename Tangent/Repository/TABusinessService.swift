@@ -7,21 +7,30 @@
 
 import Foundation
 
+/// Protocol for components that want to listen for Tangents Updates
 protocol TangentsUpdateListener {
+    
+    /// Handler for when Tangents are updated
+    /// - Parameter businesses: The updated businesses
     func tangentsWereUpdated(businesses: [TABusiness])
 }
 
-//TODO: Docstrings
+/// Interface to interact with Tangent Business related objects
 class TABusinessService: NSObject, Debuggable {
     
     let debug = true
     
     static let shared = TABusinessService()
     
+    /// All of the listeners that are listening for udpates
     private var tangentsWereUpdatedListeners = [TangentsUpdateListener]()
     
     private override init() { }
     
+    /// Fetch updated Tangents
+    /// - Parameters:
+    ///   - requestBody: The Request details
+    ///   - completion: What to do after receiving a response
     func fetchTangents(
         requestBody: TATangentRequestBody,
         completion: @escaping (Result<TATangentResponse, Error>) -> Void
@@ -29,7 +38,6 @@ class TABusinessService: NSObject, Debuggable {
         printDebug("Fetching tangents.")
         
         if let request = TATangentRequest.createTangentsRequest(requestParams: requestBody) {
-            
             TARestAPIService.shared.execute(
                 request,
                 expecting: TATangentResponse.self,
@@ -52,6 +60,7 @@ class TABusinessService: NSObject, Debuggable {
                                 addedIDs.insert(business.id)
                                 businesses.append(business)
                             }
+                            
                             listener.tangentsWereUpdated(businesses: businesses)
                         }
                     case .failure(let error):
@@ -63,13 +72,17 @@ class TABusinessService: NSObject, Debuggable {
         }
     }
     
+    /// Adds an updates listener
+    /// - Parameter listener: The listener
+    func appendListener(_ listener: TangentsUpdateListener) {
+        self.tangentsWereUpdatedListeners.append(listener)
+    }
+}
+
+extension TABusinessService {
     func printDebug(_ message: String) {
         if self.debug {
             print("$LOG: \(message)")
         }
-    }
-    
-    func appendListener(_ listener: TangentsUpdateListener) {
-        self.tangentsWereUpdatedListeners.append(listener)
     }
 }

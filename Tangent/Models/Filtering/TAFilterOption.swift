@@ -7,12 +7,12 @@
 
 import Foundation
 
-//TODO: Docstring
+/// Possible Filters for Businesses
 enum TAFilterOption: String, CaseIterable {
     case price = "Price"
     case businessType = "Type"
     
-    //TODO: Docstrings
+    /// Gets all possible values (TAFilterValue) for a FilterOption
     var allPossibleValues: [any TAFilterValue] {
         switch self {
         case .price:

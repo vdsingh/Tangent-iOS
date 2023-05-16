@@ -7,12 +7,13 @@
 
 import Foundation
 
-//TODO: Docstring
-
+/// Represents the State of a filter
 class TAFilterState: NSObject {
     
+    /// The TAFilterOption associated with this state
     let filterOption: TAFilterOption
     
+    /// Map representing which values are selected
     lazy var valueSelectionMap: RequiredObservable<[TAFilterValueWrapper: Bool]> = {
         var map = [TAFilterValueWrapper: Bool]()
         for value in self.filterOption.allPossibleValues {
@@ -23,7 +24,7 @@ class TAFilterState: NSObject {
         return RequiredObservable(map, label: "Value selection map for TAFilterState with option \(self.filterOption)")
     }()
     
-    
+    /// The selected TAFilterValues for this State
     var selectedValues: [any TAFilterValue] {
         var selectedValues = [any TAFilterValue]()
         for valueWrapper in self.valueSelectionMap.value.keys {
@@ -36,10 +37,12 @@ class TAFilterState: NSObject {
         return selectedValues.sorted(by: { $0.stringRepresentation.count < $1.stringRepresentation.count })
     }
     
+    /// The possible TAFilterValues for this State
     var possibleValues: [any TAFilterValue] {
         return self.valueSelectionMap.value.keys.compactMap({ $0.value }).sorted(by: { $0.stringRepresentation.count < $1.stringRepresentation.count })
     }
     
+    /// String representation of the State
     var displayString: String {
         let selectedValues = self.selectedValues
         if selectedValues.isEmpty {
@@ -49,30 +52,36 @@ class TAFilterState: NSObject {
         return selectedValues.compactMap({$0.stringRepresentation}).sorted().joined(separator: ", ")
     }
     
+    /// The TAFilterOption associated with the State
+    /// - Parameter filterOption: The filter option associated with the State
     init(filterOption: TAFilterOption) {
         self.filterOption = filterOption
     }
     
+    /// Determines whether a value can be selected
+    /// - Parameter value: The value
+    /// - Returns: Whether the value can be selected
     func valueIsPossible(value: any TAFilterValue) -> Bool {
         return self.possibleValues.contains(where: { possibleValue in
             return possibleValue.stringRepresentation == value.stringRepresentation
         })
     }
     
+    /// Adds a selected value to the associated state
+    /// - Parameter value: The selected value to add
     func addSelectedValue(value: any TAFilterValue) {
-        if self.valueIsPossible(value: value)
-//           !self.valueIsSelected(value: value)
-        {
+        if self.valueIsPossible(value: value) {
             let valueWrapper = TAFilterValueWrapper(value: value)
             self.valueSelectionMap.value[valueWrapper] = true
-//            self.selectedValues.value.append(value)
-//            self.valueSelectionMap[value] = true
         } else {
-            
             printError("Tried to add selected value \(value) to Filter State of type \(self.filterOption), however that value is not possible. The possible values are: \(self.possibleValues)")
         }
     }
     
+    
+    /// Determines whether a specified TAFilterValue is selected
+    /// - Parameter value: The TAFilterValue
+    /// - Returns: A Bool describing whether a specified TAFilterValue is selected
     func valueIsSelected(value: any TAFilterValue) -> Bool {
 //        return self.selectedValues.value.first(where: { $0.stringRepresentation == value.stringRepresentation }) == nil
         
@@ -84,6 +93,9 @@ class TAFilterState: NSObject {
 //        return false
     }
     
+    
+    /// Adds multiple selected values to the State
+    /// - Parameter values: The selected values to add to the State
     func addSelectedValues(values: [any TAFilterValue]) {
         for value in values {
 //            self.addSelectedValue(value: value)
@@ -97,6 +109,9 @@ class TAFilterState: NSObject {
 //        let valueState = self.getValueStateForValue(value: value)
     }
     
+    
+    /// Removes a selected value from the associated filter
+    /// - Parameter value: The value to remove
     func removeSelectedValue(value: any TAFilterValue) {
 //        self.possibleValues.removeAll(where: { $0.stringRepresentation == value.stringRepresentation})
 //        self.valueSelectionMap[value] = false
@@ -107,6 +122,8 @@ class TAFilterState: NSObject {
 //        }
     }
     
+    
+    /// Removes all selected values associated with the filter
     func removeAllSelectedValues() {
         for value in self.selectedValues {
             self.removeSelectedValue(value: value)
