@@ -8,8 +8,9 @@
 import UIKit
 import MapKit
 
-//TODO: Docstring
-class TAHomeViewController: UIViewController, Debuggable {
+/// ViewController that controls the "Home" Screen
+class TAHomeViewController: UIViewController {
+    
     let debug = true
     
     /// A pin marking the destination
@@ -77,7 +78,7 @@ class TAHomeViewController: UIViewController, Debuggable {
         self.bindFilters()
     }
     
-    //TODO: Docstring
+    /// Binds filters to the View
     private func bindFilters() {
         let filterStates = TAFiltersService.shared.getAllFilterStates()
         for state in filterStates {
@@ -90,11 +91,6 @@ class TAHomeViewController: UIViewController, Debuggable {
                 }
             }
         }
-    }
-
-    
-    func printDebug(_ message: String) {
-        print("$LOG (MapViewController): \(message)")
     }
 }
 
@@ -176,8 +172,8 @@ extension TAHomeViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - TangentsUpdateListener
 
-//TODO: Docstring
 extension TAHomeViewController: TangentsUpdateListener {
     func tangentsWereUpdated(businesses: [TABusiness]) {
         printDebug("Tangents did update: \(businesses.compactMap({ $0.name })))")
@@ -189,13 +185,19 @@ extension TAHomeViewController: TangentsUpdateListener {
     }
 }
 
-extension TAHomeViewController: ErrorShowingController {
+// MARK: - ErrorShowingController
+
+extension TAHomeViewController: TAErrorShowingController {
     func showErrorPopup(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okAction)
-        //        if let viewController = UIApplication.shared.keyWindow?.rootViewController {
         self.present(alertController, animated: true, completion: nil)
-        //        }
+    }
+}
+
+extension TAHomeViewController: Debuggable {
+    func printDebug(_ message: String) {
+        print("$LOG (MapViewController): \(message)")
     }
 }

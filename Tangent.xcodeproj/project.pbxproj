@@ -37,6 +37,7 @@
 		B97BB08B29F7B8E9008F1A5B /* TAFilterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08A29F7B8E9008F1A5B /* TAFilterState.swift */; };
 		B97BB08D29F7B901008F1A5B /* TAFilterValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08C29F7B901008F1A5B /* TAFilterValue.swift */; };
 		B97BB08F29F7B908008F1A5B /* TAFilterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08E29F7B908008F1A5B /* TAFilterOption.swift */; };
+		B980F70C2A12F0E5000F5B8D /* TAErrorShowingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B980F70B2A12F0E5000F5B8D /* TAErrorShowingController.swift */; };
 		B9A98C0C29E7707100D866A9 /* Mocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C0B29E7707100D866A9 /* Mocking.swift */; };
 		B9A98C1029E8D0C600D866A9 /* TASearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C0F29E8D0C600D866A9 /* TASearchResultCell.swift */; };
 		B9A98C1229EA947200D866A9 /* TATangentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C1129EA947200D866A9 /* TATangentResponse.swift */; };
@@ -83,6 +84,7 @@
 		B97BB08A29F7B8E9008F1A5B /* TAFilterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFilterState.swift; sourceTree = "<group>"; };
 		B97BB08C29F7B901008F1A5B /* TAFilterValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFilterValue.swift; sourceTree = "<group>"; };
 		B97BB08E29F7B908008F1A5B /* TAFilterOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFilterOption.swift; sourceTree = "<group>"; };
+		B980F70B2A12F0E5000F5B8D /* TAErrorShowingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAErrorShowingController.swift; sourceTree = "<group>"; };
 		B9A98C0B29E7707100D866A9 /* Mocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocking.swift; sourceTree = "<group>"; };
 		B9A98C0F29E8D0C600D866A9 /* TASearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TASearchResultCell.swift; sourceTree = "<group>"; };
 		B9A98C1129EA947200D866A9 /* TATangentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TATangentResponse.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				B9A98C1929EB68AB00D866A9 /* TAMapViewController.swift */,
 				B9A98C1A29EB68AB00D866A9 /* TASearchResultsTableViewController.swift */,
 				B97BB07229F4DD9F008F1A5B /* TAFilterViewController.swift */,
+				B980F70B2A12F0E5000F5B8D /* TAErrorShowingController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				B9A98C1229EA947200D866A9 /* TATangentResponse.swift in Sources */,
 				B959650929D79011004F6A57 /* TATangentRequest.swift in Sources */,
 				B9A98C2029EB68CF00D866A9 /* TAHomeView.swift in Sources */,
+				B980F70C2A12F0E5000F5B8D /* TAErrorShowingController.swift in Sources */,
 				B9A98C1029E8D0C600D866A9 /* TASearchResultCell.swift in Sources */,
 				B95964FC29CF926D004F6A57 /* TAAPIRequest.swift in Sources */,
 				B9A98C1729EB689700D866A9 /* TADirectionsService.swift in Sources */,

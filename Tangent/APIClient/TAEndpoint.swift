@@ -13,7 +13,7 @@ enum TAEndpoint: String {
     /// endpoint to get tangents
     case tangents = "tangents"
     
-    //TODO: docstring
+    /// The HTTP Method associated with the endpoint
     var httpMethod: HTTPMethod {
         switch self {
         case .tangents:

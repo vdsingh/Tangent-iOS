@@ -8,18 +8,18 @@
 import Foundation
 import UIKit
 
-//TODO: Docstrings
-class TAFilterButtonView: UIView, Debuggable {
+/// View to enable users to interact with Filter Options
+class TAFilterButtonView: UIView {
     
     let debug = true
     
-    //TODO: Docstrings
+    /// The ViewController that shows this View
     let controller: UIViewController
     
-    //TODO: Docstrings
+    /// The state associated with the filter
     let filterState: TAFilterState
     
-    //TODO: Docstrings
+    /// The button to expand the filter options
     let filterButton: UIButton = {
        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +30,11 @@ class TAFilterButtonView: UIView, Debuggable {
         return button
     }()
     
-    //TODO: Docstrings
+    
+    /// Initializer
+    /// - Parameters:
+    ///   - filterState: The TAFilterState associated with the filter
+    ///   - controller: The UIVIewController displaying the FilterButton
     init(filterState: TAFilterState, controller: UIViewController) {
         self.controller = controller
         self.filterState = filterState
@@ -39,15 +43,15 @@ class TAFilterButtonView: UIView, Debuggable {
         self.addSubviewsAndEstablishConstraints()
     }
     
-    //TODO: Docstrings
+    /// Sets the UI Properties for the View
     private func setUIProperties() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.filterButton.setTitle("   \(self.filterState.displayString)   ", for: .normal)
-        self.filterButton.addTarget(self, action: #selector(showDropdown), for: .touchUpInside)
+        self.filterButton.addTarget(self, action: #selector(showFilterOptionPopUp), for: .touchUpInside)
     }
     
     //TODO: Docstrings
-    @objc private func showDropdown() {
+    @objc private func showFilterOptionPopUp() {
         let selectionVC = TAFilterViewController(filterState: self.filterState)
         selectionVC.view.backgroundColor = .systemBackground
         let nav = UINavigationController(rootViewController: selectionVC)
@@ -61,7 +65,7 @@ class TAFilterButtonView: UIView, Debuggable {
         self.controller.present(nav, animated: true)
     }
     
-    //TODO: Docstrings
+    /// Adds the necessary subviews and establishes constraints
     private func addSubviewsAndEstablishConstraints() {
         self.addSubview(self.filterButton)
         
@@ -73,19 +77,21 @@ class TAFilterButtonView: UIView, Debuggable {
         ])
     }
     
-    //TODO: Docstrings
+    /// Refreshes the View
     func refreshView() {
         self.printDebug("Refreshing Filter View for option \(self.filterState.filterOption)")
         self.setUIProperties()
     }
     
+    required init(coder: NSCoder) {
+        fatalError()
+    }
+}
+
+extension TAFilterButtonView: Debuggable {
     func printDebug(_ message: String) {
         if self.debug {
             print("$LOG (TAFilterView): \(message)")
         }
-    }
-    
-    required init(coder: NSCoder) {
-        fatalError()
     }
 }

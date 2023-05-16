@@ -9,14 +9,8 @@ import Foundation
 import MapKit
 import UIKit
 
-//TODO: docstring
-protocol ErrorShowingController {
-    func showErrorPopup(title: String, message: String)
-}
-
-
 /// Controller for a MapView
-final class TAMapViewController: UIViewController, Debuggable {
+final class TAMapViewController: UIViewController {
     
     let debug = false
     
@@ -36,13 +30,13 @@ final class TAMapViewController: UIViewController, Debuggable {
     var tangentOverlays = [MKOverlay]()
     
     //TODO: docstring
-    var errorShowingController: ErrorShowingController
+    var errorShowingController: TAErrorShowingController
 
     /// Initializes a new TAMapViewController
     /// - Parameters:
     ///   - mapView: The Map View
     ///   - mapSpinner: The Spinner that indicates whether the map is loading
-    init(mapView: MKMapView, mapSpinner: UIActivityIndicatorView, errorShowingController: ErrorShowingController) {
+    init(mapView: MKMapView, mapSpinner: UIActivityIndicatorView, errorShowingController: TAErrorShowingController) {
         self.mapView = mapView
         self.mapSpinner = mapSpinner
         self.errorShowingController = errorShowingController
@@ -57,12 +51,12 @@ final class TAMapViewController: UIViewController, Debuggable {
     
     // MARK: - Private Functions
     
-    //TODO: Docstring
+    /// Removes all overlays on the MapView
     private func removeAllOverlays() {
         self.mapView.removeOverlays(self.mapView.overlays)
     }
     
-    //TODO: Docstring
+    /// Remove Tangent overlays on the MapView
     private func removeTangentOverlays() {
         self.mapView.removeOverlays(self.tangentOverlays)
     }
@@ -120,7 +114,12 @@ final class TAMapViewController: UIViewController, Debuggable {
         )
     }
     
-    //TODO: Docstring
+    /// Adds a Pin at a given location
+    /// - Parameters:
+    ///   - location: The location to add the pin
+    ///   - title: The title for the pin
+    ///   - subtitle: The subtitle for the pin
+    ///   - annotationType: The type of pin
     func addPin(
         at location: CLLocationCoordinate2D,
         title: String?,
@@ -139,7 +138,9 @@ final class TAMapViewController: UIViewController, Debuggable {
         self.mapView.addAnnotation(annotation)
     }
     
-    //TODO: Docstring
+    
+    /// Adds a Pin for a given business
+    /// - Parameter business: The business for which we want to add a pin
     func addPin(for business: TABusiness) {
         self.addPin(
             at: business.getBusinessLocation(),
@@ -149,7 +150,7 @@ final class TAMapViewController: UIViewController, Debuggable {
         )
     }
     
-    //TODO: Docstring
+    /// Zooms the MapView to fit all annotations on the screen
     func zoomToFitAllAnnotations() {
         var zoomRect = MKMapRect.null
         
@@ -178,12 +179,6 @@ final class TAMapViewController: UIViewController, Debuggable {
             )
         } else {
             printError("tried to center to User Location when there is no data.")
-        }
-    }
-
-    func printDebug(_ message: String) {
-        if self.debug {
-            print("$LOG: \(message)")
         }
     }
     
@@ -231,8 +226,10 @@ extension TAMapViewController: MKMapViewDelegate {
     }
 }
 
-/// Handles what happens when a user searches a location and then clicks it
+// MARK: - TAMapSearchSelectionHandler
+
 extension TAMapViewController: TAMapSearchSelectionHandler {
+    
     func handleSearchSelection(placemark: MKPlacemark) {
         // cache the pin
         self.finalDestinationPin = placemark
@@ -305,10 +302,8 @@ extension TAMapViewController: TAMapSearchSelectionHandler {
     }
 }
 
-//TODO: docstring
+// MARK: - TangentsUpdateListener
 extension TAMapViewController: TangentsUpdateListener {
-    
-    //TODO: docstring
     func tangentsWereUpdated(businesses: [TABusiness]) {
         for business in businesses {
             self.addPin(for: business)
@@ -334,5 +329,15 @@ extension TAMapViewController {
         self.plotRoute(from: lastUserLocation, to: tangentDestination, overlayColor: .purple, isTangentOverlay: true)
         self.plotRoute(from: tangentDestination, to: finalDestinationPin.coordinate, overlayColor: .purple, isTangentOverlay: true)
         self.zoomToFitAllAnnotations()
+    }
+}
+
+// MARK: - Debuggable
+
+extension TAMapViewController: Debuggable {
+    func printDebug(_ message: String) {
+        if self.debug {
+            print("$LOG: \(message)")
+        }
     }
 }

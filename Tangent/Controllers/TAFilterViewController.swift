@@ -30,6 +30,7 @@ final class TAFilterViewController: UIViewController {
         )
     }()
     
+    //TODO: Docstring
     var numberButtonsPerRow: Int {
         switch self.filterState.filterOption {
         case .price:
