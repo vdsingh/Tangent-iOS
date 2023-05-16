@@ -48,8 +48,6 @@ class TABusinessService: NSObject, Debuggable {
                         printDebug("BUSINESSES: \(tangentResponse.businesses)")
                         completion(.success(tangentResponse))
                         for listener in self.tangentsWereUpdatedListeners {
-                            
-                            //TODO: remove once duplicates issue has been fixed
                             var addedIDs = Set<String>()
                             var businesses = [TABusiness]()
                             

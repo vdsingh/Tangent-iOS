@@ -13,7 +13,6 @@ final class TAFiltersService: NSObject {
     
     let debug = false
     
-    //TODO: Docstring
     static let shared = TAFiltersService()
     
     /// Maps the relation between a FilterOption and a FilterState

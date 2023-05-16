@@ -6,7 +6,10 @@
 //
 
 import Foundation
-//TODO: Docstring
+
+/// Protocol that all Filter values must adhere to
 protocol TAFilterValue: CaseIterable, Hashable, Comparable {
+    
+    /// FilterValues must be able to be represented as a String
     var stringRepresentation: String { get }
 }

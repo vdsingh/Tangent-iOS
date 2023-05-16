@@ -71,10 +71,10 @@ final class TAFilterSelectionView: UIStackView {
     /// The FilterState that represents what filter we are selecting for
     let filterState: TAFilterState
     
-    //TODO: Docstrings
+    /// Maps the relationship between a filter button and its corresponding filter value
     var buttonToValueMap = [UIButton: any TAFilterValue]()
     
-    //TODO: Docstrings
+    /// Keeps track of whether a button is selected
     var buttonSelectedMap = [UIButton: Bool]()
     
     /// The number of buttons per row in the selection view
@@ -179,7 +179,7 @@ final class TAFilterSelectionView: UIStackView {
         }
     }
     
-    //TODO: Docstrings
+    /// Refreshes all filter button views
     func updateAllButtons() {
         for button in self.buttonToValueMap.keys {
             printDebug("Updating button with title \(String(describing: button.titleLabel?.text))")

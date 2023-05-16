@@ -41,7 +41,8 @@ class TASearchResultsTableViewController: UIViewController {
         return tableView
     }()
     
-    //TODO: Docstring
+    /// Initializer
+    /// - Parameter mapView: The MapView associated with the search results
     init(mapView: MKMapView) {
         self.mapView = mapView
         super.init(nibName: nil, bundle: nil)

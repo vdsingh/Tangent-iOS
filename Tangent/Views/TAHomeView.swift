@@ -9,9 +9,10 @@ import Foundation
 import UIKit
 import MapKit
 
-//TODO: Docstring
+/// The View for the "Home" screen
 class TAHomeView: UIView {
     
+    /// The ViewController serving the Home screen
     let controller: UIViewController
     
     /// Stack Container for the Map and the TableView
@@ -32,7 +33,7 @@ class TAHomeView: UIView {
         return mapView
     }()
     
-    // TODO: Docstring
+    /// View that shows buttons that allow the user to select filters
     lazy var filtersView: TAFilterButtonsView = {
         let filtersView = TAFilterButtonsView(filterStates: TAFiltersService.shared.getAllFilterStates(), controller: self.controller)
         return filtersView
@@ -51,7 +52,7 @@ class TAHomeView: UIView {
         return spinner
     }()
     
-    //TODO: Docstring
+    /// Contains the button that allows user to zoom to their current location
     var zoomToUserContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -116,7 +117,8 @@ class TAHomeView: UIView {
         return self.mapView
     }
     
-    //TODO: Docstring
+    /// Hides or shows the TableView
+    /// - Parameter show: Whether to show or hide the tableView
     func showTableView(_ show: Bool) {
         tableView.isHidden = !show
     }

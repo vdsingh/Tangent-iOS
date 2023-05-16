@@ -16,7 +16,7 @@ class TAFilterButtonsView: UIStackView {
     /// The ViewController that is displaying this View
     let controller: UIViewController
     
-    //TODO: Docstrings
+    /// Maps the relationship between a filter option and a filter button view
     var filterViewMap = [TAFilterOption: TAFilterButtonView]()
     
     /// Initializer

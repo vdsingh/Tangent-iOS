@@ -73,7 +73,9 @@ final class TATangentRequest: NSObject, TAAPIRequest {
         return nil
     }
     
-    //TODO: Docstrings, move
+    /// Turns the properties of an encodable object into an array of URLQueryItems
+    /// - Parameter object: The encodable object
+    /// - Returns: An array of URLQueryItems from the properties of the encodable object
     static func queryItems<T: Encodable>(from object: T) -> [URLQueryItem]? {
         guard let encodedData = try? JSONEncoder().encode(object),
             let jsonObject = try? JSONSerialization.jsonObject(with: encodedData, options: []),
@@ -142,8 +144,10 @@ final class TATangentRequest: NSObject, TAAPIRequest {
 
 /// Static functions to construct commonly used TATangentRequest objects live here
 extension TATangentRequest {
-
-    //TODO: Miguel (Static Function to create a TATangentRequest)
+    
+    /// Creates a Tangents Request object from a TATangentRequestParameters object
+    /// - Parameter requestParams: The TATangentRequestParameters which contains the information for the request
+    /// - Returns: A TATangentRequest that can be used to request tangents
     static func createTangentsRequest(requestParams: TATangentRequestParameters) -> TATangentRequest? {
         
         guard let queryItems = TATangentRequest.queryItems(from: requestParams) else {

@@ -8,17 +8,36 @@
 import Foundation
 import MapKit
 
-//TODO: Docstrings
+/// Model that represents a Business
 struct TABusiness: Decodable {
+    
+    /// The ID of the business
     let id: String
+    
+    /// The name of the business
     let name: String
+    
+    /// Yelp rating of the business (out of 5)
     let rating: Float
+    
+    /// The number of reviews that the business has
     let reviewCount: Int
+    
+    /// The URL for the image associated with the business
     let imageURL: String?
+    
+    /// The coordinate of the business
     let coordinate: TACoordinate
+    
+    /// The price category of the business (ex: "$$")
     let price: TAPrice
+    
+    /// The categories associated with the business
     let categories: [TACategory]
     
+    
+    /// Gets the business location as a CLLocationCoordinate2D
+    /// - Returns:  the business location as a CLLocationCoordinate2D
     func getBusinessLocation() -> CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: Double(self.coordinate.latitude), longitude: Double(self.coordinate.longitude))
     }

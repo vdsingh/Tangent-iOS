@@ -7,7 +7,7 @@
 
 import Foundation
 
-//TODO: Docstrings, move
+/// Price options
 enum TAPrice: String, TAFilterValue, CaseIterable, Codable, Hashable, Comparable {
     
     case one = "$"
@@ -15,6 +15,7 @@ enum TAPrice: String, TAFilterValue, CaseIterable, Codable, Hashable, Comparable
     case three = "$$$"
     case four = "$$$$"
     
+    /// The integer value associated with a price option. Ex: "$" = 1
     var intValue: Int {
         switch self {
         case .one:
@@ -28,10 +29,14 @@ enum TAPrice: String, TAFilterValue, CaseIterable, Codable, Hashable, Comparable
         }
     }
     
+    /// String representation associated with a price option
     var stringRepresentation: String {
         return self.rawValue
     }
-
+    
+    /// Creates a TAPrice from an int value
+    /// - Parameter intValue: The int value to create the TAPrice from
+    /// - Returns: a TAPrice created from an int value
     static func createFromInt(intValue: Int) -> TAPrice {
         if intValue == 1 {
             return .one
@@ -53,6 +58,4 @@ enum TAPrice: String, TAFilterValue, CaseIterable, Codable, Hashable, Comparable
     static func < (lhs: TAPrice, rhs: TAPrice) -> Bool {
         return lhs.rawValue.count < rhs.rawValue.count
     }
-    
-
 }

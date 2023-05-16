@@ -8,7 +8,6 @@
 import Foundation
 import MapKit
 
-//TODO: Docstrings
 class Mocking: NSObject {
     
     let debug = true
@@ -20,6 +19,9 @@ class Mocking: NSObject {
     // MARK: - Public Functions
     
     
+    /// Generates Mock TABusiness objects
+    /// - Parameter count: The number of mock objects to generate
+    /// - Returns: Mock TABusiness objects
     func generateMockBusinesses(count: Int) -> [TABusiness] {
         printDebug("Generating Mock Businesses")
         var businesses = [TABusiness]()
@@ -35,8 +37,6 @@ class Mocking: NSObject {
                     latitude: Float(coordinate.latitude),
                     longitude: Float(coordinate.longitude)
                 ),
-//                latitude: Float(coordinate.latitude),
-//                longitude: Float(coordinate.longitude),
                 price: TAPrice.allCases.randomElement() ?? .one,
                 categories: []
             )
@@ -48,11 +48,16 @@ class Mocking: NSObject {
     
     // MARK: - Private Functions
     
+    
+    /// Generates a random business name
+    /// - Returns: A random business name
     private func generateRandomBusinessName() -> String {
         let businessNames = ["Bright Horizon Solutions"," Coastal Vista Realty"," Silver Lining Accounting"," Phoenix Rising Fitness"," Green Leaf Wellness"," Swiftly Tech"," Sapphire Marketing Group"," Blue Ocean Consultancy"," Pure Bliss Bakery"," Titan Ventures"," Mystic Mountain Resorts"," Amber Alert Security"," Sunrise Cafe"," Emerald Island Properties"," Liberty Legal Services"," Bluebird Books"," Sea Spray Studios"," Sunny Side Up Cleaning"," Paradise Pet Resort"," Sparkle Shine Auto Detailing"," Crimson Communications"," Arctic Air HVAC"," Golden Gate Investments"," Moonstone Music"," Happy Tails Animal Hospital"," Oasis Health Foods"," Skyline Architecture"," Crystal Clear Window Cleaning"," Forest Grove Landscaping"," Summit Solutions Consulting"," Starlight Entertainment"," Atlantic Coast Plumbing"," Rustic Retreat Cabin Rentals"," Peak Performance Physical Therapy"," Ocean Breeze Car Wash"," Sunrise Accounting Services"," Mountain View Dentistry"," Emerald City Jewelry"," Crimson Tide Productions"," Desert Oasis Spa"," Blue Ridge Technologies"," Sky High Adventure Tours"," Royal Flush Plumbing"," Diamond Peak Investments"," Coastal Dreams Realty"," Golden Key Insurance Agency"," Paradise Found Travel Agency"," Elite Edge Fitness"]
         return businessNames.randomElement() ?? "McDonald's"
     }
     
+    /// Generates random coordinates
+    /// - Returns: Random coordinates
     private func generateRandomCoordinates() -> CLLocationCoordinate2D {
         if let lastUserLocation = TAUserLocationService.shared.getLastUserLocation() {
             let randomLat = Float.random(in: Float(lastUserLocation.latitude-1)...Float(lastUserLocation.latitude+1))

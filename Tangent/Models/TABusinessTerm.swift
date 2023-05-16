@@ -7,7 +7,7 @@
 
 import Foundation
 
-//TODO: Docstrings, move
+/// FilterValue for the "type" of a business
 enum TABusinessTerm: String, TAFilterValue, Encodable  {
 
     case hotels

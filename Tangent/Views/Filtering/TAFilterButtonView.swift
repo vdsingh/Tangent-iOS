@@ -50,7 +50,7 @@ class TAFilterButtonView: UIView {
         self.filterButton.addTarget(self, action: #selector(showFilterOptionPopUp), for: .touchUpInside)
     }
     
-    //TODO: Docstrings
+    /// Shows a popup that allows users to select filter options
     @objc private func showFilterOptionPopUp() {
         let selectionVC = TAFilterSelectionViewController(filterState: self.filterState)
         selectionVC.view.backgroundColor = .systemBackground
