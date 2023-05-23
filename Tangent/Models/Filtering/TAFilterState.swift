@@ -83,14 +83,7 @@ class TAFilterState: NSObject {
     /// - Parameter value: The TAFilterValue
     /// - Returns: A Bool describing whether a specified TAFilterValue is selected
     func valueIsSelected(value: any TAFilterValue) -> Bool {
-//        return self.selectedValues.value.first(where: { $0.stringRepresentation == value.stringRepresentation }) == nil
-        
-//        if let value = self.valueSelectionMap[value] {
-//            return value
-//        }
         return self.selectedValues.contains(where: { $0.stringRepresentation == value.stringRepresentation })
-        
-//        return false
     }
     
     
@@ -98,28 +91,16 @@ class TAFilterState: NSObject {
     /// - Parameter values: The selected values to add to the State
     func addSelectedValues(values: [any TAFilterValue]) {
         for value in values {
-//            self.addSelectedValue(value: value)
-//            let valueWrapper = TAFilterValueWrapper(value: value)
             self.addSelectedValue(value: value)
-//            if let valueState = self.getValueStateForValue(value: value) {
-//                valueState.isSelected.value = true
-//            }
-
         }
-//        let valueState = self.getValueStateForValue(value: value)
     }
     
     
     /// Removes a selected value from the associated filter
     /// - Parameter value: The value to remove
     func removeSelectedValue(value: any TAFilterValue) {
-//        self.possibleValues.removeAll(where: { $0.stringRepresentation == value.stringRepresentation})
-//        self.valueSelectionMap[value] = false
         let valueWrapper = TAFilterValueWrapper(value: value)
         self.valueSelectionMap.value[valueWrapper] = false
-//        if let isSelected = self.valueSelectionMap[valueWrapper] {
-//            valueState.isSelected.value = false
-//        }
     }
     
     
@@ -128,29 +109,5 @@ class TAFilterState: NSObject {
         for value in self.selectedValues {
             self.removeSelectedValue(value: value)
         }
-    }
-    
-//    func getValueStateForValue(value: any TAFilterValue) -> TAFilterValueState? {
-//        return self.valueStates.first(where: { $0.value.stringRepresentation == value.stringRepresentation }) ?? nil
-//    }
-    
-}
-
-class TAFilterValueWrapper: Hashable {
-
-    let value: any TAFilterValue
-    
-//    var isSelected = RequiredObservable(false, label: "isSelected property for TAFilterValueState")
-    
-    init(value: any TAFilterValue) {
-        self.value = value
-    }
-    
-    static func == (lhs: TAFilterValueWrapper, rhs: TAFilterValueWrapper) -> Bool {
-        return lhs.value.stringRepresentation == rhs.value.stringRepresentation
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.value)
     }
 }

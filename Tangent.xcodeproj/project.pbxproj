@@ -51,6 +51,7 @@
 		B9A98C2029EB68CF00D866A9 /* TAHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C1F29EB68CF00D866A9 /* TAHomeView.swift */; };
 		B9A98C2329EBB15400D866A9 /* TAPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2229EBB15400D866A9 /* TAPointAnnotation.swift */; };
 		B9A98C3429EF0DFE00D866A9 /* TASystemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C3329EF0DFE00D866A9 /* TASystemImage.swift */; };
+		B9F1B2DB2A1C58DE006F1462 /* TAFilterValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F1B2DA2A1C58DD006F1462 /* TAFilterValueWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +101,7 @@
 		B9A98C1F29EB68CF00D866A9 /* TAHomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TAHomeView.swift; sourceTree = "<group>"; };
 		B9A98C2229EBB15400D866A9 /* TAPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAPointAnnotation.swift; sourceTree = "<group>"; };
 		B9A98C3329EF0DFE00D866A9 /* TASystemImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TASystemImage.swift; sourceTree = "<group>"; };
+		B9F1B2DA2A1C58DD006F1462 /* TAFilterValueWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAFilterValueWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +259,7 @@
 				B97BB08A29F7B8E9008F1A5B /* TAFilterState.swift */,
 				B97BB08C29F7B901008F1A5B /* TAFilterValue.swift */,
 				B97BB08E29F7B908008F1A5B /* TAFilterOption.swift */,
+				B9F1B2DA2A1C58DD006F1462 /* TAFilterValueWrapper.swift */,
 			);
 			path = Filtering;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				B95964DA29CF90C4004F6A57 /* SceneDelegate.swift in Sources */,
 				B97BB08629F7A310008F1A5B /* Observable.swift in Sources */,
 				B959650F29D793EE004F6A57 /* TATangentRequestParameters.swift in Sources */,
+				B9F1B2DB2A1C58DE006F1462 /* TAFilterValueWrapper.swift in Sources */,
 				B97BB07A29F67149008F1A5B /* TABusinessTerm.swift in Sources */,
 				B95964F429CF91A4004F6A57 /* TARestAPIService.swift in Sources */,
 			);

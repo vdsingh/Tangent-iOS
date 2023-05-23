@@ -26,7 +26,6 @@ final class TAFilterSelectionView: UIStackView {
         return self.createValueSelectionStack(numButtonsPerRow: self.numberButtonsPerRow)
     }()
     
-    
     /// Stack that contains the "Done" and "Cancel" buttons
     lazy var buttonsStack: UIStackView = {
         let doneButton = UIButton()
@@ -80,7 +79,6 @@ final class TAFilterSelectionView: UIStackView {
     /// The number of buttons per row in the selection view
     let numberButtonsPerRow: Int
     
-    
     /// Initializer
     /// - Parameters:
     ///   - cancelWasPressed: Callback for when the cancel button was pressed
@@ -104,7 +102,6 @@ final class TAFilterSelectionView: UIStackView {
         self.spacing = 20
         self.addSubviewsAndEstablishConstraints()
     }
-    
     
     /// Creates a Stack which contains buttons to select filter values
     /// - Parameter numButtonsPerRow: The number of buttons to have in each row
@@ -153,7 +150,6 @@ final class TAFilterSelectionView: UIStackView {
         vertStack.addArrangedSubview(currentHorizontalStack)
         return vertStack
     }
-    
     
     /// A Value button was clicked
     /// - Parameter sender: The value button that was clicked

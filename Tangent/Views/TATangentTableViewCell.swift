@@ -33,12 +33,14 @@ class TATangentTableViewCell: UITableViewCell {
         return label
     }()
     
+    /// Shows the rating of the business
     let ratingLabel: UILabel = {
         let ratingLabel = UILabel()
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
         return ratingLabel
     }()
     
+    /// Shows a Star Icon next to the rating label
     let ratingImageView: UIImageView = {
         let starSymbol = UIImageView(image: TASystemImage.starFill.uiImage)
         starSymbol.translatesAutoresizingMaskIntoConstraints = false
@@ -57,14 +59,7 @@ class TATangentTableViewCell: UITableViewCell {
     }()
     
     /// Display the Yelp review count
-    let reviewCount: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    /// Display the price
-    let priceLabel: UILabel = {
+    let priceAndReviewCountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -87,9 +82,8 @@ class TATangentTableViewCell: UITableViewCell {
         self.business = business
         self.nameLabel.text = business.name
         self.nameLabel.textColor = .label
-        self.priceLabel.text = business.price.rawValue
         self.ratingLabel.text = "\(business.rating) stars"
-        self.reviewCount.text = "\(business.reviewCount) reviews on Yelp"
+        self.priceAndReviewCountLabel.text = "\(business.price.rawValue) • \(business.reviewCount) reviews on Yelp"
         self.backgroundColor = .systemBackground
         
         // Fetch the Image, and attach it to the ImageView
@@ -144,7 +138,7 @@ class TATangentTableViewCell: UITableViewCell {
         self.addSubview(self.tangentImageView)
         self.stack.addArrangedSubview(self.nameLabel)
         self.stack.addArrangedSubview(self.ratingStack)
-        self.stack.addArrangedSubview(self.reviewCount)
+        self.stack.addArrangedSubview(self.priceAndReviewCountLabel)
         
         self.contentView.addSubview(self.stack)
         

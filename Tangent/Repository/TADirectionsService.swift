@@ -8,7 +8,6 @@
 import Foundation
 import MapKit
 
-
 /// Interface with Directions
 final class TADirectionsService {
     static let shared = TADirectionsService()

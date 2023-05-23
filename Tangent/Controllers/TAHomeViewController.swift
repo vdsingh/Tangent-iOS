@@ -112,6 +112,8 @@ extension TAHomeViewController: UITableViewDelegate {
         if cellSelected == selectedCell {
             
             // User clicked "GO"
+            self.mapController.centerToUserLocation()
+            self.homeView.showTableView(false)
            
         } else {
             

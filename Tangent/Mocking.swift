@@ -18,7 +18,6 @@ class Mocking: NSObject {
     
     // MARK: - Public Functions
     
-    
     /// Generates Mock TABusiness objects
     /// - Parameter count: The number of mock objects to generate
     /// - Returns: Mock TABusiness objects

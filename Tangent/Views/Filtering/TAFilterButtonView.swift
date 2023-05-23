@@ -30,7 +30,6 @@ class TAFilterButtonView: UIView {
         return button
     }()
     
-    
     /// Initializer
     /// - Parameters:
     ///   - filterState: The TAFilterState associated with the filter

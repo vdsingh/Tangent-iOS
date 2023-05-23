@@ -23,4 +23,14 @@ enum TAFilterOption: String, CaseIterable {
             return TABusinessTerm.allCases
         }
     }
+    
+    /// The number of filter values
+    var numValues: Int {
+        switch self {
+        case .price:
+            return TAPrice.allCases.count
+        case .businessType:
+            return TABusinessTerm.allCases.count
+        }
+    }
 }
